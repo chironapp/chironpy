@@ -11,9 +11,9 @@ A fork of [sweatpy](https://github.com/GoldenCheetah/sweatpy)
 Documentation for the original project can be found [here](https://github.com/GoldenCheetah/sweatpy/blob/master/docs/docs/index.md).
 
 ## Contributors
-[Maksym Sladkov](https://github.com/sladkovm) - Original Author
-[Aart Goossens](https://github.com/AartGoossens) - Original Author
-[Clive Gross](https://github.com/clivegross)
+- [Maksym Sladkov](https://github.com/sladkovm) - Original Author
+- [Aart Goossens](https://github.com/AartGoossens) - Original Author
+- [Clive Gross](https://github.com/clivegross)
 
 ## License
 See [LICENSE](LICENSE) file.
