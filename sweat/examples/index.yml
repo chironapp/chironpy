@@ -301,3 +301,18 @@
   included_data:
     - 'latitude'
     - 'longitude'
+- path: '8eb40499-450a-436e-adac-c3ba95bf1834_local_strava.json'
+  description: |
+      Fetched activity streams from Strava API for 90min run and saved to json.
+  sport: 'running'
+  file_type: 'JSON'
+  included_data:
+    - 'latitude'
+    - 'longitude'
+    - 'speed'
+    - 'distance'
+    - 'elevation'
+    - 'cadence'
+    - 'heartrate'
+    - 'temperature'
+  sessions: 1

@@ -20,6 +20,7 @@ class FileTypeEnum(str, Enum):
     fit = "FIT"
     tcx = "TCX"
     gpx = "GPX"
+    json = "JSON"
 
 
 class Sensor(BaseModel):
