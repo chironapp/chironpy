@@ -18,5 +18,5 @@ jobs:
         poetry install
     - name: Run Black
       run: |
-        poetry run black --check --diff sweat/
+        poetry run black --check --diff chiron/
         poetry run black --check --diff tests/

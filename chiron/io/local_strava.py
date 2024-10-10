@@ -40,7 +40,7 @@ def read_local_strava(
     Works the same as `io.read_strava`, except:
     - The `streams` dict is provided as an argument instead of fetched from Strava API streams.
     - `activity_start_date_local` is optionally provided as an argument, if omitted it is set to the current time.
-    Columns names are translated to sweat terminology (e.g. "heart_rate" > "heartrate").
+    Columns names are translated to chiron terminology (e.g. "heart_rate" > "heartrate").
     Two API calls are made to the Strava API: 1 to retrieve activity metadata, 1 to retrieve the raw data ("streams").
 
     Args:

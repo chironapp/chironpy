@@ -62,7 +62,7 @@ def read_fit(
 ) -> pd.DataFrame:
     """This method uses the Python fitparse library to load a FIT file into a Pandas DataFrame.
     It is tested with a Garmin FIT file but will probably work with other FIT files too.
-    Columns names are translated to sweat terminology (e.g. "heart_rate" > "heartrate").
+    Columns names are translated to chiron terminology (e.g. "heart_rate" > "heartrate").
 
     Args:
         fpath: str, file-like or Path object

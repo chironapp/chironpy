@@ -2,18 +2,18 @@ import pytest
 
 import pandas as pd
 
-import sweat
-from sweat.io import strava
-from .utils import sweatvcr
+import chiron
+from chiron.io import strava
+from .utils import chironvcr
 
 
 def test_top_level_import():
-    assert sweat.read_strava == strava.read_strava
+    assert chiron.read_strava == strava.read_strava
 
 
-@sweatvcr.use_cassette()
+@chironvcr.use_cassette()
 def test_read_strava():
-    activity = sweat.read_strava(
+    activity = chiron.read_strava(
         activity_id="3547667536", access_token="somerandomaccesstoken"
     )
 

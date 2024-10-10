@@ -2,8 +2,8 @@ import pytest
 
 import pandas as pd
 
-import sweat
-from sweat.io import utils
+import chiron
+from chiron.io import utils
 
 
 def check_if_sampled_at_1hz(data: pd.Series) -> bool:
@@ -20,8 +20,8 @@ def check_if_sampled_at_1hz(data: pd.Series) -> bool:
     ],
 )
 def test_resample_data(path, sampled_1hz):
-    example = sweat.examples(path=path)
-    original_data = sweat.read_file(example.path)
+    example = chiron.examples(path=path)
+    original_data = chiron.read_file(example.path)
 
     sample_freq_1hz = check_if_sampled_at_1hz(original_data)
 

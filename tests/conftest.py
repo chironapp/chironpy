@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 import os
 import json
-from sweat.io import strava
+from chiron.io import strava
 
 
 @pytest.fixture

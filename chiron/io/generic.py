@@ -6,11 +6,12 @@ import pandas as pd
 from .fit import read_fit
 from .gpx import read_gpx
 from .tcx import read_tcx
+from .local_strava import read_local_strava
 
 
 def read_file(fpath: Union[str, Path], *args, **kwargs) -> pd.DataFrame:
     """This method tries to recognize the file type of the fpath argument by reading the file extension (suffix).
-    Please note that this method does not support file-like objects, in contrast to the other read_* functions of sweatpy.
+    Please note that this method does not support file-like objects, in contrast to the other read_* functions of chironpy.
 
     Args:
         fpath: str or Path object representing the path to a file.
@@ -26,6 +27,8 @@ def read_file(fpath: Union[str, Path], *args, **kwargs) -> pd.DataFrame:
         read_func = read_gpx
     elif suffix == ".fit":
         read_func = read_fit
+    elif suffix == ".json":
+        read_func = read_local_strava
     else:
         raise ValueError(
             f"Argument fpath ({fpath}) has an unsupported file extensions (suffix): {suffix}"

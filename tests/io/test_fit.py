@@ -1,17 +1,17 @@
 import pandas as pd
 import pytest
-import sweat
-from sweat.io import exceptions, fit
-from sweat.examples.utils import FileTypeEnum
+import chiron
+from chiron.io import exceptions, fit
+from chiron.examples.utils import FileTypeEnum
 from fitparse.utils import FitParseError
 
 
 def test_top_level_import():
-    assert sweat.read_fit == fit.read_fit
+    assert chiron.read_fit == fit.read_fit
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in sweat.examples(file_type=FileTypeEnum.fit, course=False)]
+    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.fit, course=False)]
 )
 def test_read_fit(example):
     activity = fit.read_fit(example.path)
@@ -29,7 +29,7 @@ def test_read_fit(example):
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in sweat.examples(file_type=FileTypeEnum.fit, course=False)]
+    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.fit, course=False)]
 )
 def test_read_fit_metadata(example):
     fit_data = fit.read_fit(example.path, metadata=True, hrv=True)
@@ -52,16 +52,16 @@ def test_read_fit_metadata(example):
 
 
 def test_read_fit_no_fit():
-    example_tcx = sweat.examples(path="activity_4078723797.tcx")
+    example_tcx = chiron.examples(path="activity_4078723797.tcx")
     with pytest.raises(exceptions.InvalidFitFile):
-        sweat.read_fit(example_tcx.path)
+        chiron.read_fit(example_tcx.path)
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in sweat.examples(file_type=FileTypeEnum.fit, course=True)]
+    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.fit, course=True)]
 )
 def test_read_fit_course(example):
-    course = sweat.read_fit(example.path)
+    course = chiron.read_fit(example.path)
 
     assert isinstance(course, pd.DataFrame)
     assert isinstance(course.index, pd.DatetimeIndex)

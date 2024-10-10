@@ -39,7 +39,7 @@ def read_strava(
     interpolate: bool = False,
 ) -> pd.DataFrame:
     """This method lets you retrieve activity data from Strava.
-    Columns names are translated to sweat terminology (e.g. "heart_rate" > "heartrate").
+    Columns names are translated to chiron terminology (e.g. "heart_rate" > "heartrate").
     Two API calls are made to the Strava API: 1 to retrieve activity metadata, 1 to retrieve the raw data ("streams").
 
     Args:

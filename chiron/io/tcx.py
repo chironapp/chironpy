@@ -151,7 +151,7 @@ def read_tcx(
     fpath, resample: bool = False, interpolate: bool = False, metadata: bool = False
 ) -> pd.DataFrame:
     """This method loads a TCX file into a Pandas DataFrame.
-    Columns names are translated to sweat terminology (e.g. "heart_rate" > "heartrate").
+    Columns names are translated to chiron terminology (e.g. "heart_rate" > "heartrate").
 
     Args:
         fpath: str, file-like or Path object

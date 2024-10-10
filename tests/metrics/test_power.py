@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sweat.metrics.power import wpk, relative_intensity, stress_score
+from chiron.metrics.power import wpk, relative_intensity, stress_score
 
 
 def test_wpk():

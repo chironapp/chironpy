@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for checking out Sweatpy!
+Thanks for checking out chironpy!
 
 We've put together the following guidelines to help you figure out where you can best be helpful.
 
@@ -28,7 +28,7 @@ Before we get started, here are a few things we expect from you (and that you sh
 * When adding content, please consider if it is widely valuable.
 
 ## How to contribute
-If you'd like to contribute, start by searching through the [issues](https://github.com/goldencheetah/sweatpy/issues) and [pull requests](https://github.com/goldencheetah/sweatpy/pulls) to see whether someone else has raised a similar idea or question.
+If you'd like to contribute, start by searching through the [issues](https://github.com/chironapp/chironpy/issues) and [pull requests](https://github.com/chironapp/chironpy/pulls) to see whether someone else has raised a similar idea or question.
 
 If you don't see your idea listed, and you think it fits into the goals of this project, do one of the following:
 
@@ -45,7 +45,7 @@ If you are doing code changes you need to have `docker` an `docker-compose` inst
     The test suite can be run outside docker but requires installing `poetry` and `pyenv` locally. In most cases using the docker workflow is easiest.
 
 ## Code contributions
-The code for this library is located in the `sweat/` directory.
+The code for this library is located in the `chiron/` directory.
 Tests are located in `tests/`.
 
 ### Running tests
@@ -118,8 +118,8 @@ The `make docs` command also runs a Jupyter notebook server at [http://localhost
 - More information on working with Jupyter notebooks can be found [here](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html).
 
 ## Example data
-Example data is stored in `/sweat/examples/data/`.
-Every new data that is added needs to be added to `sweat/examples/index.yml` too.
+Example data is stored in `/chiron/examples/data/`.
+Every new data that is added needs to be added to `chiron/examples/index.yml` too.
 See [Example data](features/example_data.md) for how to use the example data.
 
 ## Continuous integration and continuous deployment
@@ -131,11 +131,11 @@ This repo is setup with Github Actions that are triggered on specific events:
 *(This document is very much inspired by opensource.guide's [CONTRIBUTING.md](https://github.com/github/opensource.guide/blob/master/CONTRIBUTING.md))*
 
 ## FIT profile
-The Profile.xlsx that is included in the Garmin FIT SDK (https://developer.garmin.com/fit/download/) is included in the source code as a JSON file (`sweat/io/fit_profile.jons`).
+The Profile.xlsx that is included in the Garmin FIT SDK (https://developer.garmin.com/fit/download/) is included in the source code as a JSON file (`chiron/io/fit_profile.jons`).
 Garmin regularly updates this file when new devices are introduced.
 Updating the JSON can be done by running:
 ```python
-from sweat.io import fit
+from chiron.io import fit
 fit._import_fit_profile("path/to/new/Profile.xlsx")
 ```
 ...the new JSON file is than replaced in the source directory.

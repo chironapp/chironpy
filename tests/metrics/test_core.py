@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import pandas as pd
 from unittest import mock
-from sweat.metrics.core import (
+from chiron.metrics.core import (
     mask_fill,
     rolling_mean,
     median_filter,
@@ -128,7 +128,7 @@ class TestComputeZones:
 
 
 class TestBestInterval:
-    @mock.patch("sweat.metrics.core.rolling_mean")
+    @mock.patch("chiron.metrics.core.rolling_mean")
     def test_best_interval(self, test_rolling_mean):
         stream = [1, 1, 1, 1, 1]
         test_rolling_mean.return_value = stream
@@ -137,7 +137,7 @@ class TestBestInterval:
 
 
 class TestTimeInZones:
-    @mock.patch("sweat.metrics.core.compute_zones")
+    @mock.patch("chiron.metrics.core.compute_zones")
     def test_time_in_zones(self, zones):
         power = [0.55, 0.75, 0.9, 1.05, 1.2, 1.5, 10.0]
         zones.return_value = [1, 2, 3, 4, 5, 6, 7]

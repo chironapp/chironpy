@@ -15,8 +15,8 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   mkdocs:
-    image: sweatpy-mkdocs
-    container_name: sweatpy-mkdocs
+    image: chironpy-mkdocs
+    container_name: chironpy-mkdocs
     build:
       context: ..
       dockerfile: docker/Dockerfile.mkdocs
@@ -30,12 +30,12 @@ services:
       - jupyter
     labels:
       traefik.enable: true
-      traefik.http.routers.mkdocs.rule: Host(`mkdocs.sweatpy.localhost`)
+      traefik.http.routers.mkdocs.rule: Host(`mkdocs.chironpy.localhost`)
       traefik.http.routers.mkdocs.entrypoints: web
 
   jupyter:
-    image: sweatpy-jupyter
-    container_name: sweatpy-jupyter
+    image: chironpy-jupyter
+    container_name: chironpy-jupyter
     build:
       context: ..
       dockerfile: docker/Dockerfile.jupyter
@@ -51,5 +51,5 @@ services:
       - traefik
     labels:
       traefik.enable: true
-      traefik.http.routers.jupyter.rule: Host(`jupyter.sweatpy.localhost`)
+      traefik.http.routers.jupyter.rule: Host(`jupyter.chironpy.localhost`)
       traefik.http.routers.jupyter.entrypoints: web

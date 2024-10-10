@@ -2,14 +2,14 @@ import pytest
 from pathlib import Path
 from types import GeneratorType
 
-import sweat
-from sweat.examples import utils
+import chiron
+from chiron.examples import utils
 
 
 def test_top_level_import():
-    assert sweat.examples == utils.examples
-    assert sweat.FileTypeEnum == utils.FileTypeEnum
-    assert sweat.SportEnum == utils.SportEnum
+    assert chiron.examples == utils.examples
+    assert chiron.FileTypeEnum == utils.FileTypeEnum
+    assert chiron.SportEnum == utils.SportEnum
 
 
 def test_examples():

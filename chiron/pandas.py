@@ -24,8 +24,8 @@ def validate_sample_rate(sample_rate):
     return wrapper
 
 
-@pd.api.extensions.register_dataframe_accessor("sweat")
-class SweatAccessor:
+@pd.api.extensions.register_dataframe_accessor("chiron")
+class chironAccessor:
     def __init__(self, pandas_obj):
         self._obj = pandas_obj
 
@@ -76,8 +76,8 @@ class SweatAccessor:
         return self._obj.set_index(self._obj.index - self._obj.index[0])
 
 
-@pd.api.extensions.register_series_accessor("sweat")
-class SweatSeriesAccessor:
+@pd.api.extensions.register_series_accessor("chiron")
+class chironSeriesAccessor:
     def __init__(self, pandas_obj):
         self._obj = pandas_obj
 

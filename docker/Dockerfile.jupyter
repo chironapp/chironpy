@@ -6,8 +6,8 @@ ENV PATH "/root/.poetry/bin:$PATH"
 RUN mkdir /build
 WORKDIR /build
 COPY pyproject.toml poetry.lock README.md ./
-RUN mkdir /sweat
-COPY sweat ./sweat
+RUN mkdir /chiron
+COPY chiron ./chiron
 
 RUN pip install .
 RUN pip install jupyter

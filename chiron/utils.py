@@ -93,9 +93,9 @@ def enable_type_casting(module_or_func=None):
         for key, value in key_values:
             # @TODO this if statement might not cover all cases (or too much cases)
             if (
-                key.startswith("sweat.hrm")
-                or key.startswith("sweat.pdm")
-                or key.startswith("sweat.metrics")
+                key.startswith("chiron.hrm")
+                or key.startswith("chiron.pdm")
+                or key.startswith("chiron.metrics")
             ):
                 enable_type_casting(module_or_func=value)
 

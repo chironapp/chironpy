@@ -2,14 +2,14 @@ import numpy as np
 import pandas as pd
 import pytest
 
-import sweat
+import chiron
 
 
-class TestSweatAccessor:
+class TestchironAccessor:
     def test_accessor(self):
-        example = sweat.examples(path="4078723797.fit")
-        data = sweat.read_fit(example.path)
-        mean_max_data = data.sweat.mean_max("power")
+        example = chiron.examples(path="4078723797.fit")
+        data = chiron.read_fit(example.path)
+        mean_max_data = data.chiron.mean_max("power")
 
         assert isinstance(mean_max_data, pd.DataFrame)
         assert isinstance(mean_max_data.index, pd.TimedeltaIndex)
@@ -21,31 +21,31 @@ class TestSweatAccessor:
         data = pd.DataFrame(dict(power=range(10)), index=range(10))
 
         with pytest.raises(AttributeError):
-            data.sweat.mean_max("power")
+            data.chiron.mean_max("power")
 
     def test_accessor_not_1hz(self):
-        example = sweat.examples(path="2020-06-01-16-52-40.fit")
-        data = sweat.read_fit(example.path)
+        example = chiron.examples(path="2020-06-01-16-52-40.fit")
+        data = chiron.read_fit(example.path)
 
         with pytest.raises(AttributeError):
-            data.sweat.mean_max("power")
+            data.chiron.mean_max("power")
 
     def test_accessor_relative_index(self):
-        example = sweat.examples(path="4078723797.fit")
-        data = sweat.read_fit(example.path)
+        example = chiron.examples(path="4078723797.fit")
+        data = chiron.read_fit(example.path)
 
-        data = data.sweat.to_timedelta_index()
+        data = data.chiron.to_timedelta_index()
 
         assert isinstance(data, pd.DataFrame)
         assert isinstance(data.index, pd.TimedeltaIndex)
         assert "power" in data.columns
 
 
-class TestSweatSeriesAccessor:
+class TestchironSeriesAccessor:
     def test_accessor(self):
-        example = sweat.examples(path="4078723797.fit")
-        data = sweat.read_fit(example.path)
-        mean_max = data["power"].sweat.mean_max()
+        example = chiron.examples(path="4078723797.fit")
+        data = chiron.read_fit(example.path)
+        mean_max = data["power"].chiron.mean_max()
 
         assert isinstance(mean_max, pd.Series)
         assert isinstance(mean_max.index, pd.TimedeltaIndex)
@@ -57,40 +57,40 @@ class TestSweatSeriesAccessor:
         data = pd.DataFrame(dict(power=range(10)), index=range(10))
 
         with pytest.raises(AttributeError):
-            data["power"].sweat.mean_max()
+            data["power"].chiron.mean_max()
 
     def test_accessor_not_1hz(self):
-        example = sweat.examples(path="2020-06-01-16-52-40.fit")
-        data = sweat.read_fit(example.path)
+        example = chiron.examples(path="2020-06-01-16-52-40.fit")
+        data = chiron.read_fit(example.path)
 
         with pytest.raises(AttributeError):
-            data["power"].sweat.mean_max()
+            data["power"].chiron.mean_max()
 
     def test_accessor_relative_index(self):
-        example = sweat.examples(path="4078723797.fit")
-        data = sweat.read_fit(example.path)
+        example = chiron.examples(path="4078723797.fit")
+        data = chiron.read_fit(example.path)
 
-        data = data["power"].sweat.to_timedelta_index()
+        data = data["power"].chiron.to_timedelta_index()
 
         assert isinstance(data, pd.Series)
         assert isinstance(data.index, pd.TimedeltaIndex)
         assert data.name == "power"
 
     def test_accessor_compute_zones(self):
-        example = sweat.examples(path="4078723797.fit")
-        data = sweat.read_fit(example.path)
+        example = chiron.examples(path="4078723797.fit")
+        data = chiron.read_fit(example.path)
 
-        zones = data["heartrate"].sweat.calculate_zones(
+        zones = data["heartrate"].chiron.calculate_zones(
             [0, 100, 150, np.inf], ["zone 1", "zone 2", "zone 3"]
         )
         assert len(zones) == len(data)
         assert set(zones.unique()) == set(["zone 1", "zone 2", "zone 3"])
 
     def test_accessor_time_in_zone(self):
-        example = sweat.examples(path="4078723797.fit")
-        data = sweat.read_fit(example.path)
+        example = chiron.examples(path="4078723797.fit")
+        data = chiron.read_fit(example.path)
 
-        time_in_zone = data["heartrate"].sweat.time_in_zone(
+        time_in_zone = data["heartrate"].chiron.time_in_zone(
             [0, 100, 150, np.inf], ["zone 1", "zone 2", "zone 3"]
         )
         assert set(time_in_zone.index.unique()) == set(["zone 1", "zone 2", "zone 3"])

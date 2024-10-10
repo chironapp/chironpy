@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from sweat import utils
-from sweat.metrics import power
+from chiron import utils
+from chiron.metrics import power
 
 
 @pytest.fixture()
@@ -15,9 +15,9 @@ def reload_power_module():
     key_values = [(key, value) for key, value in sys.modules.items()]
     for key, value in key_values:
         if (
-            key.startswith("sweat.hrm")
-            or key.startswith("sweat.pdm")
-            or key.startswith("sweat.metrics")
+            key.startswith("chiron.hrm")
+            or key.startswith("chiron.pdm")
+            or key.startswith("chiron.metrics")
         ):
             importlib.reload(value)
 

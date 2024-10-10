@@ -1,17 +1,17 @@
 import pandas as pd
 import pytest
-import sweat
+import chiron
 from pandas.api.types import is_numeric_dtype
-from sweat.io import gpx
-from sweat.examples.utils import FileTypeEnum
+from chiron.io import gpx
+from chiron.examples.utils import FileTypeEnum
 
 
 def test_top_level_import():
-    assert sweat.read_gpx == gpx.read_gpx
+    assert chiron.read_gpx == gpx.read_gpx
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in sweat.examples(file_type=FileTypeEnum.gpx, course=False)]
+    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.gpx, course=False)]
 )
 def test_read_gpx(example):
     activity = gpx.read_gpx(example.path)
@@ -33,7 +33,7 @@ def test_read_gpx(example):
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in sweat.examples(file_type=FileTypeEnum.gpx, course=True)]
+    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.gpx, course=True)]
 )
 def test_read_gpx_course(example):
     course = gpx.read_gpx(example.path)

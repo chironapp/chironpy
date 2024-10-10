@@ -50,7 +50,7 @@ Types of changes:
 
 ## [0.22.0] - 2021-10-19
 ### Added
-- When `metadata=True` is passed to `sweat.read_fit()` the response now includes an "athlete" key that contains an Athlete model with information about the athlete.
+- When `metadata=True` is passed to `chiron.read_fit()` the response now includes an "athlete" key that contains an Athlete model with information about the athlete.
 
 ### Fixed
 - Suunto hrv samples that consist of only 1 value are now properly handled and do not raise a TypeError anymore.
@@ -62,7 +62,7 @@ Types of changes:
 
 ## [0.20.3] - 2021-04-20
 ### Fixed
-- `sweat.read_fit()` now supports integer column names.
+- `chiron.read_fit()` now supports integer column names.
 
 ## [0.20.2] - 2021-04-16
 ### Fixed
@@ -81,7 +81,7 @@ Types of changes:
 ## [0.19.0] - 2021-04-06
 ### Added
 - Adds matplotlib dependency.
-- Extends `sweat.read_fit()` with support for multi session FIT files, hrv data, metadata (summaries and devices), error handling and much more...
+- Extends `chiron.read_fit()` with support for multi session FIT files, hrv data, metadata (summaries and devices), error handling and much more...
 - Properly handles left-right balance from FIT files.
 - Adds Garmin FIT Profile based on the Garmin FIT SDK 21.47.
 
@@ -94,7 +94,7 @@ Types of changes:
 
 ## [0.18.0] - 2021-03-12
 ### Added
-- Adds `monotonic` argument to `sweat.mean_max()` to enforce a monotonically decreasing mean max curve. Usage: `power.sweat.mean_max(monotonic=True)`. Defaults to False.
+- Adds `monotonic` argument to `chiron.mean_max()` to enforce a monotonically decreasing mean max curve. Usage: `power.chiron.mean_max(monotonic=True)`. Defaults to False.
 
 ## [0.17.1] - 2021-03-09
 ### Fixed
@@ -128,7 +128,7 @@ Types of changes:
 
 ## [0.14.0] - 2020-06-09
 ### Added
-- Adds sweat accessor to pandas series and data frames.
+- Adds chiron accessor to pandas series and data frames.
 - Add to_timedelta_index() and mean_max() to accessors.
 - Adds calculate_zones() and time_in_zone() to series accessor.
 
@@ -148,7 +148,7 @@ Types of changes:
 - Removed the old critical power curve fitting functionality
 - Removed WorkoutDataFrame model because it is not maintained.
 - Removed Athlete model because it is not maintained.
-- Removed GoldenCheetahClient because it is not maintained. Will be re-implemented later.
+- Removed chironappClient because it is not maintained. Will be re-implemented later.
 
 ## [0.11.0] - 2020-06-04
 ### Added

@@ -1,32 +1,32 @@
 # Example data
 
-*Sweatpy* comes included with a range of example data for testing purposes.
+*chironpy* comes included with a range of example data for testing purposes.
 
-An index of the data is kept [here](https://github.com/GoldenCheetah/sweatpy/blob/master/sweat/examples/index.yml).
+An index of the data is kept [here](https://github.com/chironapp/chironpy/blob/master/chiron/examples/index.yml).
 
 ```python
 import json
 
-import sweat
+import chiron
 
-example_fit = sweat.examples(path='4078723797.fit')
+example_fit = chiron.examples(path='4078723797.fit')
 ```
 
 You can use the example data for testing:
 
 ```python
-import sweat
+import chiron
 
-data = sweat.read_fit(example_fit.path)
+data = chiron.read_fit(example_fit.path)
 ```
 
 If you are looking for a specific file type or sport you can also filter the example data, which returns a [filter](https://docs.python.org/3/library/functions.html#filter) iterable that you can iterator over:
 ```
-import sweat
+import chiron
 
-examples = sweat.examples(
-    file_type=sweat.FileTypeEnum.fit,
-    sport=sweat.SportEnum.cycling)
+examples = chiron.examples(
+    file_type=chiron.FileTypeEnum.fit,
+    sport=chiron.SportEnum.cycling)
 
 for example in examples:
     # Do fancy things with example data...

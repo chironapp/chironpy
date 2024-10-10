@@ -1,34 +1,34 @@
-# Sweatpy
+# chironpy
 
-[![Downloads](https://pepy.tech/badge/sweat)](https://pepy.tech/project/sweat)
+[![Downloads](https://pepy.tech/badge/chiron)](https://pepy.tech/project/chiron)
 
 !!! warning
-    **Sweatpy is currently undergoing major revisions which will result in deprecations and backwards incompatible changes. We recommend pinning your sweatpy dependency in your requirements.txt file (e.g. `sweat==0.19.0`).**
+    **chironpy is currently undergoing major revisions which will result in deprecations and backwards incompatible changes. We recommend pinning your chironpy dependency in your requirements.txt file (e.g. `chiron==0.19.0`).**
 
 !!! tip
-    Noticed a missing feature, found a bug or just have a great idea for `sweatpy`? Get in touch with us by creating an issue [here](https://github.com/GoldenCheetah/sweatpy/issues/new)!
+    Noticed a missing feature, found a bug or just have a great idea for `chironpy`? Get in touch with us by creating an issue [here](https://github.com/chironapp/chironpy/issues/new)!
 
 
 ## Introduction
-Sweatpy is a Python library that is designed to make workout analysis a breeze. The current state of the project is "very beta": features might be added, removed or changed in backwards incompatible ways. When the time is right a stable version will be released. Get in touch with the contributors or create an issue if you have problems/questions/feature requests/special use cases.
+chironpy is a Python library that is designed to make workout analysis a breeze. The current state of the project is "very beta": features might be added, removed or changed in backwards incompatible ways. When the time is right a stable version will be released. Get in touch with the contributors or create an issue if you have problems/questions/feature requests/special use cases.
 
 ## Installation
-This library can be installed from [PyPI](https://pypi.org/project/sweat/):
+This library can be installed from [PyPI](https://pypi.org/project/chiron/):
 ```bash
-pip install sweat
+pip install chiron
 ```
 
 ## Usage
-Sweatpy supports loading .fit, .tcx and .gpx files. To load a .fit file:
+chironpy supports loading .fit, .tcx and .gpx files. To load a .fit file:
 ```python
-import sweat
+import chiron
 
 
-data = sweat.read_fit("path/to/file.fit")
+data = chiron.read_fit("path/to/file.fit")
 ```
 More information about loading files can be found [here](/features/data_loading/).
 
-The data frames that are returned by Sweatpy when loading files is similar for different file types.
+The data frames that are returned by chironpy when loading files is similar for different file types.
 Read more about this standardization [here](/features/nomenclature/).
 
 ## Contributing

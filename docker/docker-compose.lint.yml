@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  sweatpy:
-    image: sweatpy-lint
-    container_name: sweatpy-lint
+  chironpy:
+    image: chironpy-lint
+    container_name: chironpy-lint
     build:
       context: ..
       dockerfile: docker/Dockerfile.lint

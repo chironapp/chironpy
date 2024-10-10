@@ -1,4 +1,4 @@
-site_name: Sweatpy docs
+site_name: chironpy docs
 
 theme:
     name: 'material'
@@ -16,8 +16,8 @@ markdown_extensions:
       permalink: true
       toc_depth: 3
 
-repo_name: goldencheetah/sweatpy
-repo_url: https://github.com/goldencheetah/sweatpy
+repo_name: chironapp/chironpy
+repo_url: https://github.com/chironapp/chironpy
 
 plugins:
   - mknotebooks

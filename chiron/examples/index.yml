@@ -277,30 +277,6 @@
     - 'heartrate'
   laps: 1
   sessions: 3
-- path: 'neighbourhood_loop.fit'
-  description: |
-      Small course exported from Ride With GPS.
-  file_type: 'FIT'
-  course: true
-  included_data:
-    - 'latitude'
-    - 'longitude'
-- path: 'neighbourhood_loop.tcx'
-  description: |
-      Small course exported from Ride With GPS. Same course as neighbourhood_loop.fit'
-  file_type: 'TCX'
-  course: true
-  included_data:
-    - 'latitude'
-    - 'longitude'
-- path: 'neighbourhood_loop.gpx'
-  description: |
-      Small course exported from Ride With GPS. Same course as neighbourhood_loop.fit'
-  file_type: 'GPX'
-  course: true
-  included_data:
-    - 'latitude'
-    - 'longitude'
 - path: '8eb40499-450a-436e-adac-c3ba95bf1834_local_strava.json'
   description: |
       Fetched activity streams from Strava API for 90min run and saved to json.

@@ -24,7 +24,7 @@ def xml_find_value_or_none(element, match, namespaces=None):
 
 def read_gpx(fpath, resample: bool = False, interpolate: bool = False) -> pd.DataFrame:
     """This method loads a GPX file into a Pandas DataFrame.
-    Columns names are translated to sweat terminology (e.g. "heart_rate" > "heartrate").
+    Columns names are translated to chiron terminology (e.g. "heart_rate" > "heartrate").
 
     Args:
         fpath: str, file-like or Path object

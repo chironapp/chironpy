@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "sweat"
+name = "chiron"
 version = "0.25.0"
 description = "Workout analysis"
 license = "MIT"
 authors = ["Aart Goossens <aart@goossens.me>"]
 readme = "README.md"
-homepage = "https://github.com/goldencheetah/sweatpy"
-repository = "https://github.com/goldencheetah/sweatpy"
-documentation = "https://github.com/goldencheetah/sweatpy"
+homepage = "https://github.com/chironapp/chironpy"
+repository = "https://github.com/chironapp/chironpy"
+documentation = "https://github.com/chironapp/chironpy"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
