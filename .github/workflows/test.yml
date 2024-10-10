@@ -23,6 +23,13 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
+    - name: Show Poetry Installer Log on Failure
+      if: failure()
+      run: |
+        for file in /home/runner/work/chironpy/chironpy/poetry-installer-error-*.log; do
+          echo "Showing contents of $file"
+          cat "$file"
+        done        
     - name: Run pytest
       run: |
         source .venv/bin/activate
