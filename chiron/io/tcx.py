@@ -170,7 +170,7 @@ def read_tcx(
         tcx_df, device = process_tcx_activities(activities, metadata)
 
         return postprocess(tcx_df, device, resample, interpolate, metadata)
-    
+
     courses = None
     for child in root:
         if child.tag.endswith("Courses"):
@@ -180,5 +180,7 @@ def read_tcx(
         tcx_df, device = process_tcx_courses(courses, metadata)
 
         return postprocess(tcx_df, device, resample, interpolate, metadata)
-    
-    raise TypeError("Unsupported gpx file format: This gpx file does not seem to contain either activities or courses.")
+
+    raise TypeError(
+        "Unsupported gpx file format: This gpx file does not seem to contain either activities or courses."
+    )

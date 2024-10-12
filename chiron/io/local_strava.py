@@ -67,16 +67,16 @@ def read_local_strava(
     """
     if isinstance(streams, str):
         # If streams is a file path, read the JSON file
-        with open(streams, 'r') as file:
+        with open(streams, "r") as file:
             streams = json.load(file)
     elif isinstance(streams, Path):
         # If streams is a file path, read the JSON file
-        with open(streams, 'r') as file:
+        with open(streams, "r") as file:
             streams = json.load(file)
 
     elif not isinstance(streams, dict):
         raise ValueError("Input should be a dictionary or a path to a JSON file")
-    
+
     if activity_start_date_local is None:
         start_datetime = datetime.now()
     else:
@@ -85,7 +85,7 @@ def read_local_strava(
     raw_data = dict()
     for key, value in streams.items():
         if key == "latlng":
-            latitude, longitude = list(zip(*value['data']))
+            latitude, longitude = list(zip(*value["data"]))
             raw_data["latitude"] = latitude
             raw_data["longitude"] = longitude
         else:
@@ -97,7 +97,7 @@ def read_local_strava(
             # print(value)
             # print(type(value))
             # print(value.data)
-            raw_data[key] = value['data']
+            raw_data[key] = value["data"]
 
     data = pd.DataFrame(raw_data)
 

@@ -49,7 +49,7 @@ def read_gpx(fpath, resample: bool = False, interpolate: bool = False) -> pd.Dat
         datetime = xml_find_value_or_none(trackpoint, "default:time", NAMESPACES)
 
         extensions = trackpoint.find("default:extensions", NAMESPACES)
-        
+
         if extensions is None:
             power = None
             temperature = None
@@ -58,7 +58,9 @@ def read_gpx(fpath, resample: bool = False, interpolate: bool = False) -> pd.Dat
         else:
             power = xml_find_value_or_none(extensions, "default:power", NAMESPACES)
 
-            trackpoint_extension = extensions.find("gpxtpx:TrackPointExtension", NAMESPACES)
+            trackpoint_extension = extensions.find(
+                "gpxtpx:TrackPointExtension", NAMESPACES
+            )
 
             temperature = xml_find_value_or_none(
                 trackpoint_extension, "gpxtpx:atemp", NAMESPACES
@@ -66,7 +68,9 @@ def read_gpx(fpath, resample: bool = False, interpolate: bool = False) -> pd.Dat
             heartrate = xml_find_value_or_none(
                 trackpoint_extension, "gpxtpx:hr", NAMESPACES
             )
-            cadence = xml_find_value_or_none(trackpoint_extension, "gpxtpx:cad", NAMESPACES)
+            cadence = xml_find_value_or_none(
+                trackpoint_extension, "gpxtpx:cad", NAMESPACES
+            )
 
         records.append(
             dict(

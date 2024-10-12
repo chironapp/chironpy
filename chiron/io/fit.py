@@ -297,7 +297,9 @@ def read_fit(
 
     if metadata:
         return_value["devices"] = devices
-        return_value["athlete"] = Athlete.from_fit_file(user_profile, zones_target, sport_record)
+        return_value["athlete"] = Athlete.from_fit_file(
+            user_profile, zones_target, sport_record
+        )
 
     if raw_messages:
         return_value["raw_messages"] = raw_message_records

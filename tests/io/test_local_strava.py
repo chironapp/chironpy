@@ -18,7 +18,7 @@ def test_top_level_import():
 )
 def test_read_local_strava(example):
     # Load example.path JSON file into a dict
-    with open(example.path, 'r') as file:
+    with open(example.path, "r") as file:
         streams = json.load(file)
 
     activity = chiron.read_local_strava(
@@ -42,4 +42,6 @@ def test_read_local_strava(example):
             "longitude",
         ]
     )
-    assert columns & set(activity.columns.tolist()), "None of the expected columns are present in the DataFrame"
+    assert columns & set(
+        activity.columns.tolist()
+    ), "None of the expected columns are present in the DataFrame"

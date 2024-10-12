@@ -76,7 +76,9 @@ class Athlete(BaseModel):
             threshold_data = {}
             threshold_data["sport"] = sport["sport"]
             threshold_data["sub_sport"] = sport["sub_sport"]
-            threshold_data["power"] = zones_target.get("functional_threshold_power", None)
+            threshold_data["power"] = zones_target.get(
+                "functional_threshold_power", None
+            )
             threshold_data["heartrate"] = zones_target.get("threshold_heart_rate", None)
             data["threshold"] = threshold_data
 

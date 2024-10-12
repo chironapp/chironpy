@@ -38,7 +38,7 @@ def heartrate_model(heartrate, power, **kwargs):
         ("dhr", kwargs.get("dhr", 0.30)),
         ("tau_rise", kwargs.get("tau_rise", 24)),
         ("tau_fall", kwargs.get("tau_fall", 30)),
-        ("hr_drift", kwargs.get("hr_drift", 3 * 10 ** -5)),
+        ("hr_drift", kwargs.get("hr_drift", 3 * 10**-5)),
     )
 
     model = minimize(

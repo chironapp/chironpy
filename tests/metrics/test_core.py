@@ -182,7 +182,9 @@ class TestMeanMax:
         rv = mean_max(power, monotonic=True)
 
         assert rv[0] == 300
-        assert rv[-1] == pytest.approx(172.8, rel=1e-3) # Obtained: 172.83763277693475, Expected: 172.8 ± 1.7e-03
+        assert rv[-1] == pytest.approx(
+            172.8, rel=1e-3
+        )  # Obtained: 172.83763277693475, Expected: 172.8 ± 1.7e-03
         s = pd.Series(rv)
         assert s.sort_index(ascending=False).is_monotonic_increasing
 
