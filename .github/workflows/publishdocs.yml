@@ -8,17 +8,17 @@ jobs:
     name: Publish documentation
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Set up Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.9
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.1.1
-    - name: Install dependencies
-      run: |
-        poetry install
-    - name: Publish package
-      run: |
-        cd docs/
-        poetry run mkdocs gh-deploy --force
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.4.1
+      - name: Install dependencies
+        run: |
+          poetry install
+      - name: Publish package
+        run: |
+          cd docs/
+          poetry run mkdocs gh-deploy --force
