@@ -5,7 +5,7 @@ from typing import List, Optional
 from yaml import load, Loader
 from pydantic import BaseModel, parse_obj_as, validator
 
-from chiron.constants import DataTypeEnum
+from chironpy.constants import DataTypeEnum
 
 
 class SportEnum(str, Enum):

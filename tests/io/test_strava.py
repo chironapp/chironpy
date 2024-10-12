@@ -2,18 +2,18 @@ import pytest
 
 import pandas as pd
 
-import chiron
-from chiron.io import strava
+import chironpy
+from chironpy.io import strava
 from .utils import chironvcr
 
 
 def test_top_level_import():
-    assert chiron.read_strava == strava.read_strava
+    assert chironpy.read_strava == strava.read_strava
 
 
 @chironvcr.use_cassette()
 def test_read_strava():
-    activity = chiron.read_strava(
+    activity = chironpy.read_strava(
         activity_id="3547667536", access_token="somerandomaccesstoken"
     )
 

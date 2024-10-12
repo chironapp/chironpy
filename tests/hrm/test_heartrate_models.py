@@ -1,6 +1,6 @@
 import pandas as pd
 
-from chiron.hrm import heartrate_models
+from chironpy.hrm import heartrate_models
 
 
 def test_heartrate_model():

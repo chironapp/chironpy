@@ -4,19 +4,19 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 import pytest
 
-import chiron
-from chiron.examples.utils import FileTypeEnum
-from chiron.io import generic
+import chironpy
+from chironpy.examples.utils import FileTypeEnum
+from chironpy.io import generic
 
 
 def test_top_level_import():
-    assert chiron.read_file == generic.read_file
-    assert chiron.read_dir == generic.read_dir
+    assert chironpy.read_file == generic.read_file
+    assert chironpy.read_dir == generic.read_dir
 
 
 @pytest.mark.parametrize("file_type", [(file_type) for file_type in FileTypeEnum])
 def test_read_file(file_type):
-    example_file = list(chiron.examples(file_type=file_type))[0]
+    example_file = list(chironpy.examples(file_type=file_type))[0]
     data = generic.read_file(example_file.path)
 
     assert isinstance(data, pd.DataFrame)
@@ -26,7 +26,7 @@ def test_read_file(file_type):
 
 
 def test_read_file_error_file_like():
-    example_file = list(chiron.examples(file_type=FileTypeEnum.fit))[0]
+    example_file = list(chironpy.examples(file_type=FileTypeEnum.fit))[0]
     with example_file.path.open("r") as f:
         with pytest.raises(TypeError):
             generic.read_file(f)
@@ -43,7 +43,7 @@ def test_read_dir():
         tempdir = Path(tempdir)
         num_files = 0
         for file_type in FileTypeEnum:
-            example_file = list(chiron.examples(file_type=file_type))[0]
+            example_file = list(chironpy.examples(file_type=file_type))[0]
             Path(tempdir, example_file.path.name).symlink_to(example_file.path)
             num_files += 1
 

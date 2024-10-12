@@ -1,12 +1,12 @@
 import pytest
 
-import chiron
-from chiron.pdm import w_prime_balance
+import chironpy
+from chironpy.pdm import w_prime_balance
 
 
 @pytest.mark.skip()
 def test_top_level_import():
-    assert chiron.w_prime_balance == w_prime_balance.w_prime_balance
+    assert chironpy.w_prime_balance == w_prime_balance.w_prime_balance
 
 
 def test_tau_w_prime_balance(power):
@@ -88,5 +88,5 @@ def test_w_prime_balance_froncioni(power):
     ],
 )
 def test_w_prime_balance(power, test_input, expected):
-    w_bal = chiron.w_prime_balance(power, cp=25, w_prime=2000, **test_input)
+    w_bal = chironpy.w_prime_balance(power, cp=25, w_prime=2000, **test_input)
     assert w_bal.iloc[50] == expected

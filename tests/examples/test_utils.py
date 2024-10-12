@@ -2,14 +2,14 @@ import pytest
 from pathlib import Path
 from types import GeneratorType
 
-import chiron
-from chiron.examples import utils
+import chironpy
+from chironpy.examples import utils
 
 
 def test_top_level_import():
-    assert chiron.examples == utils.examples
-    assert chiron.FileTypeEnum == utils.FileTypeEnum
-    assert chiron.SportEnum == utils.SportEnum
+    assert chironpy.examples == utils.examples
+    assert chironpy.FileTypeEnum == utils.FileTypeEnum
+    assert chironpy.SportEnum == utils.SportEnum
 
 
 def test_examples():

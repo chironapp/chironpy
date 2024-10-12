@@ -1,17 +1,18 @@
 import pandas as pd
 import pytest
-import chiron
+import chironpy
 from pandas.api.types import is_numeric_dtype
-from chiron.io import tcx
-from chiron.examples.utils import FileTypeEnum
+from chironpy.io import tcx
+from chironpy.examples.utils import FileTypeEnum
 
 
 def test_top_level_import():
-    assert chiron.read_tcx == tcx.read_tcx
+    assert chironpy.read_tcx == tcx.read_tcx
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.tcx, course=False)]
+    "example",
+    [(i) for i in chironpy.examples(file_type=FileTypeEnum.tcx, course=False)],
 )
 def test_read_tcx(example):
     activity = tcx.read_tcx(example.path)
@@ -29,7 +30,7 @@ def test_read_tcx(example):
 
 
 def test_read_tcx_metadata():
-    example = chiron.examples(path="activity_4078723797.tcx")
+    example = chironpy.examples(path="activity_4078723797.tcx")
     activity = tcx.read_tcx(example.path, metadata=True)
 
     assert isinstance(activity, dict)
@@ -55,10 +56,10 @@ def test_read_tcx_metadata():
 
 
 @pytest.mark.parametrize(
-    "example", [(i) for i in chiron.examples(file_type=FileTypeEnum.tcx, course=True)]
+    "example", [(i) for i in chironpy.examples(file_type=FileTypeEnum.tcx, course=True)]
 )
 def test_read_tcx_course(example):
-    course = chiron.read_tcx(example.path)
+    course = chironpy.read_tcx(example.path)
 
     assert isinstance(course, pd.DataFrame)
     assert isinstance(course.index, pd.DatetimeIndex)

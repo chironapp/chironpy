@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import pandas as pd
 from unittest import mock
-from chiron.metrics.core import (
+from chironpy.metrics.core import (
     mask_fill,
     rolling_mean,
     median_filter,

@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from chiron import utils
-from chiron.metrics import power
+from chironpy import utils
+from chironpy.metrics import power
 
 
 @pytest.fixture()

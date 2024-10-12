@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "chiron"
+name = "chironpy"
 version = "0.25.0"
 description = "Workout analysis"
 license = "MIT"
