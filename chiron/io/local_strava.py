@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
-from typing import Optional
+import json
+from pathlib import Path
+from typing import Optional, Union
 
 import pandas as pd
 from stravalib.client import Client
@@ -31,7 +33,7 @@ COLUMN_TRANSLATIONS = {
 
 
 def read_local_strava(
-    streams: dict,
+    streams: Union[dict, str, Path],
     activity_start_date_local: Optional[datetime] = None,
     resample: bool = False,
     interpolate: bool = False,
@@ -44,7 +46,7 @@ def read_local_strava(
     Two API calls are made to the Strava API: 1 to retrieve activity metadata, 1 to retrieve the raw data ("streams").
 
     Args:
-        streams: dict containing the raw data streams for the activity, eg:
+        streams: dict or file-like containing the raw data streams for the activity, eg:
             {
                 "temp":{"data":[28,27,...],
                 "series_type":"distance","original_size":1504,"resolution":"high"},
@@ -63,6 +65,18 @@ def read_local_strava(
     Returns:
         A pandas data frame with all the data.
     """
+    if isinstance(streams, str):
+        # If streams is a file path, read the JSON file
+        with open(streams, 'r') as file:
+            streams = json.load(file)
+    elif isinstance(streams, Path):
+        # If streams is a file path, read the JSON file
+        with open(streams, 'r') as file:
+            streams = json.load(file)
+
+    elif not isinstance(streams, dict):
+        raise ValueError("Input should be a dictionary or a path to a JSON file")
+    
     if activity_start_date_local is None:
         start_datetime = datetime.now()
     else:

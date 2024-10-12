@@ -15,7 +15,7 @@ def validate_sample_rate(sample_rate):
         def wrapped(self, *args, **kwargs):
             if not all(self._obj.index.to_series().diff()[1:] == sample_rate):
                 raise AttributeError(
-                    f"Data is not sampled at a regular interval of {sample_rate.tostring()}. Consider resampling first."
+                    f"Data is not sampled at a regular interval of {sample_rate.tobytes()}. Consider resampling first."
                 )
             return func(self, *args, **kwargs)
 

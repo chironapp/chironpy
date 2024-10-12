@@ -5,7 +5,7 @@ import pytest
 import chiron
 
 
-class TestchironAccessor:
+class TestChironAccessor:
     def test_accessor(self):
         example = chiron.examples(path="4078723797.fit")
         data = chiron.read_fit(example.path)
@@ -41,7 +41,7 @@ class TestchironAccessor:
         assert "power" in data.columns
 
 
-class TestchironSeriesAccessor:
+class TestChironSeriesAccessor:
     def test_accessor(self):
         example = chiron.examples(path="4078723797.fit")
         data = chiron.read_fit(example.path)

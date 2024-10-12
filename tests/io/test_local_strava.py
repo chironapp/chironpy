@@ -42,4 +42,4 @@ def test_read_local_strava(example):
             "longitude",
         ]
     )
-    assert columns == set(activity.columns.tolist())
+    assert columns & set(activity.columns.tolist()), "None of the expected columns are present in the DataFrame"

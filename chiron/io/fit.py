@@ -234,7 +234,7 @@ def read_fit(
         session_end = pd.Timestamp.max.tz_localize("UTC")
         if not session_summaries.empty:
             for session, session_start in (
-                session_summaries["start_time"].sort_index(ascending=False).iteritems()
+                session_summaries["start_time"].sort_index(ascending=False).items()
             ):
                 fit_df.loc[
                     (fit_df.index >= session_start) & (fit_df.index < session_end),
@@ -250,7 +250,7 @@ def read_fit(
                     for lap, lap_start in (
                         laps_in_session["start_time"]
                         .sort_index(ascending=False)
-                        .iteritems()
+                        .items()
                     ):
                         fit_df.loc[
                             (fit_df.index >= lap_start) & (fit_df.index < lap_end),
