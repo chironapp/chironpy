@@ -29,7 +29,7 @@ mkdocs = "^1.1"
 mkdocs-material = "^5.1.0"
 
 # https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
-black = "^19.10b0"
+black = "^24.10.0"
 mknotebooks = "^0.6.0"
 vcrpy = "^6.0.2"
 openpyxl = "^3.0.7"
@@ -38,6 +38,7 @@ openpyxl = "^3.0.7"
 typing-extensions = "^4.12.2"
 pytest = ">=6.2.4,<8.0.0"
 vcrpy = "^6.0.2"
+black = "^24.10.0"
 
 [tool.tox]
 legacy_tox_ini = """
