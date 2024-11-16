@@ -5,7 +5,7 @@ on:
 
 jobs:
   publish:
-    name: Publish to PyPi
+    name: Publish to TestPyPi
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,8 @@ jobs:
         uses: snok/install-poetry@v1.4.1
       - name: Poetry configuration
         run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry config pypi-token.pypi ${{ secrets.TESTPYPI_TOKEN }}
       - name: Build package
         run: |
           poetry build
