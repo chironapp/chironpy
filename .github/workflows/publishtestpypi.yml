@@ -1,4 +1,4 @@
-name: Publish
+name: Publish TestPyPi
 on:
   release:
     types: [published]
@@ -18,6 +18,8 @@ jobs:
       - name: Poetry configuration
         run: |
           poetry config repositories.testpypi https://test.pypi.org/legacy/
+          # Print a masked version of the token
+          echo "TestPyPI Token: ${TESTPYPI_TOKEN:0:8}****"
           poetry config pypi-token.pypi ${{ secrets.TESTPYPI_TOKEN }}
       - name: Build package
         run: |
