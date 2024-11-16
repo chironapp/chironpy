@@ -7,6 +7,13 @@ jobs:
   publish:
     name: Publish to TestPyPi
     runs-on: ubuntu-latest
+    needs:
+      - release-build
+    permissions:
+      id-token: write
+    # Dedicated environments with protections for publishing are strongly recommended.
+    environment:
+      name: testpypi
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
@@ -19,7 +26,7 @@ jobs:
         run: |
           poetry config repositories.testpypi https://test.pypi.org/legacy/
           # Print a masked version of the token
-          echo "TestPyPI Token: ${secrets.TESTPYPI_TOKEN:0:8}****"
+          echo "TestPyPI Token: ${secrets.TESTPYPI_TOKEN:0:8}********"
           poetry config pypi-token.pypi ${{ secrets.TESTPYPI_TOKEN }}
       - name: Build package
         run: |
