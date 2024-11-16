@@ -1,5 +1,5 @@
 Dockerfile
 build
 dist
-chiron.egg-info
+chironpy.egg-info
 .tox

@@ -155,7 +155,7 @@ Garmin regularly updates this file when new devices are introduced.
 Updating the JSON can be done by running:
 
 ```python
-from chiron.io import fit
+from chironpy.io import fit
 fit._import_fit_profile("path/to/new/Profile.xlsx")
 ```
 

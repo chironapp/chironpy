@@ -15,9 +15,9 @@ def reload_power_module():
     key_values = [(key, value) for key, value in sys.modules.items()]
     for key, value in key_values:
         if (
-            key.startswith("chiron.hrm")
-            or key.startswith("chiron.pdm")
-            or key.startswith("chiron.metrics")
+            key.startswith("chironpy.hrm")
+            or key.startswith("chironpy.pdm")
+            or key.startswith("chironpy.metrics")
         ):
             importlib.reload(value)
 

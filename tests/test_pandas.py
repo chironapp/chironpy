@@ -9,7 +9,7 @@ class TestChironAccessor:
     def test_accessor(self):
         example = chironpy.examples(path="4078723797.fit")
         data = chironpy.read_fit(example.path)
-        mean_max_data = data.chiron.mean_max("power")
+        mean_max_data = data.chironpy.mean_max("power")
 
         assert isinstance(mean_max_data, pd.DataFrame)
         assert isinstance(mean_max_data.index, pd.TimedeltaIndex)
@@ -21,20 +21,20 @@ class TestChironAccessor:
         data = pd.DataFrame(dict(power=range(10)), index=range(10))
 
         with pytest.raises(AttributeError):
-            data.chiron.mean_max("power")
+            data.chironpy.mean_max("power")
 
     def test_accessor_not_1hz(self):
         example = chironpy.examples(path="2020-06-01-16-52-40.fit")
         data = chironpy.read_fit(example.path)
 
         with pytest.raises(AttributeError):
-            data.chiron.mean_max("power")
+            data.chironpy.mean_max("power")
 
     def test_accessor_relative_index(self):
         example = chironpy.examples(path="4078723797.fit")
         data = chironpy.read_fit(example.path)
 
-        data = data.chiron.to_timedelta_index()
+        data = data.chironpy.to_timedelta_index()
 
         assert isinstance(data, pd.DataFrame)
         assert isinstance(data.index, pd.TimedeltaIndex)
@@ -45,7 +45,7 @@ class TestChironSeriesAccessor:
     def test_accessor(self):
         example = chironpy.examples(path="4078723797.fit")
         data = chironpy.read_fit(example.path)
-        mean_max = data["power"].chiron.mean_max()
+        mean_max = data["power"].chironpy.mean_max()
 
         assert isinstance(mean_max, pd.Series)
         assert isinstance(mean_max.index, pd.TimedeltaIndex)
@@ -57,20 +57,20 @@ class TestChironSeriesAccessor:
         data = pd.DataFrame(dict(power=range(10)), index=range(10))
 
         with pytest.raises(AttributeError):
-            data["power"].chiron.mean_max()
+            data["power"].chironpy.mean_max()
 
     def test_accessor_not_1hz(self):
         example = chironpy.examples(path="2020-06-01-16-52-40.fit")
         data = chironpy.read_fit(example.path)
 
         with pytest.raises(AttributeError):
-            data["power"].chiron.mean_max()
+            data["power"].chironpy.mean_max()
 
     def test_accessor_relative_index(self):
         example = chironpy.examples(path="4078723797.fit")
         data = chironpy.read_fit(example.path)
 
-        data = data["power"].chiron.to_timedelta_index()
+        data = data["power"].chironpy.to_timedelta_index()
 
         assert isinstance(data, pd.Series)
         assert isinstance(data.index, pd.TimedeltaIndex)
@@ -80,7 +80,7 @@ class TestChironSeriesAccessor:
         example = chironpy.examples(path="4078723797.fit")
         data = chironpy.read_fit(example.path)
 
-        zones = data["heartrate"].chiron.calculate_zones(
+        zones = data["heartrate"].chironpy.calculate_zones(
             [0, 100, 150, np.inf], ["zone 1", "zone 2", "zone 3"]
         )
         assert len(zones) == len(data)
@@ -90,7 +90,7 @@ class TestChironSeriesAccessor:
         example = chironpy.examples(path="4078723797.fit")
         data = chironpy.read_fit(example.path)
 
-        time_in_zone = data["heartrate"].chiron.time_in_zone(
+        time_in_zone = data["heartrate"].chironpy.time_in_zone(
             [0, 100, 150, np.inf], ["zone 1", "zone 2", "zone 3"]
         )
         assert set(time_in_zone.index.unique()) == set(["zone 1", "zone 2", "zone 3"])

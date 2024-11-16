@@ -58,7 +58,11 @@ def read_strava(
     client.access_token = access_token
     client.refresh_token = refresh_token
 
+    print(client.access_token, client.refresh_token)
+
     activity = client.get_activity(activity_id)
+
+    print('activity:', activity)
     start_datetime = activity.start_date_local
 
     streams = client.get_activity_streams(
