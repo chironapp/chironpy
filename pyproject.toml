@@ -1,25 +1,25 @@
 [tool.poetry]
 name = "chironpy"
-version = "0.25.2"
+version = "0.26.0"
 description = "Workout analysis"
 license = "MIT"
-authors = ["Aart Goossens <aart@goossens.me>"]
+authors = ["Clive Gross <clive.gross1@gmail.com>"]
 readme = "README.md"
 homepage = "https://github.com/chironapp/chironpy"
 repository = "https://github.com/chironapp/chironpy"
 documentation = "https://github.com/chironapp/chironpy"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<4.0.0"
+python = ">=3.10,<4.0.0"
 fitparse = "^1.1.0"
 lmfit = "^1.0.0"
 scipy = "^1.4.1"
 pandas = "^1.5.2"
 requests = "^2.23.0"
-pydantic = "^1.4"
+pydantic = "^2.0"
 pyyaml = "^6.0.0"
 scikit-learn = ">= 0.23.1"
-stravalib = "^0.10.2"
+stravalib = "^2.0.0"
 matplotlib = "^3.3.4"
 numpy = ">=1.21,<1.24"
 

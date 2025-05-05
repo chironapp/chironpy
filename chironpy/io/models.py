@@ -21,12 +21,12 @@ class ThresholdSetting(BaseModel):
     sport: str
     sub_sport: str
     power: Optional[int]
-    speed: Optional[float]
+    speed: Optional[float] = 0.0
     heartrate: Optional[int]
 
 
 class Athlete(BaseModel):
-    name: Optional[str]
+    name: Optional[str] = None
     gender: Optional[Gender]
     age: Optional[int]
     weight: Optional[float]
@@ -34,7 +34,7 @@ class Athlete(BaseModel):
     resting_heartrate: Optional[int]
     max_heartrate: Optional[int]
     unit_system: Optional[UnitSystem]
-    threshold: Optional[ThresholdSetting]
+    threshold: Optional[ThresholdSetting] = None
     activity_class: Optional[int]
 
     @classmethod

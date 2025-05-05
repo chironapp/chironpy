@@ -33,12 +33,11 @@ class ExampleData(BaseModel):
     path: Path
     sport: Optional[SportEnum]
     file_type: FileTypeEnum
-    recording_device: Optional[str]
-    recording_device: Optional[str]
-    sensors: Optional[List[Sensor]]
+    recording_device: Optional[str] = None
+    sensors: Optional[List[Sensor]] = None
     included_data: Optional[List[DataTypeEnum]]
-    laps: Optional[int]
-    sessions: Optional[int]
+    laps: Optional[int] = None
+    sessions: Optional[int] = None
     course: bool = False
 
     @validator("path")
