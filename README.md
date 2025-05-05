@@ -6,9 +6,13 @@ A fork of [sweatpy](https://github.com/GoldenCheetah/sweatpy)
 
 [![Downloads](https://pepy.tech/badge/chiron)](https://pepy.tech/project/chiron)
 
-> :warning: **This is a fork of the original sweatpy project, which is currently undergoing major revisions. These revisions may result in deprecations and backwards incompatible changes. We recommend pinning your chironpy dependency in your requirements.txt file (e.g. `sweat==0.19.0`).**
+> :warning: **This is a fork of the original sweatpy project, which no longer seems to be maintained.**
 
 Documentation for the original project can be found [here](https://github.com/GoldenCheetah/sweatpy/blob/master/docs/docs/index.md).
+
+## Usage
+
+Usage and examples can be found [here](/docs/docs/index.md).
 
 ## Publishing
 
@@ -41,6 +45,21 @@ Install from TestPyPI:
 pip install chironpy --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/
 ```
 
+## Development
+
+### Validating Functionality with Scripts
+
+The `scripts/` directory contains utility scripts to help validate the functionality of the `chironpy` library during development. Below are some examples of how to use these scripts:
+
+#### 1. **Load any activity**
+
+Use the `load_files.py` script to load and parse a `.fit`, `.gpx`, locally saved Strava `.json` file etc. Example files are provided in `chironpy/examples/data`.
+
+**Usage**:
+
+```bash
+python scripts/load_fit_file.py path/to/your/file.fit
+
 ## Contributors
 
 - [Clive Gross](https://github.com/clivegross)
@@ -50,3 +69,4 @@ pip install chironpy --index-url https://test.pypi.org/simple/ --extra-index-url
 ## License
 
 See [LICENSE](LICENSE) file.
+```

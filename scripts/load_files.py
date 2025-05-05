@@ -1,5 +1,5 @@
 import sys
-import chironpy
+from chironpy import read_file
 
 def main(file_path):
     """
@@ -11,9 +11,9 @@ def main(file_path):
     try:
         print(f"Loading .fit file: {file_path}")
         # Replace `fit_parser.load` with the actual function in chironpy for loading .fit files
-        data = chironpy.read_file(file_path)
+        data = read_file(file_path)
         print("File loaded successfully!")
-        print(f"Summary: {data.summary()}")  # Replace with actual method to summarize the data
+        print(f"Summary: {data}")  # Replace with actual method to summarize the data
     except Exception as e:
         print(f"Error loading .fit file: {e}")
 
