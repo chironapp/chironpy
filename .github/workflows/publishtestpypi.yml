@@ -24,16 +24,14 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1.4.1
       - name: Poetry configuration
-        env:
-          TESTPYPI_TOKEN: ${{ secrets.TESTPYPI_TOKEN }}
         run: |
           poetry config repositories.testpypi https://test.pypi.org/legacy/
-          # Print a masked version of the token
-          echo "TestPyPI Token: ${TESTPYPI_TOKEN:0:8}****"
-          poetry config pypi-token.pypi $TESTPYPI_TOKEN
       - name: Build package
         run: |
           poetry build
       - name: Publish package
+        env:
+          TESTPYPI_TOKEN: ${{ secrets.TESTPYPI_TOKEN }}
         run: |
-          poetry publish --repository testpypi --username __token__ --password ${{ secrets.TESTPYPI_TOKEN }}
+          echo "TestPyPI Token: ${TESTPYPI_TOKEN:0:8}****"
+          poetry publish --repository testpypi --username __token__ --password $TESTPYPI_TOKEN
