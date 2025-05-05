@@ -36,4 +36,4 @@ jobs:
           poetry build
       - name: Publish package
         run: |
-          poetry publish
+          poetry publish --repository testpypi --username __token__ --password $TESTPYPI_TOKEN
