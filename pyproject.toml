@@ -25,12 +25,12 @@ numpy = ">=1.21,<1.24"
 
 [tool.poetry.dev-dependencies]
 pytest = ">=6.2.4,<8.0.0"
-mkdocs = "^1.1"
-mkdocs-material = "^5.1.0"
+mkdocs = "*"
+mkdocs-material = "*"
 
 # https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
 black = "^24.10.0"
-mknotebooks = "^0.6.0"
+mknotebooks = "*"
 vcrpy = "^6.0.2"
 openpyxl = "^3.0.7"
 
