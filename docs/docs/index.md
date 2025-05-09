@@ -1,12 +1,14 @@
 # chironpy
 
-[![Downloads](https://pepy.tech/badge/chironpy)](https://pepy.tech/project/chironpy)
+Endurance sports analysis library for Python
 
-!!! warning
-**chironpy is currently undergoing major revisions which will result in deprecations and backwards incompatible changes. We recommend pinning your chironpy dependency in your requirements.txt file (e.g. `chiron==0.19.0`).**
+A fork of [sweatpy](https://github.com/GoldenCheetah/sweatpy)
 
-!!! tip
-Noticed a missing feature, found a bug or just have a great idea for `chironpy`? Get in touch with us by creating an issue [here](https://github.com/chironapp/chironpy/issues/new)!
+[![Downloads](https://pepy.tech/badge/chiron)](https://pepy.tech/project/chiron)
+
+> :warning: **This is a fork of the original sweatpy project, which no longer seems to be maintained.**
+
+Documentation for the original project can be found [here](https://github.com/GoldenCheetah/sweatpy/blob/master/docs/docs/index.md).
 
 ## Introduction
 

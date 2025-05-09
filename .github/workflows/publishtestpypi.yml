@@ -2,9 +2,6 @@ name: Publish TestPyPi
 on:
   release:
     types: [published]
-  push:
-    branches:
-      - master
 
 jobs:
   publish:
