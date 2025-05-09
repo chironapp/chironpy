@@ -33,10 +33,10 @@ import chironpy
 data = chironpy.read_fit("path/to/file.fit")
 ```
 
-More information about loading files can be found [here](/features/data_loading/).
+More information about loading files can be found [here](features/data_loading.md).
 
 The data frames that are returned by chironpy when loading files is similar for different file types.
-Read more about this standardization [here](/features/nomenclature/).
+Read more about this standardization [here](features/nomenclature.md).
 
 ## Contributing
 
@@ -44,8 +44,9 @@ See [contributing](contributing.md).
 
 ## Contributors
 
-- [Aart Goossens](https://github.com/AartGoossens)
-- [Maksym Sladkov](https://github.com/sladkovm)
+- [Clive Gross](https://github.com/clivegross)
+- [Maksym Sladkov](https://github.com/sladkovm) - Original Author
+- [Aart Goossens](https://github.com/AartGoossens) - Original Author
 
 ## License
 

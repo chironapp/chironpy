@@ -60,7 +60,7 @@ To run the full (i.e. for all supported Python versions) test suite:
 make testall
 ```
 
-...or the equivalent `docker-compose` command (see [Makefile](Makefile)).
+...or the equivalent `docker-compose` command.
 
 For a short test run you can also run it for only 1 Python version (usually the latest major version; currently 3.8):
 

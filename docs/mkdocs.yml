@@ -1,10 +1,12 @@
 site_name: chironpy docs
+site_url: https://chironapp.github.io/chironpy/
+site_description: "Endurance sports analysis library for Python."
 
 theme:
   name: "material"
   palette:
-    primary: "blue grey"
-    accent: "red"
+    primary: "purple"
+    accent: "orange"
   icon:
     logo: logo
     # repo: github
