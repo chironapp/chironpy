@@ -35,9 +35,9 @@ Or use the new `WorkoutData` class:
 
 ```python
 import os
-from chironpy import WorkoutData
+from chironpy import examples, WorkoutData
 
-example = chironpy.examples(path="18360138543_ACTIVITY_Osaka_Marathon_2025.fit")
+example = examples(path="18360138543_ACTIVITY_Osaka_Marathon_2025.fit")
 data = WorkoutData.from_file(example.path)
 
 distances = [1000, 5000, 10000, 21100] # in metres
