@@ -2,6 +2,8 @@ from enum import Enum
 from typing import Dict, Optional
 
 from pydantic import BaseModel
+import pandas as pd
+from typing import Union, Optional
 
 
 class Gender(Enum):

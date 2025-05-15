@@ -9,3 +9,4 @@ from .pdm.regressors import PowerDurationRegressor
 from .pdm.w_prime_balance import w_prime_balance
 from .utils import array_1d_to_2d
 from .io.local_strava import read_local_strava
+from .models.workout import WorkoutData

@@ -38,6 +38,8 @@ More information about loading files can be found [here](features/data_loading.m
 The data frames that are returned by chironpy when loading files is similar for different file types.
 Read more about this standardization [here](features/nomenclature.md).
 
+More information about running metrics can be found [here](features/running_metrics.md)
+
 ## Contributing
 
 See [contributing](contributing.md).

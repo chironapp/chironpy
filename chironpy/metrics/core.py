@@ -385,3 +385,26 @@ def multiple_best_intervals(arg, duration, number):
         moving_average.loc[overlap_min_index:overlap_max_index] = np.nan
 
     return mean_max_bests
+
+def multiple_best_distance_intervals(
+    distance: np.ndarray,
+    windows: list[float]
+) -> list[Optional[dict]]:
+    """
+    Finds the shortest number of seconds needed to cover each target distance
+    in the provided list of distance windows.
+
+    Args:
+        distance (np.ndarray): Cumulative distance array in meters (1Hz sampling).
+        windows (list[float]): List of distance windows to evaluate, in meters.
+
+    Returns:
+        list[Optional[dict]]: A list of results for each distance window. Each result is a dictionary:
+            { "value": seconds, "start_index": i, "stop_index": j }
+            or None if no valid interval is found for a window.
+    """
+    results = []
+    for window in windows:
+        result = best_distance_interval(distance, window=window)
+        results.append(result)
+    return results

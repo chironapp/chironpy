@@ -20,7 +20,7 @@ Types of changes:
 ### Added
 
 - `best_distance_interval()` function for finding the fastest interval over a fixed distance.
-- Initial support for tracking changes and features in an Unreleased section of the changelog.
+- `WorkoutData`, a `pandas.DataFrame`-like class for standardising the workout object structure from different file types or sources.
 
 ### Changed
 
