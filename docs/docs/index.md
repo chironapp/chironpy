@@ -48,6 +48,10 @@ See [contributing](contributing.md).
 - [Maksym Sladkov](https://github.com/sladkovm) - Original Author
 - [Aart Goossens](https://github.com/AartGoossens) - Original Author
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a full list of changes and version history.
+
 ## License
 
 See [LICENSE](LICENSE) file.

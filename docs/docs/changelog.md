@@ -15,6 +15,46 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [Unreleased]
+
+### Added
+
+- `best_distance_interval()` function for finding the fastest interval over a fixed distance.
+- Initial support for tracking changes and features in an Unreleased section of the changelog.
+
+### Changed
+
+- Refactored changelog to adopt Keep a Changelog format fully.
+
+### Fixed
+
+- (placeholder for any bug fixes)
+
+### Deprecated
+
+- (placeholder for any deprecated features)
+
+### Removed
+
+- (placeholder for any removed features)
+
+### Security
+
+- (placeholder for any security-related changes)
+
+## [0.26.1] - 2025-05-09
+
+### Added
+
+- `read_local_strava()` function for loading locally saved Strava activity stream data in JSON format.
+- Example file added at `examples/data/` to demonstrate usage of `read_local_strava()`.
+
+### Changed
+
+- Project forked from [sweatpy](https://github.com/GoldenCheetah/sweatpy), continuing from version 0.25.0.
+- Project renamed from `sweatpy` to `chironpy`, including updates to all import paths, README, and documentation.
+- Added Python 3.11, updated dependencies.
+
 ## [0.25.0] - 2022-02-01
 
 ### Added
