@@ -39,7 +39,7 @@ bests1 = chironpy.metrics.core.multiple_best_distance_intervals(data1['distance'
 print(f'best efforts over {distances} for {example1}')
 for i, best in enumerate(bests1):
     pace = best['value']/60 / distances[i] * 1000
-    print(distances[i], pace, best)
+    print(str(distances[i] / 1000) + 'km', pace, best)
 
 # best2 = chironpy.metrics.core.best_distance_interval(data2['distance'])
 # print(best2)
@@ -47,4 +47,4 @@ bests2 = chironpy.metrics.core.multiple_best_distance_intervals(data2['distance'
 print(f'best efforts over {distances} for {example2}')
 for i, best in enumerate(bests2):
     pace = best['value']/60 / distances[i] * 1000
-    print(distances[i], pace, best)
+    print(str(distances[i] / 1000) + 'km', pace, best)
