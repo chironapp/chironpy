@@ -15,7 +15,7 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
-## [Unreleased]
+## [0.27.0] - 2025-05-15
 
 ### Added
 
@@ -25,22 +25,6 @@ Types of changes:
 ### Changed
 
 - Refactored changelog to adopt Keep a Changelog format fully.
-
-### Fixed
-
-- (placeholder for any bug fixes)
-
-### Deprecated
-
-- (placeholder for any deprecated features)
-
-### Removed
-
-- (placeholder for any removed features)
-
-### Security
-
-- (placeholder for any security-related changes)
 
 ## [0.26.1] - 2025-05-09
 
