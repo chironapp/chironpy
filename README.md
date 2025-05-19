@@ -59,6 +59,7 @@ Use the `load_files.py` script to load and parse a `.fit`, `.gpx`, locally saved
 
 ```bash
 python scripts/load_fit_file.py path/to/your/file.fit
+```
 
 ## Contributors
 
@@ -71,4 +72,7 @@ Credit to [Aaron Schroeder](https://github.com/aaron-schroeder) for tools for ru
 ## License
 
 See [LICENSE](LICENSE) file.
+
+```
+
 ```

@@ -1,6 +1,7 @@
 site_name: chironpy docs
 site_url: https://chironapp.github.io/chironpy/
 site_description: "Endurance sports analysis library for Python."
+docs_dir: docs
 
 theme:
   name: "material"
