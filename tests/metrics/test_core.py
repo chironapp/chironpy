@@ -133,7 +133,7 @@ class TestBestInterval:
         stream = [1, 1, 1, 1, 1]
         test_rolling_mean.return_value = stream
 
-        assert best_interval(stream, 5) == 1
+        assert best_interval(stream, 5)["value"] == 1
 
 
 class TestTimeInZones:
@@ -191,13 +191,14 @@ class TestMeanMax:
 
 class TestMultipleBestIntervals:
     def test_mean_max_bests(self, power):
-        bests = multiple_best_intervals(power, 3, 3)
+        print(power)
+        bests = multiple_best_intervals(power, [3, 5, 10], 3)
 
         assert len(bests) == 3
-        assert bests[0].index == 99
-        assert bests[0].value == 98.0
-        assert bests[2].index == 91
-        assert bests[2].value == 90.0
+        assert bests[0]["value"] == 98.0
+        assert bests[0]["start_index"] == 97
+        assert bests[2]["value"] == 94.5
+        assert bests[2]["start_index"] == 90
 
 
 class TestDataPoint:
