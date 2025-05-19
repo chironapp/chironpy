@@ -8,30 +8,35 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9]
+        python-version: [3.11]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.4.1
-      with:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.4.1
+        with:
           version: 1.5.1
           virtualenvs-create: true
           virtualenvs-in-project: true
-    - name: Install dependencies
-      run: |
-        poetry install
-    - name: Show Poetry Installer Log on Failure
-      if: failure()
-      run: |
-        for file in /home/runner/work/chironpy/chironpy/poetry-installer-error-*.log; do
-          echo "Showing contents of $file"
-          cat "$file"
-        done        
-    - name: Run pytest
-      run: |
-        source .venv/bin/activate
-        pytest tests/
+      - name: Install dependencies
+        run: |
+          poetry install
+      - name: Show Poetry Installer Log on Failure
+        if: failure()
+        run: |
+          files=(/home/runner/work/chironpy/chironpy/poetry-installer-error-*.log)
+          if [ -e "${files[0]}" ]; then
+            for file in "${files[@]}"; do
+              echo "Showing contents of $file"
+              cat "$file"
+            done
+          else
+            echo "No poetry installer error logs found."
+          fi
+      - name: Run pytest
+        run: |
+          source .venv/bin/activate
+          pytest tests/
