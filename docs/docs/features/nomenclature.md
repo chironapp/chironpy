@@ -1,7 +1,7 @@
 # Nomenclature
 
 One of the main ideas behind chironpy is to offer a generic interface to data from different data sources.
-A big part of this is making sure that the data frames that are returned by the `chironpy.read_*()` methods (`read_fit()`, `read_tcx()`, etc.) are similar.
+A big part of this is making sure that the data frames that are returned by the `chironpy.WorkoutData.read_*()` methods (`read_fit()`, `read_tcx()`, etc.) are similar.
 I.e. it should not matter if you are importing an activity from a .fit file or a .tcx file: Working with the data should be the same.
 
 For the data frames returned by the `read_*()` methods, the column and data types are as follows:
@@ -21,3 +21,6 @@ For the data frames returned by the `read_*()` methods, the column and data type
 | temperature        | degrees Celsius                                                                                              |                                                                                                                                                             |
 | lap                | -                                                                                                            | lap counter, zero-indexed. Only supported for .fit and .tcx files.                                                                                          |
 | session            | -                                                                                                            | session counter, zero-indexed. Triggered when an activity is (manually or automatically) paused or stopped and then resumed. Only supported for .fit files. |
+| time               | seconds (Integer)                                                                                            | Relative time since the workout started.                                                                                                                    |
+| is_moving          | Boolean                                                                                                      | Whether or not the subject is moving.                                                                                                                       |
+| grade              | dimensionless ratio                                                                                          | The grade of the slope, ie elevation (m) / distance (m).                                                                                                    |

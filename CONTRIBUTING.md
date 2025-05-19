@@ -1,1 +1,1 @@
-See [contributing.md](/docs/docs/contributing.md) in the docs.
+See [contributing](https://chironapp.github.io/chironpy/contributing/) in the docs.

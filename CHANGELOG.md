@@ -1,1 +1,1 @@
-See [changelog.md](/docs/docs/changelog.md) in the docs.
+See [changelog](https://chironapp.github.io/chironpy/changelog/) in the docs.

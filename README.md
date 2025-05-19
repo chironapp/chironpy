@@ -10,9 +10,9 @@ A fork of [sweatpy](https://github.com/GoldenCheetah/sweatpy)
 
 Documentation for the original project can be found [here](https://github.com/GoldenCheetah/sweatpy/blob/master/docs/docs/index.md).
 
-## Usage
+## Documentation
 
-Usage and examples can be found [here](/docs/docs/index.md).
+Usage and examples can be found [here](https://chironapp.github.io/chironpy/).
 
 ## Publishing
 

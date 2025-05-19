@@ -54,7 +54,7 @@ Credit to [Aaron Schroeder](https://github.com/aaron-schroeder) for tools for ru
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a full list of changes and version history.
+See [CHANGELOG.md](changelog.md) for a full list of changes and version history.
 
 ## License
 

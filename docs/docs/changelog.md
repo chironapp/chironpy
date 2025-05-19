@@ -15,6 +15,22 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [0.28.0] - 2025-05-19
+
+### Added
+
+- Extended `WorkoutData` with new methods: `best_intervals`, `best_distance_intervals`, `fastest_distance_intervals`, and `elevation_gain` for easier access to interval and elevation metrics.
+- Added `fastest_distance_interval` and `multiple_fastest_distance_intervals` functions for finding the fastest intervals over fixed distances.
+- Added new elevation-related functions: `elevation_gain`, `elevation_smooth_time`, and `elevation_smooth` for calculating and smoothing elevation data.
+- Added new grade-related functions: `grade_smooth_time`, `grade_smooth`, and `grade_raw` for calculating smoothed and raw grade (slope) values.
+- `WorkoutData` now automatically computes a new `time` column containing the relative time (in seconds) since the workout started, in addition to the datetime index.
+- `WorkoutData` now automatically adds an `is_moving` column based on the `speed` column.
+- `WorkoutData` now automatically computes and adds a `grade` column if both `distance` and `elevation` are present.
+
+### Changed
+
+- `best_interval` and `multiple_best_intervals` now return a dictionary with the max mean value and the start/stop indices of the best interval for a provided time window or list of time windows, for consistency with distance-based interval functions.
+
 ## [0.27.0] - 2025-05-15
 
 ### Added

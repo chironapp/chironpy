@@ -30,6 +30,7 @@ nav:
       - "features/Metrics.ipynb"
       - "features/Power duration modelling.ipynb"
       - "features/data_loading.md"
+      - "features/running_metrics.md"
       - "features/example_data.md"
       - "features/nomenclature.md"
   - "changelog.md"

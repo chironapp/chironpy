@@ -180,6 +180,32 @@ def compute_zones(y, zones=None, ftp=None, lthr=None, labels=None):
     return y
 
 
+# def best_interval(y, window, mask=None, value=0.0):
+#     """Compute best interval of the stream
+
+#     Masking with replacement is controlled by keyword arguments
+
+#     Parameters
+#     ----------
+#     y: ndarray
+#     window : int
+#         Duration of the interval in seconds
+#     mask : array-like of bool, optional
+#         default=None, which means no masking
+#     value : number, optional
+#         Value to use for replacement, default=0.0
+
+#     Returns
+#     -------
+#     float
+#     """
+
+#     y = rolling_mean(y, window=window, mask=mask, value=value)
+
+#     rv = np.max(y)
+
+#     return rv
+
 def best_interval(y, window, mask=None, value=0.0):
     """Compute best interval of the stream
 
@@ -197,57 +223,86 @@ def best_interval(y, window, mask=None, value=0.0):
 
     Returns
     -------
-    float
+    dict
+        Dictionary with keys: 'value' (max mean), 'start_index', 'stop_index'.
+        Returns None if no valid interval is found.
     """
+    if mask is not None:
+        y = mask_fill(y, mask, value)
 
-    y = rolling_mean(y, window=window, mask=mask, value=value)
+    n = len(y)
+    max_mean = -np.inf
+    best_start_idx = None
+    best_end_idx = None
 
-    rv = np.max(y)
+    for start in range(n - window + 1):
+        stop = start + window
+        interval = y[start:stop]
+        if len(interval) > 0:
+            mean_val = np.mean(interval)
+            if mean_val > max_mean:
+                max_mean = mean_val
+                best_start_idx = start
+                best_end_idx = stop
 
-    return rv
-
-
-def best_distance_interval(
-    distance: np.ndarray,
-    window: float = 1000.0
-) -> Optional[dict]:
-    """
-    Finds the shortest number of seconds needed to cover the target_distance
-    based on 1Hz-sampled cumulative distance data.
-
-    Args:
-        distance (np.ndarray): Cumulative distance array in meters (1Hz sampling).
-        window (float): Distance window to evaluate, in meters.
-
-    Returns:
-        dict: { "value": seconds, "start_index": i, "stop_index": j }
-        None: if no valid interval is found
-    """
-    best_time = float("inf")
-    best_start_idx = best_end_idx = -1
-    n = len(distance)
-
-    for i in range(n):
-        target = distance[i] + window
-        j = np.searchsorted(distance, target, side="left")
-
-        if j >= n:
-            break  # Beyond data range
-
-        duration = j - i  # seconds, assuming 1Hz sampling
-        if duration < best_time:
-            best_time = duration
-            best_start_idx = i
-            best_end_idx = j
-
-    if best_start_idx == -1:
+    if max_mean != -np.inf:
+        return {
+            "value": max_mean,
+            "start_index": best_start_idx,
+            "stop_index": best_end_idx
+        }
+    else:
         return None
 
-    return {
-        "value": best_time,
-        "start_index": best_start_idx,
-        "stop_index": best_end_idx
-    }
+def best_distance_interval(y, distance, window, mask=None, value=0.0):
+    """
+    Compute best interval of the stream y over a distance window.
+
+    Parameters
+    ----------
+    y : ndarray
+        Stream (e.g., power, heartrate, etc.)
+    distance : ndarray
+        Cumulative distance array (same length as y), in meters.
+    window : float
+        Distance window (in meters) over which to find the best interval.
+    mask : array-like of bool, optional
+        Mask to apply to y (default: None).
+    value : number, optional
+        Value to use for replacement if masked (default: 0.0).
+
+    Returns
+    -------
+    float
+        Maximum mean value over any interval covering at least `window` meters.
+    """
+    if mask is not None:
+        y = mask_fill(y, mask, value)
+
+    n = len(y)
+    max_mean = -np.inf
+
+    for start in range(n):
+        # Find the stop index where the distance window is reached
+        stop = np.searchsorted(distance, distance[start] + window, side='left')
+        if stop < n:
+            interval = y[start:stop]
+            if len(interval) > 0:
+                mean_val = np.mean(interval)
+                if mean_val > max_mean:
+                    max_mean = mean_val
+                    best_start_idx = start
+                    best_end_idx = stop
+
+    if max_mean != -np.inf:
+        return {
+            "value": max_mean,
+            "start_index": best_start_idx,
+            "stop_index": best_end_idx
+        }
+    else:
+        return None
+
 
 
 
@@ -352,51 +407,88 @@ def mean_max(y, mask=None, value=0.0, monotonic=False):
 DataPoint = namedtuple("DataPoint", ["index", "value"])
 
 
-def multiple_best_intervals(arg, duration, number):
+# def multiple_best_intervals(arg, duration, number):
+#     """Compute multiple best intervals
+
+#     TODO: This function should return a list of {'start_index': v, 'stop_index': v, 'index': v, 'value': v}
+#     Parameters
+#     ----------
+#     arg : pd.Stream
+#     duration : number
+#     number : int
+
+#     Returns
+#     -------
+#     ndarray
+#     """
+#     moving_average = arg.rolling(duration).mean()
+#     length = len(moving_average)
+#     mean_max_bests = []
+
+#     for i in range(number):
+#         if moving_average.isnull().all():
+#             mean_max_bests.append(DataPoint(np.nan, np.nan))
+#             continue
+
+#         max_value = moving_average.max()
+#         max_index = moving_average.idxmax()
+#         mean_max_bests.append(DataPoint(max_index, max_value))
+
+#         # Set moving averages that overlap with last found max to np.nan
+#         overlap_min_index = max(0, max_index - duration)
+#         overlap_max_index = min(length, max_index + duration)
+#         moving_average.loc[overlap_min_index:overlap_max_index] = np.nan
+
+#     return mean_max_bests
+
+def multiple_best_intervals(y, windows, mask=None, value=0.0):
     """Compute multiple best intervals
 
-    TODO: This function should return a list of {'start_index': v, 'stop_index': v, 'index': v, 'value': v}
     Parameters
     ----------
-    arg : pd.Stream
-    duration : number
-    number : int
-
+    y : ndarray
+        Stream (e.g., power, heartrate, etc.)
+    windows : list of int
+        List of durations (in seconds) for which to find the best intervals.
+    mask : array-like of bool, optional
+        Mask to apply to y (default: None).
+    value : number, optional
+        Value to use for replacement if masked (default: 0.0).
     Returns
     -------
-    ndarray
+    list[Optional[dict]]: A list of results for each duration. Each result is a dictionary:
+        { "value": seconds, "start_index": i, "stop_index": j }
+        or None if no valid interval is found for a duration.
     """
-    moving_average = arg.rolling(duration).mean()
-    length = len(moving_average)
-    mean_max_bests = []
-
-    for i in range(number):
-        if moving_average.isnull().all():
-            mean_max_bests.append(DataPoint(np.nan, np.nan))
-            continue
-
-        max_value = moving_average.max()
-        max_index = moving_average.idxmax()
-        mean_max_bests.append(DataPoint(max_index, max_value))
-
-        # Set moving averages that overlap with last found max to np.nan
-        overlap_min_index = max(0, max_index - duration)
-        overlap_max_index = min(length, max_index + duration)
-        moving_average.loc[overlap_min_index:overlap_max_index] = np.nan
-
-    return mean_max_bests
+    results = []
+    for window in windows:
+        result = best_interval(y, window=window, mask=mask, value=value)
+        results.append(result)
+    return results
 
 def multiple_best_distance_intervals(
+    y: np.ndarray,
     distance: np.ndarray,
-    windows: list[float]
+    windows: list[float],
+    mask: Optional[np.ndarray] = None,
+    value: Optional[float] = 0.0,
 ) -> list[Optional[dict]]:
     """
-    Finds the shortest number of seconds needed to cover each target distance
+    Compute best interval of the stream.
     in the provided list of distance windows.
 
     Args:
-        distance (np.ndarray): Cumulative distance array in meters (1Hz sampling).
+        y : ndarray
+        Stream (e.g., power, heartrate, etc.)
+        distance : ndarray
+            Cumulative distance array (same length as y), in meters.
+        window : float
+        Distance window (in meters) over which to find the best interval.
         windows (list[float]): List of distance windows to evaluate, in meters.
+        mask : array-like of bool, optional
+            Mask to apply to y (default: None).
+        value : number, optional
+            Value to use for replacement if masked (default: 0.0).
 
     Returns:
         list[Optional[dict]]: A list of results for each distance window. Each result is a dictionary:
@@ -405,6 +497,6 @@ def multiple_best_distance_intervals(
     """
     results = []
     for window in windows:
-        result = best_distance_interval(distance, window=window)
+        result = best_distance_interval(y, distance, window=window, mask=mask, value=value)
         results.append(result)
     return results

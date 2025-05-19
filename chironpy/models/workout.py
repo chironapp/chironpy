@@ -5,7 +5,9 @@ from pydantic import BaseModel
 import pandas as pd
 from typing import Union, Optional
 from chironpy import read_file, read_strava
-from chironpy.metrics.vert import grade_smooth_time
+from chironpy.metrics.vert import grade_smooth_time, elevation_gain
+from chironpy.metrics.speed import multiple_fastest_distance_intervals
+from chironpy.metrics.core import multiple_best_distance_intervals, multiple_best_intervals
 from chironpy.constants import DataTypeEnum, DataTypeEnumExtended
 
 DATA_TYPES = (
@@ -104,3 +106,107 @@ class WorkoutData(pd.DataFrame):
     @property
     def extra_columns(self):
         return [col for col in self.columns if col not in DATA_TYPES]
+    
+    def best_distance_intervals(self, windows, stream="speed", distance_col="distance", **kwargs):
+        """
+        Compute best intervals for a list of distance windows.
+
+        Parameters
+        ----------
+        windows : list of float or float
+            List of distance windows (in meters).
+            If a single float, compute the best interval for that distance.
+            If a list, compute the best intervals for each distance in the list.
+        stream : str
+            Name of the column to use as the stream (e.g., "speed", "heartrate").
+        distance_col : str
+            Name of the column to use as cumulative distance.
+
+        Returns
+        -------
+        list of dict
+            Each dict contains 'value', 'start_index', 'stop_index' for the window.
+        """
+        if isinstance(windows, (int, float)):
+            windows = [windows]
+        if not isinstance(windows, list):
+            raise ValueError("windows must be a list of distances or a single distance")
+        if stream not in self.columns:
+            raise ValueError(f"Stream '{stream}' not found in DataFrame columns.")
+        if distance_col not in self.columns:
+            raise ValueError(f"Distance column '{distance_col}' not found in DataFrame columns.")
+        y = self[stream].values
+        distance = self[distance_col].values
+        return multiple_best_distance_intervals(y, distance, windows, **kwargs)
+    
+    def fastest_distance_intervals(self, windows, distance_col="distance", **kwargs):
+        """
+        Compute fastest intervals for a list of distance windows.
+
+        Parameters
+        ----------
+        windows : list of float or float
+            List of distance windows (in meters).
+            If a single float, compute the fastest interval for that distance.
+            If a list, compute the fastest intervals for each distance in the list.
+        distance_col : str
+            Name of the column to use as cumulative distance.
+
+        Returns
+        -------
+        list of dict
+            Each dict contains 'value', 'start_index', 'stop_index' for the window.
+        """
+        if isinstance(windows, (int, float)):
+            windows = [windows]
+        if not isinstance(windows, list):
+            raise ValueError("windows must be a list of distances or a single distance")
+        if distance_col not in self.columns:
+            raise ValueError(f"Distance column '{distance_col}' not found in DataFrame columns.")
+        distance = self[distance_col]
+        return multiple_fastest_distance_intervals(distance, windows, **kwargs)
+    
+    def best_intervals(self, windows, stream="speed", **kwargs):
+        """
+        Compute best intervals for a list of time windows.
+
+        Parameters
+        ----------
+        windows : list of float or float
+            List of time windows (in seconds).
+            If a single float, compute the best interval for that time.
+            If a list, compute the best intervals for each time in the list.
+        stream : str
+            Name of the column to use as the stream (e.g., "speed", "heartrate").
+
+        Returns
+        -------
+        list of dict
+            Each dict contains 'value', 'start_index', 'stop_index' for the window.
+        """
+        if isinstance(windows, (int, float)):
+            windows = [windows]
+        if not isinstance(windows, list):
+            raise ValueError("windows must be a list of times or a single time")
+        if stream not in self.columns:
+            raise ValueError(f"Stream '{stream}' not found in DataFrame columns.")
+        y = self[stream].values
+        return multiple_best_intervals(y, windows, **kwargs)
+    
+    def elevation_gain(self, elevation_col="elevation"):
+        """
+        Compute the total elevation gain.
+
+        Parameters
+        ----------
+        elevation_col : str
+            Name of the column to use as elevation.
+
+        Returns
+        -------
+        float
+            Total elevation gain in meters.
+        """
+        if elevation_col not in self.columns:
+            raise ValueError(f"Elevation column '{elevation_col}' not found in DataFrame columns.")
+        return elevation_gain(self[elevation_col].values)

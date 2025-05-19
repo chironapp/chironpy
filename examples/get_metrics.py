@@ -1,6 +1,9 @@
 import sys
 import os
 from pathlib import Path
+from chironpy.metrics.speed import multiple_fastest_distance_intervals
+from chironpy.metrics.vert import elevation_gain
+from chironpy.metrics.core import best_interval, best_distance_interval
 
 # # Add the project directory to sys.path
 # sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -35,7 +38,7 @@ print("speed compare")
 # best1 = chironpy.metrics.core.best_distance_interval(data1['distance'])
 # print(best1)
 distances = [1000, 1500, 1609, 5000, 10000, 21100, 30000, 42195, 50000]
-bests1 = chironpy.metrics.core.multiple_best_distance_intervals(data1['distance'], windows=distances)
+bests1 = multiple_fastest_distance_intervals(data1['distance'], windows=distances)
 print(f'best efforts over {distances} for {example1}')
 for i, best in enumerate(bests1):
     if best is None:
@@ -44,9 +47,10 @@ for i, best in enumerate(bests1):
         pace = best['value']/60 / distances[i] * 1000
     print(str(distances[i] / 1000) + 'km', pace, best)
 
+
 # best2 = chironpy.metrics.core.best_distance_interval(data2['distance'])
 # print(best2)
-bests2 = chironpy.metrics.core.multiple_best_distance_intervals(data2['distance'], windows=distances)
+bests2 = multiple_fastest_distance_intervals(data2['distance'], windows=distances)
 print(f'best efforts over {distances} for {example2}')
 for i, best in enumerate(bests2):
     if best is None:
