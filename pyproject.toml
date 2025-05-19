@@ -24,22 +24,15 @@ matplotlib = "^3.3.4"
 numpy = ">=1.21,<1.24"
 mkdocs-material = {extras = ["icons"], version = "^9.6.12"}
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
 pytest = ">=6.2.4,<8.0.0"
 mkdocs = "*"
 mkdocs-material = "*"
-
-# https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
-black = "^24.10.0"
 mknotebooks = "*"
-vcrpy = "^6.0.2"
 openpyxl = "^3.0.7"
-
-[tool.poetry.group.dev.dependencies]
 typing-extensions = "^4.12.2"
-pytest = ">=6.2.4,<8.0.0"
 vcrpy = "^6.0.2"
-black = "^24.10.0"
 
 [tool.tox]
 legacy_tox_ini = """

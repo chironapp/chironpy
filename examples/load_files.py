@@ -1,6 +1,7 @@
 import sys
 from chironpy import read_file
 
+
 def main(file_path):
     """
     Load and process a .fit file using chironpy.
@@ -16,6 +17,7 @@ def main(file_path):
         print(f"Summary: {data}")  # Replace with actual method to summarize the data
     except Exception as e:
         print(f"Error loading .fit file: {e}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

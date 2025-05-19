@@ -1,9 +1,9 @@
 import numpy as np
 from typing import Optional
 
+
 def fastest_distance_interval(
-    distance: np.ndarray,
-    window: float = 1000.0
+    distance: np.ndarray, window: float = 1000.0
 ) -> Optional[dict]:
     """
     Finds the shortest number of seconds needed to cover the target_distance
@@ -42,13 +42,12 @@ def fastest_distance_interval(
         "distance": window,
         "speed": window / best_time,  # m/s
         "start_index": best_start_idx,
-        "stop_index": best_end_idx
+        "stop_index": best_end_idx,
     }
 
 
 def multiple_fastest_distance_intervals(
-    distance: np.ndarray,
-    windows: list[float]
+    distance: np.ndarray, windows: list[float]
 ) -> list[Optional[dict]]:
     """
     Finds the shortest number of seconds needed to cover each target distance

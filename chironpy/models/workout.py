@@ -7,17 +7,22 @@ from typing import Union, Optional
 from chironpy import read_file, read_strava
 from chironpy.metrics.vert import grade_smooth_time, elevation_gain
 from chironpy.metrics.speed import multiple_fastest_distance_intervals
-from chironpy.metrics.core import multiple_best_distance_intervals, multiple_best_intervals
+from chironpy.metrics.core import (
+    multiple_best_distance_intervals,
+    multiple_best_intervals,
+)
 from chironpy.constants import DataTypeEnum, DataTypeEnumExtended
 
-DATA_TYPES = (
-    {member.value for member in DataTypeEnum}
-    | {member.value for member in DataTypeEnumExtended}
-)
+DATA_TYPES = {member.value for member in DataTypeEnum} | {
+    member.value for member in DataTypeEnumExtended
+}
+
 
 class WorkoutData(pd.DataFrame):
     @classmethod
-    def from_file(cls, filepath: str, resample: bool = True, interpolate: bool = True) -> "WorkoutData":
+    def from_file(
+        cls, filepath: str, resample: bool = True, interpolate: bool = True
+    ) -> "WorkoutData":
         df = read_file(filepath, resample=False, interpolate=False)
         return cls.from_raw(df, resample=resample, interpolate=interpolate)
 
@@ -30,7 +35,7 @@ class WorkoutData(pd.DataFrame):
         client_id: Optional[int] = None,
         client_secret: Optional[str] = None,
         resample: bool = True,
-        interpolate: bool = True
+        interpolate: bool = True,
     ) -> "WorkoutData":
         df = read_strava(
             activity_id=activity_id,
@@ -39,12 +44,14 @@ class WorkoutData(pd.DataFrame):
             client_id=client_id,
             client_secret=client_secret,
             resample=False,
-            interpolate=False
+            interpolate=False,
         )
         return cls.from_raw(df, resample=resample, interpolate=interpolate)
 
     @classmethod
-    def from_raw(cls, df: pd.DataFrame, resample: bool = True, interpolate: bool = True) -> "WorkoutData":
+    def from_raw(
+        cls, df: pd.DataFrame, resample: bool = True, interpolate: bool = True
+    ) -> "WorkoutData":
         df = df.copy()
         df = cls._normalize_columns(df)
         if resample:
@@ -52,7 +59,9 @@ class WorkoutData(pd.DataFrame):
         # Add DATA_TYPES.time column: integer seconds since workout start
         if isinstance(df.index, pd.DatetimeIndex):
             start_time = df.index[0]
-            df[(DataTypeEnum.time if hasattr(DataTypeEnum, "time") else "time")] = (df.index - start_time).total_seconds().astype(int)
+            df[(DataTypeEnum.time if hasattr(DataTypeEnum, "time") else "time")] = (
+                (df.index - start_time).total_seconds().astype(int)
+            )
             # rename index from 'time' to 'datetime'
             df.index.name = "datetime"
         # Add is_moving column if speed exists
@@ -62,9 +71,15 @@ class WorkoutData(pd.DataFrame):
             # TODO: consider a rolling window to account for GPS errors
             df["is_moving"] = df["speed"] > 0.5
         # Add grade column if missing and distance & elevation exist
-        if "grade" not in df.columns and "distance" in df.columns and "elevation" in df.columns:
+        if (
+            "grade" not in df.columns
+            and "distance" in df.columns
+            and "elevation" in df.columns
+        ):
             try:
-                df["grade"] = grade_smooth_time(df["distance"].values, df["elevation"].values)
+                df["grade"] = grade_smooth_time(
+                    df["distance"].values, df["elevation"].values
+                )
             except ImportError:
                 pass  # grade_smooth_time not available
         return cls(df)
@@ -85,7 +100,7 @@ class WorkoutData(pd.DataFrame):
                 df[dst] = df[src]
                 df.drop(columns=[src], inplace=True)
         return df
-    
+
     @staticmethod
     def _resample(df: pd.DataFrame, interpolate: bool = True) -> pd.DataFrame:
         df = df.copy()
@@ -106,8 +121,10 @@ class WorkoutData(pd.DataFrame):
     @property
     def extra_columns(self):
         return [col for col in self.columns if col not in DATA_TYPES]
-    
-    def best_distance_intervals(self, windows, stream="speed", distance_col="distance", **kwargs):
+
+    def best_distance_intervals(
+        self, windows, stream="speed", distance_col="distance", **kwargs
+    ):
         """
         Compute best intervals for a list of distance windows.
 
@@ -134,11 +151,13 @@ class WorkoutData(pd.DataFrame):
         if stream not in self.columns:
             raise ValueError(f"Stream '{stream}' not found in DataFrame columns.")
         if distance_col not in self.columns:
-            raise ValueError(f"Distance column '{distance_col}' not found in DataFrame columns.")
+            raise ValueError(
+                f"Distance column '{distance_col}' not found in DataFrame columns."
+            )
         y = self[stream].values
         distance = self[distance_col].values
         return multiple_best_distance_intervals(y, distance, windows, **kwargs)
-    
+
     def fastest_distance_intervals(self, windows, distance_col="distance", **kwargs):
         """
         Compute fastest intervals for a list of distance windows.
@@ -162,10 +181,12 @@ class WorkoutData(pd.DataFrame):
         if not isinstance(windows, list):
             raise ValueError("windows must be a list of distances or a single distance")
         if distance_col not in self.columns:
-            raise ValueError(f"Distance column '{distance_col}' not found in DataFrame columns.")
+            raise ValueError(
+                f"Distance column '{distance_col}' not found in DataFrame columns."
+            )
         distance = self[distance_col]
         return multiple_fastest_distance_intervals(distance, windows, **kwargs)
-    
+
     def best_intervals(self, windows, stream="speed", **kwargs):
         """
         Compute best intervals for a list of time windows.
@@ -192,7 +213,7 @@ class WorkoutData(pd.DataFrame):
             raise ValueError(f"Stream '{stream}' not found in DataFrame columns.")
         y = self[stream].values
         return multiple_best_intervals(y, windows, **kwargs)
-    
+
     def elevation_gain(self, elevation_col="elevation"):
         """
         Compute the total elevation gain.
@@ -208,5 +229,7 @@ class WorkoutData(pd.DataFrame):
             Total elevation gain in meters.
         """
         if elevation_col not in self.columns:
-            raise ValueError(f"Elevation column '{elevation_col}' not found in DataFrame columns.")
+            raise ValueError(
+                f"Elevation column '{elevation_col}' not found in DataFrame columns."
+            )
         return elevation_gain(self[elevation_col].values)

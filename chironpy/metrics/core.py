@@ -206,6 +206,7 @@ def compute_zones(y, zones=None, ftp=None, lthr=None, labels=None):
 
 #     return rv
 
+
 def best_interval(y, window, mask=None, value=0.0):
     """Compute best interval of the stream
 
@@ -249,10 +250,11 @@ def best_interval(y, window, mask=None, value=0.0):
         return {
             "value": max_mean,
             "start_index": best_start_idx,
-            "stop_index": best_end_idx
+            "stop_index": best_end_idx,
         }
     else:
         return None
+
 
 def best_distance_interval(y, distance, window, mask=None, value=0.0):
     """
@@ -284,7 +286,7 @@ def best_distance_interval(y, distance, window, mask=None, value=0.0):
 
     for start in range(n):
         # Find the stop index where the distance window is reached
-        stop = np.searchsorted(distance, distance[start] + window, side='left')
+        stop = np.searchsorted(distance, distance[start] + window, side="left")
         if stop < n:
             interval = y[start:stop]
             if len(interval) > 0:
@@ -298,12 +300,10 @@ def best_distance_interval(y, distance, window, mask=None, value=0.0):
         return {
             "value": max_mean,
             "start_index": best_start_idx,
-            "stop_index": best_end_idx
+            "stop_index": best_end_idx,
         }
     else:
         return None
-
-
 
 
 def time_in_zones(y, **kwargs):
@@ -441,6 +441,7 @@ DataPoint = namedtuple("DataPoint", ["index", "value"])
 
 #     return mean_max_bests
 
+
 def multiple_best_intervals(y, windows, mask=None, value=0.0):
     """Compute multiple best intervals
 
@@ -465,6 +466,7 @@ def multiple_best_intervals(y, windows, mask=None, value=0.0):
         result = best_interval(y, window=window, mask=mask, value=value)
         results.append(result)
     return results
+
 
 def multiple_best_distance_intervals(
     y: np.ndarray,
@@ -497,6 +499,8 @@ def multiple_best_distance_intervals(
     """
     results = []
     for window in windows:
-        result = best_distance_interval(y, distance, window=window, mask=mask, value=value)
+        result = best_distance_interval(
+            y, distance, window=window, mask=mask, value=value
+        )
         results.append(result)
     return results
