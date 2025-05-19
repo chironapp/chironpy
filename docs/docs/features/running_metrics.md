@@ -9,7 +9,7 @@ import chironpy
 example = chironpy.examples(path="18360138543_ACTIVITY_Osaka_Marathon_2025.fit")
 data = chironpy.read_file(example.path, resample=True, interpolate=True)
 
-distances = [1000, 5000, 10000, 21100] # in metres
+distances = [1000, 1500, 1608, 3000, 5000, 10000, 21100, 30000, 42200] # in metres
 bests = chironpy.metrics.core.multiple_best_distance_intervals(
     data['distance'],
     windows=distances

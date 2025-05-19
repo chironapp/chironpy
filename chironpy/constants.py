@@ -12,3 +12,8 @@ class DataTypeEnum(str, Enum):
     heartrate = "heartrate"
     temperature = "temperature"
     distance = "distance"
+
+class DataTypeEnumExtended(str, Enum):
+    is_moving = "is_moving"
+    grade = "grade"
+    time = "time"

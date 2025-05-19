@@ -5,9 +5,13 @@ from pydantic import BaseModel
 import pandas as pd
 from typing import Union, Optional
 from chironpy import read_file, read_strava
-from chironpy.constants import DataTypeEnum
+from chironpy.metrics.vert import grade_smooth_time
+from chironpy.constants import DataTypeEnum, DataTypeEnumExtended
 
-DATA_TYPES = {"time"} | {member.value for member in DataTypeEnum}
+DATA_TYPES = (
+    {member.value for member in DataTypeEnum}
+    | {member.value for member in DataTypeEnumExtended}
+)
 
 class WorkoutData(pd.DataFrame):
     @classmethod
@@ -43,6 +47,24 @@ class WorkoutData(pd.DataFrame):
         df = cls._normalize_columns(df)
         if resample:
             df = cls._resample(df, interpolate=interpolate)
+        # Add DATA_TYPES.time column: integer seconds since workout start
+        if isinstance(df.index, pd.DatetimeIndex):
+            start_time = df.index[0]
+            df[(DataTypeEnum.time if hasattr(DataTypeEnum, "time") else "time")] = (df.index - start_time).total_seconds().astype(int)
+            # rename index from 'time' to 'datetime'
+            df.index.name = "datetime"
+        # Add is_moving column if speed exists
+        if "speed" in df.columns:
+            # Consider moving if speed > 0.5 m/s (adjust threshold as needed)
+            # TODO: add a parameter to set the threshold
+            # TODO: consider a rolling window to account for GPS errors
+            df["is_moving"] = df["speed"] > 0.5
+        # Add grade column if missing and distance & elevation exist
+        if "grade" not in df.columns and "distance" in df.columns and "elevation" in df.columns:
+            try:
+                df["grade"] = grade_smooth_time(df["distance"].values, df["elevation"].values)
+            except ImportError:
+                pass  # grade_smooth_time not available
         return cls(df)
 
     @staticmethod

@@ -47,8 +47,10 @@ See [contributing](contributing.md).
 ## Contributors
 
 - [Clive Gross](https://github.com/clivegross)
-- [Maksym Sladkov](https://github.com/sladkovm) - Original Author
-- [Aart Goossens](https://github.com/AartGoossens) - Original Author
+- [Maksym Sladkov](https://github.com/sladkovm) - Original Author (sweatpy)
+- [Aart Goossens](https://github.com/AartGoossens) - Original Author (sweatpy)
+
+Credit to [Aaron Schroeder](https://github.com/aaron-schroeder) for tools for running power and elevation metrics published in [heartandsole](https://github.com/aaron-schroeder/heartandsole) and [spatialfriend](https://github.com/aaron-schroeder/spatialfriend).
 
 ## Changelog
 

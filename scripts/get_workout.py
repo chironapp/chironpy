@@ -9,8 +9,10 @@ print('loading same example marathon data from locally saved strava streams json
 example2 = os.path.join('chironpy', 'examples', 'data', '74d893f7-1349-4b2c-ac5f-60246396b8b1_local_strava_Osaka_Marathon_2025.json')
 data2 = chironpy.WorkoutData.from_file(example2)
 
+print('\nWorkoutData from FIT file:')
 print(data1.columns)
 print(data1.head())
+print('\nWorkoutData from locally saved Strava streams:')
 print(data2.columns)
 print(data2.head())
 
