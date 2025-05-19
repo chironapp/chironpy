@@ -15,6 +15,17 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [Unreleased]
+
+### Changed
+
+- Changed `test_core` tests to handle changed `best_interval` and `multiple_best_intervals`.
+
+### Fixed
+
+- Fixed linting to conform with `black` so `lint.yml` passes.
+- Removed `deprecated poetry.dev-dependencies` and updated `poetry.lock`.
+
 ## [0.28.0] - 2025-05-19
 
 ### Added
