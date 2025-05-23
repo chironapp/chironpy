@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "chironpy"
-version = "0.28.0"
+version = "0.28.1"
 description = "Workout analysis"
 license = "MIT"
 authors = ["Clive Gross <clive@chironapp.com>"]
 readme = "README.md"
-homepage = "https://github.com/chironapp/chironpy"
+homepage = "https://chironapp.github.io/chironpy/"
 repository = "https://github.com/chironapp/chironpy"
-documentation = "https://github.com/chironapp/chironpy"
+documentation = "https://chironapp.github.io/chironpy/"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0.0"

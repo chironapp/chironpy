@@ -47,27 +47,23 @@ pip install chironpy --index-url https://test.pypi.org/simple/ --extra-index-url
 
 ## Development
 
-### Validating Functionality with Scripts
+### Validating functionality
 
-The `scripts/` directory contains utility scripts to help validate the functionality of the `chironpy` library during development. Below are some examples of how to use these scripts:
-
-#### 1. **Load any activity**
-
-Use the `load_files.py` script to load and parse a `.fit`, `.gpx`, locally saved Strava `.json` file etc. Example files are provided in `chironpy/examples/data`.
-
-**Usage**:
-
-```bash
-python scripts/load_fit_file.py path/to/your/file.fit
-```
+The `examples/` directory contains utility scripts to help validate the functionality of the `chironpy` library during development.
 
 ## Contributors
 
 - [Clive Gross](https://github.com/clivegross)
-- [Maksym Sladkov](https://github.com/sladkovm) - Original Author (sweatpy)
-- [Aart Goossens](https://github.com/AartGoossens) - Original Author (sweatpy)
+- [Chiron - The endurance training platform](https://github.com/chironapp)
 
-Credit to [Aaron Schroeder](https://github.com/aaron-schroeder) for tools for running power and elevation metrics published in [heartandsole](https://github.com/aaron-schroeder/heartandsole) and [spatialfriend](https://github.com/aaron-schroeder/spatialfriend).
+Original authors ([sweatpy](https://github.com/GoldenCheetah/sweatpy)):
+
+- [Maksym Sladkov](https://github.com/sladkovm)
+- [Aart Goossens](https://github.com/AartGoossens)
+
+With thanks to:
+
+- [Aaron Schroeder](https://github.com/aaron-schroeder) for work on running power and elevation metrics published in [heartandsole](https://github.com/aaron-schroeder/heartandsole) and [spatialfriend](https://github.com/aaron-schroeder/spatialfriend).
 
 ## License
 

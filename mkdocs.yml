@@ -27,11 +27,17 @@ plugins:
 nav:
   - "index.md"
   - "Features":
-      - "features/Metrics.ipynb"
-      - "features/Power duration modelling.ipynb"
       - "features/data_loading.md"
-      - "features/running_metrics.md"
       - "features/example_data.md"
+      - "features/running_metrics.md"
+      - "features/Metrics.ipynb"
       - "features/nomenclature.md"
+  - "Legacy (sweatpy)":
+      - "legacy/data_loading.md"
+      - "legacy/Power duration modelling.ipynb"
+      - "legacy/example_data.md"
+      - "legacy/Metrics.ipynb"
+      - "legacy/nomenclature.md"
+  - "api_reference.md"
   - "changelog.md"
   - "contributing.md"
