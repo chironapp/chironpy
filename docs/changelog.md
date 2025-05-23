@@ -15,16 +15,19 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
-## [Unreleased]
+## [0.28.1] - 2025-05-23
 
 ### Changed
 
 - Changed `test_core` tests to handle changed `best_interval` and `multiple_best_intervals`.
+- Updated homepage and documentation URLs in `pyproject.toml`.
+- Improved and clarified documentation.
 
 ### Fixed
 
 - Fixed linting to conform with `black` so `lint.yml` passes.
 - Removed `deprecated poetry.dev-dependencies` and updated `poetry.lock`.
+- PyPI homepage and documentation URLs.
 
 ## [0.28.0] - 2025-05-19
 
