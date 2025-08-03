@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
 from pydantic import BaseModel
 import pandas as pd
@@ -84,6 +84,105 @@ class WorkoutData(pd.DataFrame):
                 pass  # grade_smooth_time not available
         return cls(df)
 
+    @classmethod
+    def merge_many(cls, workouts: List["WorkoutData"]) -> "WorkoutData":
+        """
+        Merge multiple WorkoutData objects into a single continuous workout.
+        
+        Parameters
+        ----------
+        workouts : List[WorkoutData]
+            List of WorkoutData objects to merge. Must contain at least one workout.
+        
+        Returns
+        -------
+        WorkoutData
+            A new WorkoutData object containing all workouts merged in chronological order.
+            
+        Raises
+        ------
+        ValueError
+            If workouts list is empty or contains non-WorkoutData objects.
+        """
+        if not workouts:
+            raise ValueError("Cannot merge empty list of workouts")
+        
+        if not all(isinstance(w, WorkoutData) for w in workouts):
+            raise ValueError("All items must be WorkoutData objects")
+        
+        if len(workouts) == 1:
+            return workouts[0].copy()
+        
+        # Sort workouts by start time (first index value)
+        sorted_workouts = sorted(workouts, key=lambda w: w.index[0])
+        
+        # Collect all DataFrames for concatenation
+        dfs_to_concat = []
+        cumulative_time_offset = 0
+        
+        for i, workout in enumerate(sorted_workouts):
+            df = workout.copy()
+            
+            if i > 0:
+                # Calculate time offset to make this workout continuous with previous ones
+                # The new workout should start where the previous one ended
+                time_offset = cumulative_time_offset
+                
+                # Adjust the datetime index
+                time_diff = pd.Timedelta(seconds=time_offset)
+                df.index = df.index + time_diff
+                
+                # Update the 'time' column if it exists (seconds since start)
+                if 'time' in df.columns:
+                    df['time'] = df['time'] + time_offset
+                    
+                # Update cumulative distance if it exists
+                if 'distance' in df.columns and i > 0:
+                    # Get the last distance from the previous combined data
+                    prev_max_distance = dfs_to_concat[-1]['distance'].iloc[-1] if 'distance' in dfs_to_concat[-1].columns else 0
+                    df['distance'] = df['distance'] + prev_max_distance
+            
+            # Update cumulative time offset for next iteration
+            if 'time' in df.columns:
+                cumulative_time_offset = df['time'].iloc[-1] + 1  # +1 second for next workout
+            else:
+                # Fallback: use the duration based on index
+                duration = (df.index[-1] - df.index[0]).total_seconds()
+                cumulative_time_offset += duration + 1
+                
+            dfs_to_concat.append(df)
+        
+        # Concatenate all DataFrames
+        merged_df = pd.concat(dfs_to_concat, ignore_index=False)
+        
+        # Sort by index to ensure proper chronological order
+        merged_df = merged_df.sort_index()
+        
+        # Create new WorkoutData from the merged DataFrame
+        # Skip resampling since we already have 1Hz data
+        result = cls(merged_df)
+        
+        # Recompute derived columns that might be affected by the merge
+        
+        # Recompute is_moving if speed exists
+        if "speed" in result.columns:
+            result["is_moving"] = result["speed"] > 0.5
+            
+        # Recompute grade if distance and elevation exist
+        if (
+            "grade" not in result.columns
+            and "distance" in result.columns
+            and "elevation" in result.columns
+        ):
+            try:
+                result["grade"] = grade_smooth_time(
+                    result["distance"].values, result["elevation"].values
+                )
+            except ImportError:
+                pass  # grade_smooth_time not available
+        
+        return result
+
     @staticmethod
     def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
         rename_map = {
@@ -121,6 +220,26 @@ class WorkoutData(pd.DataFrame):
     @property
     def extra_columns(self):
         return [col for col in self.columns if col not in DATA_TYPES]
+    
+    @property
+    def start_time(self):
+        """Get the start time of the workout."""
+        return self.index[0] if len(self) > 0 else None
+    
+    @property
+    def end_time(self):
+        """Get the end time of the workout."""
+        return self.index[-1] if len(self) > 0 else None
+    
+    @property
+    def duration(self):
+        """Get the duration of the workout in seconds."""
+        if len(self) == 0:
+            return 0
+        if 'time' in self.columns:
+            return self['time'].iloc[-1] - self['time'].iloc[0]
+        else:
+            return (self.end_time - self.start_time).total_seconds()
 
     def best_distance_intervals(
         self, windows, stream="speed", distance_col="distance", **kwargs
