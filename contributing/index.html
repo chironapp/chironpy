@@ -1,0 +1,1148 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Endurance sports analysis library for Python.">
+      
+      
+      
+        <link rel="canonical" href="https://chironapp.github.io/chironpy/contributing/">
+      
+      
+        <link rel="prev" href="../changelog/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Contributing - chironpy docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="purple" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="chironpy docs" class="md-header__button md-logo" aria-label="chironpy docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            chironpy docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/chironapp/chironpy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chironapp/chironpy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="chironpy docs" class="md-nav__button md-logo" aria-label="chironpy docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    chironpy docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/chironapp/chironpy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chironapp/chironpy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    chironpy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/data_loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data loading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/example_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/running_metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/Metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/nomenclature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Legacy (sweatpy)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Legacy (sweatpy)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy/data_loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data loading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy/Power%20duration%20modelling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Power duration modelling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy/example_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy/Metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy/nomenclature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference: WorkoutData
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-contributions-we-are-looking-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of contributions we are looking for
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ground-rules-expectations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ground rules &amp; expectations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to contribute
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-your-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up your environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code contributions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code contributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-for-merging-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements for merging code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation contributions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-integration-and-continuous-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous integration and continuous deployment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fit-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIT profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poetry-to-testpypi-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Poetry to testpypi workflow
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-contributions-we-are-looking-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of contributions we are looking for
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ground-rules-expectations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ground rules &amp; expectations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to contribute
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-your-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up your environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code contributions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code contributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-for-merging-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements for merging code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation contributions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-integration-and-continuous-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous integration and continuous deployment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fit-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIT profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poetry-to-testpypi-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Poetry to testpypi workflow
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
+<p>Thanks for checking out chironpy!</p>
+<p>We've put together the following guidelines to help you figure out where you can best be helpful.</p>
+<h2 id="types-of-contributions-we-are-looking-for">Types of contributions we are looking for<a class="headerlink" href="#types-of-contributions-we-are-looking-for" title="Permanent link">&para;</a></h2>
+<p>There are many ways you can directly contribute to this project:</p>
+<p>Contributing to documentation:</p>
+<ul>
+<li>Notify us of errors in the documentation or provide fixes for them.</li>
+<li>Suggest or provide additions to the documentation.</li>
+</ul>
+<p>Contributing to code:</p>
+<ul>
+<li>Notify us of bugs in our code or provide fixes for them.</li>
+<li>Suggest or provide new features.</li>
+</ul>
+<p>Interested in making a contribution? Read on!</p>
+<h2 id="ground-rules-expectations">Ground rules &amp; expectations<a class="headerlink" href="#ground-rules-expectations" title="Permanent link">&para;</a></h2>
+<p>Before we get started, here are a few things we expect from you (and that you should expect from others):</p>
+<ul>
+<li>Be kind and thoughtful in your conversations around this project. Try to listen to others rather than convince them that your way is correct.</li>
+<li>Be considerate that the maintainers of this project do their work on a voluntary basis: Do not expect commercial support when you did not pay for it.</li>
+<li>If you open a pull request, please ensure that your contribution passes all tests. If there are test failures, you will need to address them before we can merge your contribution.</li>
+<li>When adding content, please consider if it is widely valuable.</li>
+</ul>
+<h2 id="how-to-contribute">How to contribute<a class="headerlink" href="#how-to-contribute" title="Permanent link">&para;</a></h2>
+<p>If you'd like to contribute, start by searching through the <a href="https://github.com/chironapp/chironpy/issues">issues</a> and <a href="https://github.com/chironapp/chironpy/pulls">pull requests</a> to see whether someone else has raised a similar idea or question.</p>
+<p>If you don't see your idea listed, and you think it fits into the goals of this project, do one of the following:</p>
+<ul>
+<li><strong>If your contribution is minor,</strong> such as a typo fix, open a pull request.</li>
+<li><strong>If your contribution is major,</strong> such as a new guide, start by opening an issue first. That way, other people can weigh in on the discussion before you do any work.</li>
+</ul>
+<h2 id="setting-up-your-environment">Setting up your environment<a class="headerlink" href="#setting-up-your-environment" title="Permanent link">&para;</a></h2>
+<p>For basic contributions like additions to the docs there are no requirements besides access to git and a text editor.</p>
+<p>If you are doing code changes you need to have <code>docker</code> an <code>docker-compose</code> installed to run the test suite. Instructions can be found <a href="https://docs.docker.com/compose/install/">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>The test suite can be run outside docker but requires installing <code>poetry</code> and <code>pyenv</code> locally. In most cases using the docker workflow is easiest.</p>
+<h2 id="code-contributions">Code contributions<a class="headerlink" href="#code-contributions" title="Permanent link">&para;</a></h2>
+<p>The code for this library is located in the <code>chiron/</code> directory.
+Tests are located in <code>tests/</code>.</p>
+<h3 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
+<p>To run the full (i.e. for all supported Python versions) test suite:</p>
+<div class="codehilite"><pre><span></span><code>make<span class="w"> </span>testall
+</code></pre></div>
+
+<p>...or the equivalent <code>docker-compose</code> command.</p>
+<p>For a short test run you can also run it for only 1 Python version (usually the latest major version; currently 3.8):</p>
+<div class="codehilite"><pre><span></span><code>make<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+
+<p>...or the equivalent <code>docker-compose</code> command.</p>
+<p>To run tests only for a specific Python version, like Python 3.8:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">toxargs</span><span class="o">=</span><span class="s2">&quot;-e py38&quot;</span><span class="w"> </span>make<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+
+<p>For a list of available Python version, see the <code>envlist</code> variable in <code>pyproject.toml</code>.
+The <code>toxargs</code> environment variable can also be used to pass other settings to <a href="https://tox.readthedocs.io/en/latest/">tox</a>.</p>
+<p>To only run specific tests, e.g. only that match "test_read_fit":</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">pytestargs</span><span class="o">=</span><span class="s2">&quot;-k test_read_fit&quot;</span><span class="w"> </span>make<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+
+<p>See the <a href="https://docs.pytest.org/en/stable/usage.html#specifying-tests-selecting-tests">pytest documentation</a> for more information on selecting tests.
+The <code>pytestargs</code> environment variable can also be used to pass other settings to <a href="https://docs.pytest.org/en/stable/">pytest</a>.</p>
+<p>Code linting checks can be run with <code>make lint</code> or the equivalent <code>docker-compose</code> command.</p>
+<h3 id="git-flow">Git flow<a class="headerlink" href="#git-flow" title="Permanent link">&para;</a></h3>
+<p>If you're new to git, <a href="https://try.github.io/">this</a> is a good place to start.</p>
+<p>For this project we adopted a slightly modified version of the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Gitflow Workflow</a> (or more specifically, the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow">Forking workflow</a>.
+The difference is that we only work with a master branch in the central repository, so all pull requests are made from feature branches in the forked repositories directly to the master branch of the central repository.
+We realize that there are downsides to this flow but as it is easiest for maintainers we decided to adopt it.</p>
+<p>The general workflow will be:</p>
+<ul>
+<li>Create a fork of the central repository and check it out locally if you have not done so yet.</li>
+<li>Create a new feature branch (<code>feature/{your_new_feature}</code>)</li>
+<li>Make all the required changes in the repo.</li>
+<li>Commit your changes in a single commit and push to your fork.</li>
+<li>Create a pull request from the feature branch in your fork to the master branch of the central repository.</li>
+<li>When all checks pass, your changes will be merged to master.</li>
+</ul>
+<h3 id="requirements-for-merging-code">Requirements for merging code<a class="headerlink" href="#requirements-for-merging-code" title="Permanent link">&para;</a></h3>
+<p>This list is not perfect, probably not complete and probably overly strict as well. We use it as a general guide line for all contributions to our code.</p>
+<ul>
+<li>New features should be generic and not specific to one user or use-case.</li>
+<li>New features should be properly unittested. Take a look at existings tests to get you started. Do not forget to test your <a href="https://en.wikipedia.org/wiki/Happy_path">unhappy paths</a> too!</li>
+<li>All tests should pass.</li>
+<li>The code should pass the linting check with Black.</li>
+<li>New features should include some documentation with at least a basic example.</li>
+<li>New features that include models or algorithms should state where it is coming from (e.g. a scientific article) in the documentation.</li>
+</ul>
+<h2 id="documentation-contributions">Documentation contributions<a class="headerlink" href="#documentation-contributions" title="Permanent link">&para;</a></h2>
+<p>Documentation is built with <a href="https://www.mkdocs.org/">mkdocs</a> with the <a href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a> theme and is located in the <code>docs/</code> directory.
+Confusingly (but that's how mkdocs works by default so we kept it that way) the actual source files of the docs are in the <code>docs/docs/</code> directory.
+The home page (or root of the docs) is <code>docs/docs/index.md</code>.</p>
+<p>New markdown files that are added to the <code>docs/docs/</code> directory are rendered as sub-pages and automatically added to the left navigation pane.
+New directories that are added to the <code>docs/docs/</code> directory are added as new sections and automatically added also added to the left navigation pane.</p>
+<p>To run the docs dev-server run <code>make docs</code> (or the equivalent <code>docker-compose</code> command, see the <code>Makefile</code>). The documentation is now available for you at <a href="http://localhost:8000">http://localhost:8000</a>.
+The <code>make docs</code> command also runs a Jupyter notebook server at <a href="http://localhost:8888">http://localhost:8888</a> which can be used to easily create documentation with code examples (please note that you can also add inline code blocks in regular markdown files). Jupyter notebook files (ending in ".ipynb") are automatically rendered as documentation too.</p>
+<ul>
+<li>More information on working with markdown can be found <a href="https://guides.github.com/features/mastering-markdown/">here</a>.</li>
+<li>More information on working with Jupyter notebooks can be found <a href="https://jupyter-notebook.readthedocs.io/en/stable/notebook.html">here</a>.</li>
+</ul>
+<h2 id="example-data">Example data<a class="headerlink" href="#example-data" title="Permanent link">&para;</a></h2>
+<p>Example data is stored in <code>/chiron/examples/data/</code>.
+Every new data that is added needs to be added to <code>chiron/examples/index.yml</code> too.
+See <a href="../features/example_data/">Example data</a> for how to use the example data.</p>
+<h2 id="continuous-integration-and-continuous-deployment">Continuous integration and continuous deployment<a class="headerlink" href="#continuous-integration-and-continuous-deployment" title="Permanent link">&para;</a></h2>
+<p>This repo is setup with Github Actions that are triggered on specific events:</p>
+<ul>
+<li>The test suite and linting checks are triggered at each push and pull request.</li>
+<li>When a new release is created on the central repo, a new version of this package is published to PyPi and new documentation is published.</li>
+</ul>
+<p><em>(This document is very much inspired by opensource.guide's <a href="https://github.com/github/opensource.guide/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>)</em></p>
+<h2 id="fit-profile">FIT profile<a class="headerlink" href="#fit-profile" title="Permanent link">&para;</a></h2>
+<p>The Profile.xlsx that is included in the Garmin FIT SDK (https://developer.garmin.com/fit/download/) is included in the source code as a JSON file (<code>chiron/io/fit_profile.jons</code>).
+Garmin regularly updates this file when new devices are introduced.
+Updating the JSON can be done by running:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">chironpy.io</span> <span class="kn">import</span> <span class="n">fit</span>
+<span class="n">fit</span><span class="o">.</span><span class="n">_import_fit_profile</span><span class="p">(</span><span class="s2">&quot;path/to/new/Profile.xlsx&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>...the new JSON file is than replaced in the source directory.</p>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>poetry run pytest
+</code></pre></div>
+
+<h2 id="poetry-to-testpypi-workflow">Poetry to testpypi workflow<a class="headerlink" href="#poetry-to-testpypi-workflow" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span><span class="nv">setup</span><span class="w"> </span><span class="nv">poetry</span><span class="w"> </span><span class="nv">global</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">testpypi</span>
+<span class="nv">poetry</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="nv">repositories</span>.<span class="nv">testpypi</span><span class="w"> </span><span class="nv">https</span>:<span class="o">//</span><span class="nv">test</span>.<span class="nv">pypi</span>.<span class="nv">org</span><span class="o">/</span><span class="nv">legacy</span><span class="o">/</span>
+<span class="nv">poetry</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="nv">pypi</span><span class="o">-</span><span class="nv">token</span>.<span class="nv">testpypi</span><span class="w"> </span><span class="nv">pypi</span><span class="o">-</span><span class="nv">APIKEY123</span>
+#<span class="w"> </span><span class="nv">build</span>
+<span class="nv">poetry</span><span class="w"> </span><span class="nv">build</span>
+#<span class="w"> </span><span class="nv">publish</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">testpypi</span>
+<span class="nv">poetry</span><span class="w"> </span><span class="nv">publish</span><span class="w"> </span><span class="o">--</span><span class="nv">repository</span><span class="w"> </span><span class="nv">testpypi</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,919 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Endurance sports analysis library for Python.">
+      
+      
+      
+        <link rel="canonical" href="https://chironapp.github.io/chironpy/features/running_metrics/">
+      
+      
+        <link rel="prev" href="../example_data/">
+      
+      
+        <link rel="next" href="../Metrics/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Running Metrics - chironpy docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="purple" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#running-metrics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="chironpy docs" class="md-header__button md-logo" aria-label="chironpy docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            chironpy docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Running Metrics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/chironapp/chironpy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chironapp/chironpy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="chironpy docs" class="md-nav__button md-logo" aria-label="chironpy docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    chironpy docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/chironapp/chironpy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    chironapp/chironpy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    chironpy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data loading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Running Metrics
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running Metrics
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-workoutdata-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the WorkoutData class
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyse-workout-file-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyse workout file directly
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nomenclature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Legacy (sweatpy)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Legacy (sweatpy)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../legacy/data_loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data loading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../legacy/Power%20duration%20modelling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Power duration modelling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../legacy/example_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Example data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../legacy/Metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../legacy/nomenclature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nomenclature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference: WorkoutData
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-workoutdata-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the WorkoutData class
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyse-workout-file-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyse workout file directly
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="running-metrics">Running Metrics<a class="headerlink" href="#running-metrics" title="Permanent link">&para;</a></h1>
+<p>Get best efforts (fastest times), best heart rate, elevation etc for a list of distances or durations within an activity file.</p>
+<h2 id="use-the-workoutdata-class">Use the <code>WorkoutData</code> class<a class="headerlink" href="#use-the-workoutdata-class" title="Permanent link">&para;</a></h2>
+<p>Load the file into a <code>WorkoutData</code> instance:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">chironpy</span>
+<span class="kn">from</span> <span class="nn">chironpy</span> <span class="kn">import</span> <span class="n">WorkoutData</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading example marathon data from FIT file...&#39;</span><span class="p">)</span>
+<span class="n">example1</span> <span class="o">=</span> <span class="n">chironpy</span><span class="o">.</span><span class="n">examples</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;18360138543_ACTIVITY_Osaka_Marathon_2025.fit&quot;</span><span class="p">)</span>
+<span class="n">data1</span> <span class="o">=</span> <span class="n">WorkoutData</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">example1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">WorkoutData from FIT file:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div>
+
+<p>Outputs:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">WorkoutData</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">FIT</span><span class="w"> </span><span class="nx">file</span><span class="p">:</span>
+<span class="nx">Index</span><span class="p">([</span><span class="err">&#39;</span><span class="nx">latitude</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">longitude</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">distance</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">unknown_87</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">heartrate</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">       </span><span class="err">&#39;</span><span class="nx">cadence</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">temperature</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">fractional_cadence</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">unknown_135</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">       </span><span class="err">&#39;</span><span class="nx">unknown_136</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">record_sequence</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">unknown_90</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">session</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">lap</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">       </span><span class="err">&#39;</span><span class="nx">speed</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">elevation</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">time</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">is_moving</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">grade</span><span class="err">&#39;</span><span class="p">],</span>
+<span class="w">      </span><span class="nx">dtype</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">object</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="w">                            </span><span class="nx">latitude</span><span class="w">   </span><span class="nx">longitude</span><span class="w">  </span><span class="nx">distance</span><span class="w">  </span><span class="nx">unknown_87</span><span class="w">  </span><span class="nx">heartrate</span><span class="w">  </span><span class="o">...</span><span class="w">   </span><span class="nx">speed</span><span class="w">  </span><span class="nx">elevation</span><span class="w">  </span><span class="nx">time</span><span class="w">  </span><span class="nx">is_moving</span><span class="w">     </span><span class="nx">grade</span>
+<span class="nx">datetime</span><span class="w">                                                                           </span><span class="o">...</span>
+<span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">21</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="w">  </span><span class="m m-Double">34.686225</span><span class="w">  </span><span class="m m-Double">135.520607</span><span class="w">     </span><span class="m m-Double">0.000</span><span class="w">       </span><span class="m m-Double">146.0</span><span class="w">       </span><span class="m m-Double">80.0</span><span class="w">  </span><span class="o">...</span><span class="w">  </span><span class="m m-Double">1.7640</span><span class="w">      </span><span class="m m-Double">23.40</span><span class="w">     </span><span class="mi">0</span><span class="w">       </span><span class="nx">True</span><span class="w">  </span><span class="m m-Double">0.000000</span>
+<span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">22</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="w">  </span><span class="m m-Double">34.686248</span><span class="w">  </span><span class="m m-Double">135.520601</span><span class="w">     </span><span class="m m-Double">2.572</span><span class="w">       </span><span class="m m-Double">116.8</span><span class="w">       </span><span class="m m-Double">80.8</span><span class="w">  </span><span class="o">...</span><span class="w">  </span><span class="m m-Double">1.8778</span><span class="w">      </span><span class="m m-Double">23.36</span><span class="w">     </span><span class="mi">1</span><span class="w">       </span><span class="nx">True</span><span class="w"> </span><span class="o">-</span><span class="m m-Double">0.029455</span>
+<span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">23</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="w">  </span><span class="m m-Double">34.686270</span><span class="w">  </span><span class="m m-Double">135.520595</span><span class="w">     </span><span class="m m-Double">5.144</span><span class="w">        </span><span class="m m-Double">87.6</span><span class="w">       </span><span class="m m-Double">81.6</span><span class="w">  </span><span class="o">...</span><span class="w">  </span><span class="m m-Double">1.9916</span><span class="w">      </span><span class="m m-Double">23.32</span><span class="w">     </span><span class="mi">2</span><span class="w">       </span><span class="nx">True</span><span class="w"> </span><span class="o">-</span><span class="m m-Double">0.029933</span>
+<span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">24</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="w">  </span><span class="m m-Double">34.686293</span><span class="w">  </span><span class="m m-Double">135.520589</span><span class="w">     </span><span class="m m-Double">7.716</span><span class="w">        </span><span class="m m-Double">58.4</span><span class="w">       </span><span class="m m-Double">82.4</span><span class="w">  </span><span class="o">...</span><span class="w">  </span><span class="m m-Double">2.1054</span><span class="w">      </span><span class="m m-Double">23.28</span><span class="w">     </span><span class="mi">3</span><span class="w">       </span><span class="nx">True</span><span class="w"> </span><span class="o">-</span><span class="m m-Double">0.030411</span>
+<span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="w">  </span><span class="m m-Double">34.686316</span><span class="w">  </span><span class="m m-Double">135.520583</span><span class="w">    </span><span class="m m-Double">10.288</span><span class="w">        </span><span class="m m-Double">29.2</span><span class="w">       </span><span class="m m-Double">83.2</span><span class="w">  </span><span class="o">...</span><span class="w">  </span><span class="m m-Double">2.2192</span><span class="w">      </span><span class="m m-Double">23.24</span><span class="w">     </span><span class="mi">4</span><span class="w">       </span><span class="nx">True</span><span class="w"> </span><span class="o">-</span><span class="m m-Double">0.030890</span>
+
+<span class="p">[</span><span class="mi">5</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="mi">19</span><span class="w"> </span><span class="nx">columns</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Compute fastest efforts, maximum average heart rate etc over a range of distances within the workout:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">21100</span><span class="p">]</span>
+
+<span class="n">fastest1</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">fastest_distance_intervals</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+<span class="n">best_hr1</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">best_distance_intervals</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="s1">&#39;heartrate&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">####</span><span class="se">\n</span><span class="s1">Best efforts over </span><span class="si">{</span><span class="n">distances</span><span class="si">}</span><span class="s1"> meters for </span><span class="si">{</span><span class="n">example1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">best</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fastest1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pace</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pace</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">60</span> <span class="o">/</span> <span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="n">pace</span><span class="p">,</span> <span class="n">best</span><span class="p">,</span> <span class="s2">&quot;heartrate:&quot;</span><span class="p">,</span> <span class="n">best_hr1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div>
+
+<p>Outputs:</p>
+<div class="codehilite"><pre><span></span><code><span class="gu">##</span>##
+Best efforts over [1000, 5000, 10000, 21100] meters for chironpy/examples/data/18360138543_ACTIVITY_Osaka_Marathon_2025.fit
+1.0km 3.1666666666666665 {&#39;value&#39;: 190, &#39;distance&#39;: 1000, &#39;speed&#39;: 5.2631578947368425, &#39;start_index&#39;: 5845, &#39;stop_index&#39;: 6035} heartrate: {&#39;value&#39;: 194.14252336448598, &#39;start_index&#39;: 3896, &#39;stop_index&#39;: 4110}
+5.0km 3.356666666666667 {&#39;value&#39;: 1007, &#39;distance&#39;: 5000, &#39;speed&#39;: 4.965243296921549, &#39;start_index&#39;: 574, &#39;stop_index&#39;: 1581} heartrate: {&#39;value&#39;: 192.1921606118547, &#39;start_index&#39;: 3540, &#39;stop_index&#39;: 4586}
+10.0km 3.405 {&#39;value&#39;: 2043, &#39;distance&#39;: 10000, &#39;speed&#39;: 4.894762604013706, &#39;start_index&#39;: 483, &#39;stop_index&#39;: 2526} heartrate: {&#39;value&#39;: 191.01557259223767, &#39;start_index&#39;: 2562, &#39;stop_index&#39;: 4649}
+21.1km 3.4368088467614535 {&#39;value&#39;: 4351, &#39;distance&#39;: 21100, &#39;speed&#39;: 4.849459894277178, &#39;start_index&#39;: 156, &#39;stop_index&#39;: 4507} heartrate: {&#39;value&#39;: 188.79730962152303, &#39;start_index&#39;: 2733, &#39;stop_index&#39;: 7119}
+</code></pre></div>
+
+<p>Or compute fastest efforts, max average heart rate etc over a range of durations:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">durations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1800</span><span class="p">,</span> <span class="mi">3600</span><span class="p">]</span>
+
+<span class="n">fastest1</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">best_intervals</span><span class="p">(</span><span class="n">durations</span><span class="p">,</span> <span class="s1">&#39;speed&#39;</span><span class="p">)</span>
+<span class="n">best_hr1</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">best_intervals</span><span class="p">(</span><span class="n">durations</span><span class="p">,</span> <span class="s1">&#39;heartrate&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">####</span><span class="se">\n</span><span class="s1">Best efforts over </span><span class="si">{</span><span class="n">durations</span><span class="si">}</span><span class="s1"> seconds for </span><span class="si">{</span><span class="n">example1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">best</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fastest1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pace</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pace</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">60</span> <span class="o">/</span> <span class="n">durations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">durations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="n">pace</span><span class="p">,</span> <span class="n">best</span><span class="p">,</span> <span class="s2">&quot;heartrate:&quot;</span><span class="p">,</span> <span class="n">best_hr1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">best_20min_hr</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">best_intervals</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="s1">&#39;heartrate&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">####</span><span class="se">\n</span><span class="s1">Best 20min heartrate for </span><span class="si">{</span><span class="n">example1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">best_20min_hr</span><span class="si">}</span><span class="s1"> bpm&#39;</span><span class="p">)</span>
+<span class="n">best_5k_hr</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">fastest_distance_intervals</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="s1">&#39;heartrate&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Best 5k heartrate for </span><span class="si">{</span><span class="n">example1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">best_5k_hr</span><span class="si">}</span><span class="s1"> bpm&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Outputs:</p>
+<div class="codehilite"><pre><span></span><code><span class="gu">##</span>##
+Best efforts over [30, 60, 120, 180, 300, 600, 1200, 1800, 3600] seconds for chironpy/examples/data/18360138543_ACTIVITY_Osaka_Marathon_2025.fit
+0.5min 2.948777777777778 {&#39;value&#39;: 5.3078, &#39;start_index&#39;: 759, &#39;stop_index&#39;: 789} heartrate: {&#39;value&#39;: 200.1, &#39;start_index&#39;: 4073, &#39;stop_index&#39;: 4103}
+1.0min 1.4249706018518515 {&#39;value&#39;: 5.1298941666666655, &#39;start_index&#39;: 745, &#39;stop_index&#39;: 805} heartrate: {&#39;value&#39;: 199.125, &#39;start_index&#39;: 4041, &#39;stop_index&#39;: 4101}
+2.0min 0.7000248842592592 {&#39;value&#39;: 5.040179166666666, &#39;start_index&#39;: 500, &#39;stop_index&#39;: 620} heartrate: {&#39;value&#39;: 196.74166666666667, &#39;start_index&#39;: 4018, &#39;stop_index&#39;: 4138}
+3.0min 0.4646144547325102 {&#39;value&#39;: 5.0178361111111105, &#39;start_index&#39;: 442, &#39;stop_index&#39;: 622} heartrate: {&#39;value&#39;: 194.50277777777777, &#39;start_index&#39;: 3957, &#39;stop_index&#39;: 4137}
+5.0min 0.27489444444444444 {&#39;value&#39;: 4.9481, &#39;start_index&#39;: 262, &#39;stop_index&#39;: 562} heartrate: {&#39;value&#39;: 193.435, &#39;start_index&#39;: 3849, &#39;stop_index&#39;: 4149}
+10.0min 0.13661450462962962 {&#39;value&#39;: 4.918122166666667, &#39;start_index&#39;: 230, &#39;stop_index&#39;: 830} heartrate: {&#39;value&#39;: 192.84483333333333, &#39;start_index&#39;: 3540, &#39;stop_index&#39;: 4140}
+20.0min 0.0670034201388889 {&#39;value&#39;: 4.824246250000001, &#39;start_index&#39;: 4395, &#39;stop_index&#39;: 5595} heartrate: {&#39;value&#39;: 192.175, &#39;start_index&#39;: 3373, &#39;stop_index&#39;: 4573}
+30.0min 0.044466041666666664 {&#39;value&#39;: 4.8023324999999994, &#39;start_index&#39;: 3966, &#39;stop_index&#39;: 5766} heartrate: {&#39;value&#39;: 191.59044444444444, &#39;start_index&#39;: 2720, &#39;stop_index&#39;: 4520}
+60.0min 0.021955931712962964 {&#39;value&#39;: 4.742481250000001, &#39;start_index&#39;: 2865, &#39;stop_index&#39;: 6465} heartrate: {&#39;value&#39;: 189.61708333333334, &#39;start_index&#39;: 2137, &#39;stop_index&#39;: 5737}
+
+<span class="gu">##</span>##
+Best 20min heartrate for chironpy/examples/data/18360138543_ACTIVITY_Osaka_Marathon_2025.fit: {&#39;value&#39;: 192.175, &#39;start_index&#39;: 3373, &#39;stop_index&#39;: 4573} bpm
+Best 5k heartrate for chironpy/examples/data/18360138543_ACTIVITY_Osaka_Marathon_2025.fit: None bpm
+</code></pre></div>
+
+<p>Elevation gain:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total elevation gain for </span><span class="si">{</span><span class="n">example1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">data1</span><span class="o">.</span><span class="n">elevation_gain</span><span class="p">()</span><span class="si">}</span><span class="s1"> m&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Outputs:</p>
+<div class="codehilite"><pre><span></span><code>Total elevation gain for chironpy/examples/data/18360138543_ACTIVITY_Osaka_Marathon_2025.fit: 286.0000000000019 m
+</code></pre></div>
+
+<h2 id="analyse-workout-file-directly">Analyse workout file directly<a class="headerlink" href="#analyse-workout-file-directly" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">chironpy</span>
+
+<span class="n">example</span> <span class="o">=</span> <span class="n">chironpy</span><span class="o">.</span><span class="n">examples</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;18360138543_ACTIVITY_Osaka_Marathon_2025.fit&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">chironpy</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">1608</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">21100</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">42200</span><span class="p">]</span> <span class="c1"># in metres</span>
+<span class="n">bests</span> <span class="o">=</span> <span class="n">chironpy</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">multiple_fastest_distance_intervals</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">],</span>
+    <span class="n">windows</span><span class="o">=</span><span class="n">distances</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;best efforts over </span><span class="si">{</span><span class="n">distances</span><span class="si">}</span><span class="s1">m for </span><span class="si">{</span><span class="n">example</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">best</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bests</span><span class="p">):</span>
+    <span class="n">pace</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">60</span> <span class="o">/</span> <span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span> <span class="c1"># min/km</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="n">pace</span><span class="p">,</span> <span class="n">best</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Outputs:</p>
+<div class="codehilite"><pre><span></span><code>best efforts over [1000, 5000, 10000, 21100] for chironpy/examples/data/18360138543_ACTIVITY_Osaka_Marathon_2025.fit
+1.0km 3.1666666666666665 {&#39;value&#39;: 190, &#39;start_index&#39;: 5845, &#39;stop_index&#39;: 6035}
+5.0km 3.356666666666667 {&#39;value&#39;: 1007, &#39;start_index&#39;: 574, &#39;stop_index&#39;: 1581}
+10.0km 3.405 {&#39;value&#39;: 2043, &#39;start_index&#39;: 483, &#39;stop_index&#39;: 2526}
+21.1km 3.4368088467614535 {&#39;value&#39;: 4351, &#39;start_index&#39;: 156, &#39;stop_index&#39;: 4507}
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
