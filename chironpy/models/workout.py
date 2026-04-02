@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel
 import pandas as pd
@@ -109,7 +109,7 @@ class WorkoutData(pd.DataFrame):
             df["time"] = df.index
         df["time"] = pd.to_datetime(df["time"])
         df.set_index("time", inplace=True)
-        df = df.resample("1S").mean(numeric_only=True)
+        df = df.resample("1s").mean(numeric_only=True)
         if interpolate:
             df = df.interpolate(method="linear", limit_direction="both")
         return df
@@ -233,3 +233,112 @@ class WorkoutData(pd.DataFrame):
                 f"Elevation column '{elevation_col}' not found in DataFrame columns."
             )
         return elevation_gain(self[elevation_col].values)
+
+    @classmethod
+    def merge_many(
+        cls,
+        workouts: List["WorkoutData"],
+        resample: bool = True,
+        interpolate: bool = False,
+    ) -> "WorkoutData":
+        """
+        Merge multiple WorkoutData instances into a single WorkoutData object.
+
+        Workouts are sorted by their start timestamp before merging. If two workouts
+        overlap in time, the later workout's data takes precedence for the overlapping
+        timestamps. Time gaps between workouts are preserved: after resampling to 1 Hz,
+        all data columns (speed, heart rate, power, etc.) are ``NaN`` during the gap
+        while the ``time`` column continues to reflect real elapsed seconds (including
+        the gap period).
+
+        Parameters
+        ----------
+        workouts : list of WorkoutData
+            The workout objects to merge. Must contain at least one element.
+        resample : bool, optional
+            Whether to resample the merged result to 1 Hz. Default is ``True``.
+        interpolate : bool, optional
+            Whether to linearly interpolate ``NaN`` values after resampling.
+            Default is ``False``, which preserves ``NaN`` values in the time gaps
+            between workouts.
+
+        Returns
+        -------
+        WorkoutData
+            A new ``WorkoutData`` object representing the merged workout.
+
+        Raises
+        ------
+        ValueError
+            If ``workouts`` is an empty list.
+
+        Examples
+        --------
+        Merge a warm-up and a main set recorded as separate files:
+
+        >>> warmup = WorkoutData.from_file("warmup.fit")
+        >>> main = WorkoutData.from_file("main.fit")
+        >>> merged = WorkoutData.merge_many([warmup, main])
+
+        The ``time`` column of *merged* starts at 0 and increases continuously,
+        including the gap between the two workouts. Data columns are ``NaN``
+        during the gap (when ``interpolate=False``).
+        """
+        if not workouts:
+            raise ValueError("No workouts to merge.")
+
+        # Strip the derived `time` column so _resample can correctly re-index
+        # from the DatetimeIndex. Also convert to plain DataFrames to avoid
+        # recursion issues with the WorkoutData subclass during concat.
+        frames = []
+        for w in workouts:
+            df = pd.DataFrame(w).drop(columns=["time"], errors="ignore")
+            frames.append(df)
+
+        # Sort ascending by each workout's first timestamp
+        frames.sort(key=lambda df: df.index[0])
+
+        combined = pd.concat(frames)
+
+        # For overlapping timestamps keep the later workout's data (keep="last"
+        # after sorting frames by start time means the later-starting workout's
+        # rows appear later in the concatenation and therefore "win").
+        combined = combined[~combined.index.duplicated(keep="last")]
+        combined.sort_index(inplace=True)
+
+        return cls.from_raw(combined, resample=resample, interpolate=interpolate)
+
+    def merge(
+        self,
+        other: "WorkoutData",
+        resample: bool = True,
+        interpolate: bool = False,
+    ) -> "WorkoutData":
+        """
+        Merge this workout with another ``WorkoutData`` object.
+
+        This is a convenience wrapper around :meth:`merge_many`.
+
+        Parameters
+        ----------
+        other : WorkoutData
+            The other workout to merge with.
+        resample : bool, optional
+            Whether to resample the merged result to 1 Hz. Default is ``True``.
+        interpolate : bool, optional
+            Whether to linearly interpolate ``NaN`` values after resampling.
+            Default is ``False``, which preserves ``NaN`` values in the time gap
+            between workouts.
+
+        Returns
+        -------
+        WorkoutData
+            A new ``WorkoutData`` object representing the merged workout.
+
+        Examples
+        --------
+        >>> warmup = WorkoutData.from_file("warmup.fit")
+        >>> main = WorkoutData.from_file("main.fit")
+        >>> merged = warmup.merge(main)
+        """
+        return WorkoutData.merge_many([self, other], resample=resample, interpolate=interpolate)

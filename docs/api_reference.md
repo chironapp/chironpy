@@ -39,6 +39,51 @@ Load a workout from a `.fit`, `.gpx` or `.tcx` file or locally saved Strava stre
 
 Load a workout from Strava using its API client.
 
+### `merge_many(workouts, resample=True, interpolate=False) -> WorkoutData`
+
+Merge a list of `WorkoutData` instances into a single continuous `WorkoutData` object.
+
+Workouts are automatically sorted by their start timestamp before merging. The merged result uses the earliest start time as `t=0` and the `time` column reflects **real elapsed seconds**, including any time gaps between workouts. During the gap, all data columns (`speed`, `heartrate`, `power`, etc.) are `NaN`.
+
+If two workouts overlap in time, the **later workout's** data takes precedence for the overlapping timestamps.
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `workouts` | `list[WorkoutData]` | — | Workout objects to merge. Must be non-empty. |
+| `resample` | `bool` | `True` | Resample the merged result to 1 Hz. |
+| `interpolate` | `bool` | `False` | Linearly interpolate `NaN` values after resampling. Set to `True` to bridge the gap between workouts. |
+
+**Raises** `ValueError` if `workouts` is an empty list.
+
+**Example:**
+
+```python
+from chironpy import WorkoutData
+
+warmup = WorkoutData.from_file("warmup.fit")
+main   = WorkoutData.from_file("main.fit")
+cooldown = WorkoutData.from_file("cooldown.fit")
+
+merged = WorkoutData.merge_many([warmup, main, cooldown])
+# merged.time starts at 0 and reflects real elapsed time including gaps.
+# Data columns are NaN during the gaps (interpolate=False by default).
+```
+
+---
+
+### `merge(other, **kwargs) -> WorkoutData`
+
+Convenience instance method that merges this workout with `other`. Equivalent to calling `WorkoutData.merge_many([self, other], **kwargs)`.
+
+**Example:**
+
+```python
+warmup = WorkoutData.from_file("warmup.fit")
+main   = WorkoutData.from_file("main.fit")
+
+merged = warmup.merge(main)
+```
+
 ---
 
 ## Instance Methods
