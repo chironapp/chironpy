@@ -1,5 +1,35 @@
 # Contributing
 
+Thanks for checking out chironpy!
+
+## Types of contributions we are looking for
+
+Contributing to documentation:
+
+- Notify us of errors in the documentation or provide fixes for them.
+- Suggest or provide additions to the documentation.
+
+Contributing to code:
+
+- Notify us of bugs in our code or provide fixes for them.
+- Suggest or provide new features.
+
+## Ground rules & expectations
+
+- Be kind and thoughtful in your conversations around this project.
+- Be considerate that the maintainers of this project do their work on a voluntary basis: do not expect commercial support when you did not pay for it.
+- If you open a pull request, please ensure that your contribution passes all tests. If there are test failures, you will need to address them before we can merge your contribution.
+- When adding content, please consider if it is widely valuable.
+
+## How to contribute
+
+Start by searching through the [issues](https://github.com/chironapp/chironpy/issues) and [pull requests](https://github.com/chironapp/chironpy/pulls) to see whether someone else has raised a similar idea or question.
+
+- **If your contribution is minor,** such as a typo fix, open a pull request.
+- **If your contribution is major,** such as a new feature or guide, start by opening an issue first.
+
+---
+
 ## Environment Setup
 
 ### Prerequisites
@@ -93,6 +123,15 @@ make lint
 poetry run black .
 ```
 
+## Requirements for merging code
+
+- New features should be generic and not specific to one user or use-case.
+- New features should be properly unit tested. Do not forget to test your [unhappy paths](https://en.wikipedia.org/wiki/Happy_path) too.
+- All tests should pass.
+- The code should pass the linting check with Black.
+- New features should include documentation with at least a basic example.
+- New features that include models or algorithms should cite the source (e.g. a scientific article) in the documentation.
+
 ---
 
 ## Building Docs
@@ -100,6 +139,33 @@ poetry run black .
 ```bash
 make docs
 ```
+
+Documentation source files are in the `docs/` directory. Markdown and Jupyter notebook (`.ipynb`) files are both rendered as pages. To add a new page, add the file and include it in the `nav` section of `mkdocs.yml`.
+
+---
+
+## Example data
+
+Example workout files are stored in `chironpy/examples/data/`. Every new file added there must also be registered in `chironpy/examples/index.yml`. See the [example data docs](https://chironapp.github.io/chironpy/features/example_data/) for usage.
+
+---
+
+## FIT profile
+
+The `Profile.xlsx` from the [Garmin FIT SDK](https://developer.garmin.com/fit/download/) is stored in the repo as `chironpy/io/fit_profile.json`. To update it when Garmin releases a new SDK version:
+
+```python
+from chironpy.io import fit
+fit._import_fit_profile("path/to/new/Profile.xlsx")
+```
+
+---
+
+## Continuous integration
+
+- Tests and linting run on every push and pull request.
+- On every push to `master`, the documentation site is automatically redeployed.
+- On every new GitHub Release, the package is published to PyPI and the docs are redeployed.
 
 ---
 

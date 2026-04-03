@@ -25,6 +25,7 @@ testall:
 	docker-compose -f docker/docker-compose.test.yml run chironpy
 
 docs:
+	cp CONTRIBUTING.md docs/CONTRIBUTING.md
 	docker-compose -f docker/docker-compose.docs.yml up --remove-orphans
 
 build_docs:
