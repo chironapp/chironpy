@@ -1,294 +1,311 @@
-- path: '4078723797.fit'
+- path: "18360138543_ACTIVITY_Osaka_Marathon_2025.fit"
   description: |
-      Synced to Garmin Connect and then downloaded as original file.
-  sport: 'cycling'
-  file_type: 'FIT'
-  recording_device: 'Garmin Edge 1000'
-  sensors:
-    - name: 'Wahoo Tickr X'
-      data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
-      data_types:
-        - 'power'
-        - 'left-right balance'
-        - 'cadence'
+    Osaka Marathon 2025. Synced to Garmin Connect and downloaded as original FIT file.
+  sport: "running"
+  file_type: "FIT"
+  recording_device: "Garmin Forerunner 745"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'speed'
-    - 'power'
-    - 'left-right balance'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "distance"
+    - "enhanced_speed"
+    - "enhanced_altitude"
+    - "heartrate"
+    - "cadence"
+    - "temperature"
+  laps: 10
+  sessions: 1
+- path: "4078723797.fit"
+  description: |
+    Synced to Garmin Connect and then downloaded as original file.
+  sport: "cycling"
+  file_type: "FIT"
+  recording_device: "Garmin Edge 1000"
+  sensors:
+    - name: "Wahoo Tickr X"
+      data_types:
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
+      data_types:
+        - "power"
+        - "left-right balance"
+        - "cadence"
+  included_data:
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "power"
+    - "left-right balance"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
   laps: 1
   sessions: 1
-- path: 'activity_4078723797.tcx'
+- path: "activity_4078723797.tcx"
   description: |
-      Same activity as 4078723797.fit but exported from Garmin Connect as .tcx.
-  sport: 'cycling'
-  file_type: 'TCX'
-  recording_device: 'Garmin Edge 1000'
+    Same activity as 4078723797.fit but exported from Garmin Connect as .tcx.
+  sport: "cycling"
+  file_type: "TCX"
+  recording_device: "Garmin Edge 1000"
   sensors:
-    - name: 'Wahoo Tickr X'
+    - name: "Wahoo Tickr X"
       data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
       data_types:
-        - 'power'
-        - 'cadence'
+        - "power"
+        - "cadence"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'speed'
-    - 'power'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'distance'
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "power"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "distance"
   laps: 1
   sessions: 1
-- path: 'activity_4078723797.gpx'
+- path: "activity_4078723797.gpx"
   description: |
-      Same activity as 4078723797.fit but exported from Garmin Connect as .gpx.
-  sport: 'cycling'
-  file_type: 'GPX'
-  recording_device: 'Garmin Edge 1000'
+    Same activity as 4078723797.fit but exported from Garmin Connect as .gpx.
+  sport: "cycling"
+  file_type: "GPX"
+  recording_device: "Garmin Edge 1000"
   sensors:
-    - name: 'Wahoo Tickr X'
+    - name: "Wahoo Tickr X"
       data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
       data_types:
-        - 'cadence'
+        - "cadence"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
   laps: 1
   sessions: 1
-- path: '4078723797_strava.gpx'
+- path: "4078723797_strava.gpx"
   description: |
-      Same activity as 4078723797.fit but first synced to Strava and then exported as .gpx.
-  sport: 'cycling'
-  file_type: 'GPX'
-  recording_device: 'Garmin Edge 1000'
+    Same activity as 4078723797.fit but first synced to Strava and then exported as .gpx.
+  sport: "cycling"
+  file_type: "GPX"
+  recording_device: "Garmin Edge 1000"
   sensors:
-    - name: 'Wahoo Tickr X'
+    - name: "Wahoo Tickr X"
       data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
       data_types:
-        - 'power'
-        - 'cadence'
+        - "power"
+        - "cadence"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'power'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "power"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
   laps: 1
   sessions: 1
-- path: '4801048867.fit'
+- path: "4801048867.fit"
   description: |
-      Synced to Garmin Connect and then downloaded as original file.
-  sport: 'cycling'
-  file_type: 'FIT'
-  recording_device: 'Garmin Forerunner 935'
+    Synced to Garmin Connect and then downloaded as original file.
+  sport: "cycling"
+  file_type: "FIT"
+  recording_device: "Garmin Forerunner 935"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'speed'
-    - 'elevation'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "elevation"
+    - "heartrate"
+    - "temperature"
   laps: 8
   sessions: 1
-- path: 'activity_4801048867.gpx'
+- path: "activity_4801048867.gpx"
   description: |
-      Same activity as 4801048867.fit but exported from Garmin Connect as .gpx.
-  sport: 'cycling'
-  file_type: 'GPX'
-  recording_device: 'Garmin Forerunner 935'
+    Same activity as 4801048867.fit but exported from Garmin Connect as .gpx.
+  sport: "cycling"
+  file_type: "GPX"
+  recording_device: "Garmin Forerunner 935"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'elevation'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "elevation"
+    - "heartrate"
+    - "temperature"
   laps: 8
   sessions: 1
-- path: 'activity_4801048867.tcx'
+- path: "activity_4801048867.tcx"
   description: |
-      Same activity as 4801048867.fit but exported from Garmin Connect as .tcx.
-  sport: 'cycling'
-  file_type: 'TCX'
-  recording_device: 'Garmin Forerunner 935'
+    Same activity as 4801048867.fit but exported from Garmin Connect as .tcx.
+  sport: "cycling"
+  file_type: "TCX"
+  recording_device: "Garmin Forerunner 935"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'speed'
-    - 'elevation'
-    - 'heartrate'
-    - 'distance'
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "elevation"
+    - "heartrate"
+    - "distance"
   laps: 8
   sessions: 1
-- path: '4801048867_strava.gpx'
+- path: "4801048867_strava.gpx"
   description: |
-      Same activity as 4801048867.fit but first synced to Strava and then exported as .gpx.
-  sport: 'cycling'
-  file_type: 'GPX'
-  recording_device: 'Garmin Forerunner 935'
+    Same activity as 4801048867.fit but first synced to Strava and then exported as .gpx.
+  sport: "cycling"
+  file_type: "GPX"
+  recording_device: "Garmin Forerunner 935"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'elevation'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "elevation"
+    - "heartrate"
+    - "temperature"
   laps: 1
   sessions: 1
-- path: '3173437224.tcx'
+- path: "3173437224.tcx"
   description: |
-      Synced from watch to Polar Flow Android, then to Polar Flow web service. Then exported as .tcx.
-  sport: 'running'
-  file_type: 'TCX'
-  recording_device: 'Polar M400'
+    Synced from watch to Polar Flow Android, then to Polar Flow web service. Then exported as .tcx.
+  sport: "running"
+  file_type: "TCX"
+  recording_device: "Polar M400"
   sensors:
-    - name: 'Polar H7 Heart Rate Sensor'
+    - name: "Polar H7 Heart Rate Sensor"
       data_types:
-        - 'heartrate'
+        - "heartrate"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'elevation'
-    - 'heartrate'
-    - 'cadence'
-    - 'distance'
+    - "latitude"
+    - "longitude"
+    - "elevation"
+    - "heartrate"
+    - "cadence"
+    - "distance"
   laps: 2
   sessions: 1
-- path: '2020-06-01-16-52-40.fit'
+- path: "2020-06-01-16-52-40.fit"
   description: |
-      Copied directly from Garmin device. Short activity with smart recording, some intervals and a pause in the middle.
-  sport: 'cycling'
-  file_type: 'FIT'
-  recording_device: 'Garmin Edge 1000'
+    Copied directly from Garmin device. Short activity with smart recording, some intervals and a pause in the middle.
+  sport: "cycling"
+  file_type: "FIT"
+  recording_device: "Garmin Edge 1000"
   sensors:
-    - name: 'Wahoo Tickr X'
+    - name: "Wahoo Tickr X"
       data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
       data_types:
-        - 'power'
-        - 'left-right balance'
-        - 'cadence'
+        - "power"
+        - "left-right balance"
+        - "cadence"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'speed'
-    - 'power'
-    - 'left-right balance'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "power"
+    - "left-right balance"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
   laps: 5
   sessions: 1
-- path: 'activity_5039744860.gpx'
+- path: "activity_5039744860.gpx"
   description: |
-      Same as 2020-06-01-16-52-40.fit but exported from Garmin Connect as gpx.
-  sport: 'cycling'
-  file_type: 'GPX'
-  recording_device: 'Garmin Edge 1000'
+    Same as 2020-06-01-16-52-40.fit but exported from Garmin Connect as gpx.
+  sport: "cycling"
+  file_type: "GPX"
+  recording_device: "Garmin Edge 1000"
   sensors:
-    - name: 'Wahoo Tickr X'
+    - name: "Wahoo Tickr X"
       data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
       data_types:
-        - 'cadence'
+        - "cadence"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
   laps: 1
   sessions: 1
-- path: 'activity_5039744860.tcx'
+- path: "activity_5039744860.tcx"
   description: |
-      Same as 2020-06-01-16-52-40.fit but exported from Garmin Connect as tcx.
-  sport: 'cycling'
-  file_type: 'TCX'
-  recording_device: 'Garmin Edge 1000'
+    Same as 2020-06-01-16-52-40.fit but exported from Garmin Connect as tcx.
+  sport: "cycling"
+  file_type: "TCX"
+  recording_device: "Garmin Edge 1000"
   sensors:
-    - name: 'Wahoo Tickr X'
+    - name: "Wahoo Tickr X"
       data_types:
-        - 'heartrate'
-    - name: 'TeamZwatt Zpider'
+        - "heartrate"
+    - name: "TeamZwatt Zpider"
       data_types:
-        - 'power'
-        - 'cadence'
+        - "power"
+        - "cadence"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'distance'
-    - 'speed'
-    - 'power'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
+    - "latitude"
+    - "longitude"
+    - "distance"
+    - "speed"
+    - "power"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
   laps: 5
   sessions: 1
-- path: '6449921903_ACTIVITY.fit'
+- path: "6449921903_ACTIVITY.fit"
   description: |
-      Activity with multiple laps and start/stop. Synced to Garmin Connect and then downloaded as original file.
-  sport: 'cycling'
-  file_type: 'FIT'
-  recording_device: 'Garmin Forerunner 935'
+    Activity with multiple laps and start/stop. Synced to Garmin Connect and then downloaded as original file.
+  sport: "cycling"
+  file_type: "FIT"
+  recording_device: "Garmin Forerunner 935"
   sensors:
-    - name: 'Wattbike'
+    - name: "Wattbike"
       data_types:
-        - 'power'
-        - 'cadence'
+        - "power"
+        - "cadence"
   included_data:
-    - 'distance'
-    - 'power'
-    - 'cadence'
-    - 'heartrate'
+    - "distance"
+    - "power"
+    - "cadence"
+    - "heartrate"
   laps: 2
   sessions: 1
-- path: '6471559601_ACTIVITY.fit'
+- path: "6471559601_ACTIVITY.fit"
   description: |
-      Multisession activity. Running and rowing. Synced to Garmin Connect and then downloaded as original file.
-  sport: 'multisport'
-  file_type: 'FIT'
-  recording_device: 'Garmin Forerunner 935'
+    Multisession activity. Running and rowing. Synced to Garmin Connect and then downloaded as original file.
+  sport: "multisport"
+  file_type: "FIT"
+  recording_device: "Garmin Forerunner 935"
   sensors:
   included_data:
-    - 'elevation'
-    - 'heartrate'
+    - "elevation"
+    - "heartrate"
   laps: 1
   sessions: 3
-- path: '8eb40499-450a-436e-adac-c3ba95bf1834_local_strava.json'
+- path: "8eb40499-450a-436e-adac-c3ba95bf1834_local_strava.json"
   description: |
-      Fetched activity streams from Strava API for 90min run and saved to json.
-  sport: 'running'
-  file_type: 'JSON'
+    Fetched activity streams from Strava API for 90min run and saved to json.
+  sport: "running"
+  file_type: "JSON"
   included_data:
-    - 'latitude'
-    - 'longitude'
-    - 'speed'
-    - 'distance'
-    - 'elevation'
-    - 'cadence'
-    - 'heartrate'
-    - 'temperature'
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "distance"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
   sessions: 1
