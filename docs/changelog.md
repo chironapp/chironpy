@@ -15,6 +15,21 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [0.28.2] - 2026-04-03
+
+### Added
+
+- Added `enhanced_speed` and `enhanced_altitude` to `DataTypeEnum` to support newer Garmin FIT files that use enhanced fields.
+- Added `docs/Example.ipynb` notebook demonstrating the Osaka Marathon 2025 dataset, included in the docs site navigation.
+- Added **Releasing** section to `CONTRIBUTING.md` documenting the full release workflow.
+- Created `lab/` directory with `getting_started.ipynb` (core API walkthrough) and `osaka_marathon.ipynb` (real-world running example using the Osaka Marathon 2025 FIT file).
+- Documented `lab/` directory setup in `CONTRIBUTING.md` for faster local development and prototyping — useful when forking or onboarding to the project.
+
+### Changed
+
+- `WorkoutData.from_file()` now accepts an `ExampleData` object directly (no need to pass `.path` explicitly).
+- Updated `examples/index.yml` for the Osaka Marathon FIT file to use the correct column names (`enhanced_speed`, `enhanced_altitude`).
+
 ## [0.28.1] - 2025-05-23
 
 ### Changed

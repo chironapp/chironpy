@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chironpy"
-version = "0.28.1"
+version = "0.28.2"
 description = "Workout analysis"
 license = "MIT"
 authors = ["Clive Gross <clive@chironapp.com>"]
@@ -33,6 +33,8 @@ mknotebooks = "*"
 openpyxl = "^3.0.7"
 typing-extensions = "^4.12.2"
 vcrpy = "^6.0.2"
+jupyterlab = "*"
+ipykernel = "*"
 
 [tool.tox]
 legacy_tox_ini = """

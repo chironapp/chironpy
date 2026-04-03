@@ -21,8 +21,10 @@ DATA_TYPES = {member.value for member in DataTypeEnum} | {
 class WorkoutData(pd.DataFrame):
     @classmethod
     def from_file(
-        cls, filepath: str, resample: bool = True, interpolate: bool = True
+        cls, filepath, resample: bool = True, interpolate: bool = True
     ) -> "WorkoutData":
+        if hasattr(filepath, "path"):
+            filepath = filepath.path
         df = read_file(filepath, resample=False, interpolate=False)
         return cls.from_raw(df, resample=resample, interpolate=interpolate)
 

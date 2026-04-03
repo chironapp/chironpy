@@ -1,4 +1,13 @@
-.PHONY: build_docker build_test test testall docs
+.PHONY: build_docker build_test test testall docs install pytest lab
+
+install:
+	poetry install
+
+pytest:
+	poetry run pytest tests/
+
+lab:
+	poetry run jupyter lab lab/
 
 build_docker:
 	docker build -t chironpy-test .
