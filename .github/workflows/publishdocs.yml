@@ -21,6 +21,8 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
+      - name: Sync contributing doc
+        run: cp CONTRIBUTING.md docs/CONTRIBUTING.md
       - name: Publish package
         run: |
           poetry run mkdocs gh-deploy --force
