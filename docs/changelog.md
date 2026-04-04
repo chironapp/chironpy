@@ -15,7 +15,7 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
-## [Unreleased]
+## [0.29.0] - 2026-04-04
 
 ### Added
 
