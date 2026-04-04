@@ -11,6 +11,7 @@ from chironpy.models.workout import WorkoutData
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def make_workout(
     start: datetime,
     duration_s: int,
@@ -35,6 +36,7 @@ def make_workout(
 # merge_many – basic error handling
 # ---------------------------------------------------------------------------
 
+
 def test_merge_many_empty_raises():
     with pytest.raises(ValueError, match="No workouts to merge"):
         WorkoutData.merge_many([])
@@ -44,11 +46,12 @@ def test_merge_many_empty_raises():
 # merge_many – gap preservation
 # ---------------------------------------------------------------------------
 
+
 def test_merge_two_time_at_second_workout_start():
     """``time`` at the first sample of the second workout equals gap + duration_of_first."""
     start1 = datetime(2023, 1, 1, 10, 0, 0)
     duration1 = 1800  # 30 min
-    gap = 1800        # 30 min gap
+    gap = 1800  # 30 min gap
     start2 = start1 + timedelta(seconds=duration1 + gap)
     duration2 = 1800  # 30 min
 
@@ -126,6 +129,7 @@ def test_merge_interpolate_fills_gap():
 # merge_many – overlap behaviour
 # ---------------------------------------------------------------------------
 
+
 def test_merge_overlapping_keeps_later_workout():
     """For overlapping timestamps the later workout's values take precedence."""
     start1 = datetime(2023, 1, 1, 10, 0, 0)
@@ -144,6 +148,7 @@ def test_merge_overlapping_keeps_later_workout():
 # ---------------------------------------------------------------------------
 # merge_many – ordering with 3+ workouts
 # ---------------------------------------------------------------------------
+
 
 def test_merge_three_workouts_ordering():
     """Workouts are sorted by start timestamp regardless of input order."""
@@ -167,6 +172,7 @@ def test_merge_three_workouts_ordering():
 # ---------------------------------------------------------------------------
 # Downstream metrics on merged data
 # ---------------------------------------------------------------------------
+
 
 def test_merge_elevation_gain_no_error():
     """``elevation_gain()`` should run without error on a merged workout.
@@ -204,6 +210,7 @@ def test_merge_best_intervals_no_error():
 # Instance method .merge()
 # ---------------------------------------------------------------------------
 
+
 def test_merge_instance_method_without_gap():
     """``w1.merge(w2)`` is equivalent to ``WorkoutData.merge_many([w1, w2])``."""
     start1 = datetime(2023, 1, 1, 10, 0, 0)
@@ -237,4 +244,3 @@ def test_merge_instance_method_passes_kwargs():
     merged = w1.merge(w2, resample=True, interpolate=False)
     gap_ts = start1 + timedelta(seconds=duration1 + 1)
     assert pd.isna(merged.loc[gap_ts, "speed"])
-
