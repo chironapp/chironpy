@@ -98,5 +98,5 @@ ENV/
 #PyCharm
 .idea
 
-# Claude Code worktrees
-.claude/worktrees/
+# Claude Code local data (settings, todos, session state, worktrees)
+.claude/

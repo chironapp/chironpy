@@ -309,3 +309,48 @@
     - "heartrate"
     - "temperature"
   sessions: 1
+- path: "strava_17497731832_warm_up.json"
+  description: |
+    Warm-up run saved as Strava activity stream JSON. Part of a three-part session with track_workout and warm_down.
+  sport: "running"
+  file_type: "JSON"
+  included_data:
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "distance"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
+  sessions: 1
+- path: "strava_17497955000_track_workout.json"
+  description: |
+    Track workout run saved as Strava activity stream JSON. Part of a three-part session with warm_up and warm_down.
+  sport: "running"
+  file_type: "JSON"
+  included_data:
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "distance"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
+  sessions: 1
+- path: "strava_17498168651_warm_down.json"
+  description: |
+    Warm-down run saved as Strava activity stream JSON. Part of a three-part session with warm_up and track_workout.
+  sport: "running"
+  file_type: "JSON"
+  included_data:
+    - "latitude"
+    - "longitude"
+    - "speed"
+    - "distance"
+    - "elevation"
+    - "cadence"
+    - "heartrate"
+    - "temperature"
+  sessions: 1
