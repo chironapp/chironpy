@@ -31,6 +31,7 @@ nav:
       - "features/data_loading.md"
       - "features/example_data.md"
       - "features/running_metrics.md"
+      - "features/merge_workouts.ipynb"
       - "features/Metrics.ipynb"
       - "features/nomenclature.md"
   - "Legacy (sweatpy)":
@@ -40,5 +41,5 @@ nav:
       - "legacy/Metrics.ipynb"
       - "legacy/nomenclature.md"
   - "api_reference.md"
-  - "changelog.md"
+  - "CHANGELOG.md"
   - "CONTRIBUTING.md"

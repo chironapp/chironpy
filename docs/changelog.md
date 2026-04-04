@@ -15,6 +15,23 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [Unreleased]
+
+### Added
+
+- `WorkoutData.merge_many()` class method to merge a list of separately recorded workouts into a single continuous `WorkoutData` object. Workouts are sorted by start timestamp; overlapping timestamps favour the later workout; time gaps are preserved as `NaN` rows after resampling (when `interpolate=False`). Accepts `drop_gaps=True` to shift workouts back-to-back (no gap rows), which condenses elapsed time — note that performance metrics will not account for rest time in this mode.
+- `WorkoutData.merge()` instance method as a convenience wrapper around `merge_many()`, also accepts `drop_gaps`.
+- `distance` is forward-filled across gap rows in merged workouts (it is cumulative and should not appear as `NaN` during rest periods).
+- `WorkoutData.set_start_time()` method to shift the datetime index of a workout to a specified start time, recomputing the `time` column. Useful when a file (e.g. a Strava activity stream) contains no absolute timestamp.
+- Three new Strava activity-stream example files covering a single session split across three recordings: `strava_17497731832_warm_up.json`, `strava_17497955000_track_workout.json`, `strava_17498168651_warm_down.json`.
+- Added `lab/merge_workouts.ipynb` notebook demonstrating `merge_many()`, `merge()`, and `set_start_time()` with the new example files.
+
+### Changed
+
+- Updated `pyproject.toml` build backend from `poetry.masonry.api` to `poetry.core.masonry.api` to support editable installs (`pip install -e .`).
+
+---
+
 ## [0.28.2] - 2026-04-03
 
 ### Added

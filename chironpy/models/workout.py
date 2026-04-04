@@ -8,6 +8,7 @@ from chironpy import read_file, read_strava
 from chironpy.metrics.vert import grade_smooth_time, elevation_gain
 from chironpy.metrics.speed import multiple_fastest_distance_intervals
 from chironpy.metrics.core import (
+    mean_max as _mean_max,
     multiple_best_distance_intervals,
     multiple_best_intervals,
 )
@@ -124,6 +125,60 @@ class WorkoutData(pd.DataFrame):
     def extra_columns(self):
         return [col for col in self.columns if col not in DATA_TYPES]
 
+    def to_pandas(self) -> pd.DataFrame:
+        """Return a plain ``pd.DataFrame`` copy of this workout."""
+        return pd.DataFrame(self)
+
+    def resample(self, freq: str, interpolate: bool = False) -> "WorkoutData":
+        """Return a new ``WorkoutData`` resampled to the given frequency.
+
+        Parameters
+        ----------
+        freq : str
+            Pandas offset alias for the target frequency (e.g. ``"5s"``, ``"1min"``).
+        interpolate : bool, optional
+            Linearly interpolate ``NaN`` values after resampling. Default is ``False``.
+
+        Returns
+        -------
+        WorkoutData
+            A new ``WorkoutData`` at the requested frequency.
+        """
+        df = pd.DataFrame(self).drop(columns=["time"], errors="ignore")
+        df = df.resample(freq).mean(numeric_only=True)
+        if interpolate:
+            df = df.interpolate(method="linear")
+        return WorkoutData.from_raw(df, resample=False, interpolate=False)
+
+    def rolling(self, window: int, method: str = "mean") -> pd.DataFrame:
+        """Compute a rolling average or median across standard columns.
+
+        Parameters
+        ----------
+        window : int
+            Size of the rolling window in seconds.
+        method : {"mean", "median"}, optional
+            Aggregation to apply. Default is ``"mean"``.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame containing the rolling values for each standard column.
+
+        Raises
+        ------
+        ValueError
+            If ``method`` is not ``"mean"`` or ``"median"``.
+        """
+        if method not in ("mean", "median"):
+            raise ValueError(f"method must be 'mean' or 'median', got '{method!r}'")
+        roller = pd.DataFrame(self)[self.standard_columns].rolling(
+            window, min_periods=1
+        )
+        if method == "mean":
+            return roller.mean()
+        return roller.median()
+
     def best_distance_intervals(
         self, windows, stream="speed", distance_col="distance", **kwargs
     ):
@@ -236,22 +291,57 @@ class WorkoutData(pd.DataFrame):
             )
         return elevation_gain(self[elevation_col].values)
 
+    def mean_max(
+        self,
+        columns: Union[str, List[str]],
+        monotonic: bool = False,
+    ) -> pd.DataFrame:
+        """Compute the mean-max (power-duration) curve for one or more columns.
+
+        Parameters
+        ----------
+        columns : str or list of str
+            Column name(s) to compute mean-max for (e.g. ``"speed"``,
+            ``["speed", "heartrate"]``).
+        monotonic : bool, optional
+            Enforce a monotonically decreasing curve. Default is ``False``.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame with a ``TimedeltaIndex`` (duration) and one
+            ``mean_max_{column}`` column per requested stream.
+        """
+        if isinstance(columns, str):
+            columns = [columns]
+        data = None
+        for column in columns:
+            result = _mean_max(self[column], monotonic=monotonic)
+            if data is None:
+                index = pd.to_timedelta(range(1, len(result) + 1), unit="s")
+                data = pd.DataFrame(index=index)
+            data["mean_max_" + column] = result
+        return data
+
     @classmethod
     def merge_many(
         cls,
         workouts: List["WorkoutData"],
         resample: bool = True,
         interpolate: bool = False,
+        drop_gaps: bool = False,
     ) -> "WorkoutData":
         """
         Merge multiple WorkoutData instances into a single WorkoutData object.
 
         Workouts are sorted by their start timestamp before merging. If two workouts
         overlap in time, the later workout's data takes precedence for the overlapping
-        timestamps. Time gaps between workouts are preserved: after resampling to 1 Hz,
-        all data columns (speed, heart rate, power, etc.) are ``NaN`` during the gap
-        while the ``time`` column continues to reflect real elapsed seconds (including
-        the gap period).
+        timestamps. By default, time gaps between workouts are preserved: after
+        resampling to 1 Hz, all data columns are ``NaN`` during the gap while the
+        ``time`` column continues to reflect real elapsed seconds.
+
+        ``distance`` is forward-filled across gap rows (it is a cumulative metric
+        that should not reset to ``NaN`` during rest).
 
         Parameters
         ----------
@@ -263,6 +353,13 @@ class WorkoutData(pd.DataFrame):
             Whether to linearly interpolate ``NaN`` values after resampling.
             Default is ``False``, which preserves ``NaN`` values in the time gaps
             between workouts.
+        drop_gaps : bool, optional
+            When ``True``, each workout is shifted to start immediately after the
+            previous one ends (1 second later), so no gap rows are produced during
+            resampling. The ``time`` column reflects condensed elapsed time with
+            no rest periods. Default is ``False``.
+            Note: with ``drop_gaps=True``, performance metrics will not account
+            for rest time between workouts and should be interpreted accordingly.
 
         Returns
         -------
@@ -300,7 +397,19 @@ class WorkoutData(pd.DataFrame):
         # Sort ascending by each workout's first timestamp
         frames.sort(key=lambda df: df.index[0])
 
-        combined = pd.concat(frames)
+        if drop_gaps:
+            # Shift each workout to start 1 second after the previous one ends
+            # so resampling produces a contiguous time range with no gap rows.
+            adjusted = [frames[0]]
+            for i in range(1, len(frames)):
+                prev_end = adjusted[-1].index[-1]
+                offset = prev_end + pd.Timedelta(seconds=1) - frames[i].index[0]
+                shifted = frames[i].copy()
+                shifted.index = frames[i].index + offset
+                adjusted.append(shifted)
+            combined = pd.concat(adjusted)
+        else:
+            combined = pd.concat(frames)
 
         # For overlapping timestamps keep the later workout's data (keep="last"
         # after sorting frames by start time means the later-starting workout's
@@ -308,13 +417,23 @@ class WorkoutData(pd.DataFrame):
         combined = combined[~combined.index.duplicated(keep="last")]
         combined.sort_index(inplace=True)
 
-        return cls.from_raw(combined, resample=resample, interpolate=interpolate)
+        result = cls.from_raw(combined, resample=resample, interpolate=interpolate)
+
+        # Distance is cumulative — forward-fill across gap rows so it reads as
+        # a continuous total rather than NaN during rest periods.
+        if "distance" in result.columns:
+            df = pd.DataFrame(result)
+            df["distance"] = df["distance"].ffill()
+            result = cls(df)
+
+        return result
 
     def merge(
         self,
         other: "WorkoutData",
         resample: bool = True,
         interpolate: bool = False,
+        drop_gaps: bool = False,
     ) -> "WorkoutData":
         """
         Merge this workout with another ``WorkoutData`` object.
@@ -331,6 +450,9 @@ class WorkoutData(pd.DataFrame):
             Whether to linearly interpolate ``NaN`` values after resampling.
             Default is ``False``, which preserves ``NaN`` values in the time gap
             between workouts.
+        drop_gaps : bool, optional
+            When ``True``, the workout is shifted to start immediately after
+            ``self`` ends so no gap rows are produced. Default is ``False``.
 
         Returns
         -------
@@ -343,4 +465,46 @@ class WorkoutData(pd.DataFrame):
         >>> main = WorkoutData.from_file("main.fit")
         >>> merged = warmup.merge(main)
         """
-        return WorkoutData.merge_many([self, other], resample=resample, interpolate=interpolate)
+        return WorkoutData.merge_many(
+            [self, other],
+            resample=resample,
+            interpolate=interpolate,
+            drop_gaps=drop_gaps,
+        )
+
+    def set_start_time(self, start_time: pd.Timestamp) -> "WorkoutData":
+        """
+        Shift the workout's datetime index so it begins at ``start_time``.
+
+        All timestamps are shifted by the same offset, preserving the relative
+        spacing between records. The ``time`` column (seconds since start) is
+        recomputed from the new index.
+
+        Parameters
+        ----------
+        start_time : pd.Timestamp
+            The new start datetime for the workout. If timezone-naive and the
+            existing index is timezone-aware, UTC is assumed.
+
+        Returns
+        -------
+        WorkoutData
+            A new ``WorkoutData`` with a shifted datetime index.
+
+        Examples
+        --------
+        >>> import pandas as pd
+        >>> data = WorkoutData.from_file("warmup.fit")
+        >>> shifted = data.set_start_time(pd.Timestamp("2025-01-01 08:00:00", tz="UTC"))
+        """
+        if not isinstance(self.index, pd.DatetimeIndex):
+            raise TypeError("set_start_time requires a DatetimeIndex.")
+        start_time = pd.Timestamp(start_time)
+        if self.index.tz is not None and start_time.tzinfo is None:
+            start_time = start_time.tz_localize(self.index.tz)
+        offset = start_time - self.index[0]
+        df = pd.DataFrame(self).copy()
+        df.index = self.index + offset
+        df.index.name = "datetime"
+        df["time"] = (df.index - df.index[0]).total_seconds().astype(int)
+        return WorkoutData(df)
