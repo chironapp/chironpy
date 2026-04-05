@@ -15,6 +15,28 @@ Types of changes:
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [Unreleased]
+
+### Changed
+
+- **Python version support**: Dropped Python 3.10, added Python 3.11, 3.12, 3.13, and 3.14 to test matrix
+- **Dependency upgrades**: Updated all dependencies to current stable versions
+  - `numpy`: `>=1.21,<1.24` → `^1.24.0` (supports numpy 2.x)
+  - `pandas`: `^1.5.2` → `^2.0.0` (pandas 2.x with improved performance and new features)
+  - `scipy`: `^1.4.1` → `^1.13.0`
+  - `scikit-learn`: `>= 0.23.1` → `^1.3.0`
+  - `matplotlib`: `^3.3.4` → `^3.8.0`
+  - `lmfit`: `^1.0.0` → `^1.3.0`
+  - `fitparse`: `^1.1.0` → `^1.2.0`
+  - `requests`: `^2.23.0` → `^2.32.0` (includes security fixes)
+
+### Fixed
+
+- Fixed `resample_data()` compatibility with pandas 2.x by adding `numeric_only=True` to `mean()` aggregation
+- Fixed tox configuration inconsistency (now tests py311, py312, py313, py314 instead of py39, py310)
+
+---
+
 ## [0.29.0] - 2026-04-04
 
 ### Added
