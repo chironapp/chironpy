@@ -1,9 +1,8 @@
 from enum import Enum
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from pydantic import BaseModel
 import pandas as pd
-from typing import Union, Optional
 
 
 class Gender(Enum):
@@ -84,4 +83,4 @@ class Athlete(BaseModel):
             threshold_data["heartrate"] = zones_target.get("threshold_heart_rate", None)
             data["threshold"] = threshold_data
 
-        return cls.parse_obj(data)
+        return cls.model_validate(data)

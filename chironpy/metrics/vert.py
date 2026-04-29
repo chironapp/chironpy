@@ -5,7 +5,7 @@ import numpy as np
 import pandas
 import warnings
 from scipy.signal import savgol_filter
-from scipy.interpolate import interp1d
+from scipy.interpolate import make_interp_spline
 import math
 
 
@@ -112,8 +112,7 @@ def elevation_smooth(distances, elevations, sample_len=5.0, window_len=21, polyo
     # point representing elevation value at the interval midpoint.
     n_sample = math.ceil((distances.iloc[-1] - distances.iloc[0]) / sample_len)
     xvals = np.linspace(distances.iloc[0], distances.iloc[-1], n_sample + 1)
-    interp_fn = interp1d(distances, elevations, kind="linear")
-    elevations_ds = interp_fn(xvals)
+    elevations_ds = np.interp(xvals, distances, elevations)
 
     # Create a DataFrame to handle calculations.
     data_ds = pandas.DataFrame(data=elevations_ds, columns=["elevation"])
@@ -140,13 +139,7 @@ def elevation_smooth(distances, elevations, sample_len=5.0, window_len=21, polyo
 
     # Backfill the elevation values at the original distances by
     # interpolation between the downsampled, smoothed points.
-    interp_function = interp1d(
-        data_ds["distance"],
-        data_ds["sg"],
-        # fill_value='extrapolate', kind='linear')
-        fill_value="extrapolate",
-        kind="quadratic",
-    )
+    interp_function = make_interp_spline(data_ds["distance"], data_ds["sg"], k=2)
     smooth = interp_function(distances)
 
     # TODO (aschroeder): Switch this back when done.

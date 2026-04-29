@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from yaml import load, Loader
-from pydantic import BaseModel, parse_obj_as, validator
+from pydantic import BaseModel, TypeAdapter, field_validator
 
 from chironpy.constants import DataTypeEnum
 
@@ -40,7 +40,8 @@ class ExampleData(BaseModel):
     sessions: Optional[int] = None
     course: bool = False
 
-    @validator("path")
+    @field_validator("path", mode="before")
+    @classmethod
     def make_path_absolute(cls, v):
         return Path(examples_data_dir(), v)
 
@@ -61,7 +62,7 @@ def examples(*, path=None, file_type=None, sport=None, course=None):
 
     with Path(examples_dir(), "index.yml").open("r") as f:
         index = load(f, Loader=Loader)
-    loaded_data = parse_obj_as(List[ExampleData], index)
+    loaded_data = TypeAdapter(List[ExampleData]).validate_python(index)
 
     if path is not None:
         example_data_dir = examples_data_dir()

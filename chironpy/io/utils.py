@@ -17,7 +17,7 @@ def resample_data(data, resample: bool, interpolate: bool) -> pd.DataFrame:
 
     """
     if resample:
-        data = data.resample("1S").mean()
+        data = data.resample("1s").mean(numeric_only=True)
 
     if interpolate:
         data = data.interpolate(method="linear")

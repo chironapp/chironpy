@@ -34,7 +34,7 @@ Start by searching through the [issues](https://github.com/chironapp/chironpy/is
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.11+
 - [Poetry](https://python-poetry.org/docs/#installation)
 
 ### Clone and install
