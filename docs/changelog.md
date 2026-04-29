@@ -17,6 +17,8 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.29.1] - 2026-04-29
+
 ### Changed
 
 - **Python version support**: Dropped Python 3.10, added Python 3.11, 3.12, 3.13, and 3.14 to test matrix
@@ -25,15 +27,19 @@ Types of changes:
   - `pandas`: `^1.5.2` → `^2.0.0` (pandas 2.x with improved performance and new features)
   - `scipy`: `^1.4.1` → `^1.13.0`
   - `scikit-learn`: `>= 0.23.1` → `^1.3.0`
-  - `matplotlib`: `^3.3.4` → `^3.8.0`
   - `lmfit`: `^1.0.0` → `^1.3.0`
   - `fitparse`: `^1.1.0` → `^1.2.0`
-  - `requests`: `^2.23.0` → `^2.32.0` (includes security fixes)
+- **Dependency restructure**: `matplotlib`, `requests`, and `mkdocs-material` removed from main dependencies (were never part of the public API). `dev` and `docs` dependency groups are now optional — install with `poetry install --with dev,docs` for local development.
 
 ### Fixed
 
 - Fixed `resample_data()` compatibility with pandas 2.x by adding `numeric_only=True` to `mean()` aggregation
 - Fixed tox configuration inconsistency (now tests py311, py312, py313, py314 instead of py39, py310)
+- Migrated pydantic v1 APIs to v2: `@validator` → `@field_validator`, `parse_obj_as` → `TypeAdapter.validate_python`, `parse_obj` → `model_validate`
+- Replaced deprecated `scipy.interpolate.interp1d` with `numpy.interp` (linear) and `scipy.interpolate.make_interp_spline` (quadratic) in elevation smoothing
+- Fixed `SettingWithCopyWarning` in TCX parser by calling `.copy()` after `dropna()`
+- Fixed deprecated `pd.to_numeric(errors="ignore")` in TCX parser
+- Fixed deprecated XML element truth-value test in TCX parser (`if extensions:` → `if extensions is not None:`)
 
 ---
 

@@ -20,7 +20,7 @@ jobs:
         uses: snok/install-poetry@v1.4.1
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --with docs
       - name: Sync contributing doc
         run: cp CONTRIBUTING.md docs/CONTRIBUTING.md
       - name: Publish package

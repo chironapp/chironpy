@@ -69,7 +69,7 @@ def process_tcx_tree(elements, metadata, name):
                 heartrate = xml_find_value_or_none(hr, "default:Value", NAMESPACES)
 
                 extensions = trackpoint.find("default:Extensions", NAMESPACES)
-                if extensions:
+                if extensions is not None:
                     tpx = extensions.find("ns3:TPX", NAMESPACES)
                     speed = xml_find_value_or_none(tpx, "ns3:Speed", NAMESPACES)
                     power = xml_find_value_or_none(tpx, "ns3:Watts", NAMESPACES)
@@ -127,12 +127,18 @@ def postprocess(tcx_df, device, resample, interpolate, metadata):
     if tcx_df.empty:
         return create_empty_dataframe()
 
-    tcx_df = tcx_df.dropna(axis="columns", how="all")
+    tcx_df = tcx_df.dropna(axis="columns", how="all").copy()
     tcx_df["datetime"] = pd.to_datetime(tcx_df["datetime"], utc=True)
     tcx_df = tcx_df.set_index("datetime")
 
     # Convert columns to numeric if possible
-    tcx_df = tcx_df.apply(pd.to_numeric, errors="ignore")
+    def _try_numeric(col):
+        try:
+            return pd.to_numeric(col)
+        except (ValueError, TypeError):
+            return col
+
+    tcx_df = tcx_df.apply(_try_numeric)
 
     tcx_df = remove_duplicate_indices(tcx_df)
 

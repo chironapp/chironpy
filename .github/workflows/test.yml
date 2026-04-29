@@ -23,7 +23,7 @@ jobs:
           virtualenvs-in-project: true
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --with dev
       - name: Show Poetry Installer Log on Failure
         if: failure()
         run: |
