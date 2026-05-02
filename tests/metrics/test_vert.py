@@ -98,3 +98,29 @@ class TestGradeSmoothTime:
         elevations = np.full(N, 100.0)
         result = grade_smooth_time(DISTANCES, elevations)
         assert np.allclose(result, 0.0, atol=1e-6)
+
+
+class TestShortRecordings:
+    """Regression tests for recordings shorter than the SG filter window."""
+
+    def test_elevation_smooth_time_short_data_no_error(self):
+        # 2-second recording: fewer points than default window_len=21
+        elevations = [100.0, 101.0]
+        result = elevation_smooth_time(elevations)
+        assert len(result) == 2
+
+    def test_elevation_smooth_time_single_point(self):
+        result = elevation_smooth_time([100.0])
+        assert len(result) == 1
+
+    def test_grade_smooth_time_short_data_no_error(self):
+        distances = [0.0, 5.0]
+        elevations = [100.0, 101.0]
+        result = grade_smooth_time(distances, elevations)
+        assert len(result) == 2
+
+    def test_elevation_smooth_time_window_boundary(self):
+        # Exactly window_len - 1 points (20 points, default window=21)
+        elevations = np.full(20, 100.0)
+        result = elevation_smooth_time(elevations)
+        assert len(result) == 20
