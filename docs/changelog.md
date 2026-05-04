@@ -17,6 +17,16 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-05-04
+
+### Added
+
+- `WorkoutData.resample_records(freq)` method for downsampling workout records to a lower frequency using semantically correct per-column aggregation rules: cumulative fields (`distance`) use `max`; instantaneous fields (`speed`, `power`, `heartrate`, `cadence`, `temperature`, `grade`, `elevation`, `enhanced_altitude`) use `mean`; GPS coordinates (`latitude`, `longitude`) use `mean`; `is_moving` uses `any`. Accepts any pandas offset alias (e.g. `"10s"`, `"1min"`).
+
+### Fixed
+
+- Fixed `ValueError` in `elevation_smooth_time()` for short recordings where the data length is less than the Savitzky-Golay filter's default window length (21). The function now gracefully degrades: recordings too short for any valid window are returned unsmoothed; recordings shorter than the default window use a reduced (but still valid) odd window length.
+
 ## [0.29.1] - 2026-04-29
 
 ### Changed

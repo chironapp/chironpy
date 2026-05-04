@@ -150,6 +150,56 @@ class WorkoutData(pd.DataFrame):
             df = df.interpolate(method="linear")
         return WorkoutData.from_raw(df, resample=False, interpolate=False)
 
+    def resample_records(self, freq: str) -> pd.DataFrame:
+        """Resample workout records to a lower frequency using per-column aggregation rules.
+
+        Unlike :meth:`resample`, this method applies semantically correct aggregations
+        per column type: cumulative fields use ``max``, instantaneous fields use ``mean``,
+        GPS coordinates use ``mean``, and ``is_moving`` uses ``any``.
+
+        Parameters
+        ----------
+        freq : str
+            Pandas offset alias for the target frequency (e.g. ``"10s"``, ``"1min"``).
+
+        Returns
+        -------
+        pd.DataFrame
+            Resampled DataFrame at the requested frequency. Only columns present in the
+            source data are included.
+        """
+        _CUMULATIVE = {"distance"}
+        _POSITIONAL = {"latitude", "longitude"}
+        _BOOLEAN = {"is_moving"}
+        _AVERAGE = {
+            "speed", "enhanced_speed", "power", "cadence", "heartrate",
+            "temperature", "grade", "elevation", "enhanced_altitude",
+            "left-right balance",
+        }
+
+        df = pd.DataFrame(self).drop(columns=["time"], errors="ignore")
+
+        agg: dict = {}
+        for col in df.columns:
+            if col in _CUMULATIVE:
+                agg[col] = "max"
+            elif col in _POSITIONAL:
+                agg[col] = "mean"
+            elif col in _BOOLEAN:
+                agg[col] = "any"
+            elif col in _AVERAGE:
+                agg[col] = "mean"
+
+        if not agg:
+            return df.resample(freq).mean(numeric_only=True)
+
+        extra = [c for c in df.columns if c not in agg]
+        for col in extra:
+            if pd.api.types.is_numeric_dtype(df[col]):
+                agg[col] = "mean"
+
+        return df[list(agg)].resample(freq).agg(agg)
+
     def rolling(self, window: int, method: str = "mean") -> pd.DataFrame:
         """Compute a rolling average or median across standard columns.
 
