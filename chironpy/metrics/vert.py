@@ -68,10 +68,22 @@ def elevation_smooth_time(elevations, sample_len=1, window_len=21, polyorder=2):
     # high-frequency noise).
     # TODO (aschroeder): Add a second, binomial filter?
     # TODO (aschroeder): Fix the scipy/signal/arraytools warning!
+    elev_list = list(elevations)
+    n = len(elev_list)
+    if n < polyorder + 2:
+        # Too few points to apply the filter; return data unsmoothed.
+        return elev_list
+
+    # Reduce window_len to fit the data; keep it odd and > polyorder.
+    if window_len > n:
+        window_len = n if n % 2 == 1 else n - 1
+        if window_len <= polyorder:
+            window_len = polyorder + 1 if (polyorder + 1) % 2 == 1 else polyorder + 2
+
     with warnings.catch_warnings():
         warnings.simplefilter(action="ignore", category=FutureWarning)
         warnings.simplefilter(action="ignore", category=RuntimeWarning)
-        elevs_smooth = savgol_filter(list(elevations), window_len, polyorder)
+        elevs_smooth = savgol_filter(elev_list, window_len, polyorder)
 
     return elevs_smooth
 
