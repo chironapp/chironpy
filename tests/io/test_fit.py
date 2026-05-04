@@ -3,7 +3,6 @@ import pytest
 import chironpy
 from chironpy.io import exceptions, fit
 from chironpy.examples.utils import FileTypeEnum
-from fitparse.utils import FitParseError
 
 
 def test_top_level_import():

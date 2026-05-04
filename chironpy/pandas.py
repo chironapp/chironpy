@@ -92,7 +92,7 @@ class chironSeriesAccessor:
             )
 
         if not is_numeric_dtype(obj):
-            raise AttributeError(f"Series dtype should be numeric")
+            raise AttributeError("Series dtype should be numeric")
 
     @validate_sample_rate(sample_rate=np.timedelta64(1, "s"))
     def mean_max(self, monotonic: bool = False) -> pd.Series:

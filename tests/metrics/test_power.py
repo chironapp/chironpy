@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from chironpy.metrics.power import wpk, relative_intensity, stress_score
 
 
@@ -10,7 +9,7 @@ def test_wpk():
 
     rv = wpk(np.array(power), weight)
     expected = np.array([0.5, 1.0, 1.5])
-    assert type(rv) == np.ndarray
+    assert isinstance(rv, np.ndarray)
     assert (rv == expected).all()
 
 

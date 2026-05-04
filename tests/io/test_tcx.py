@@ -1,7 +1,6 @@
 import pandas as pd
 import pytest
 import chironpy
-from pandas.api.types import is_numeric_dtype
 from chironpy.io import tcx
 from chironpy.examples.utils import FileTypeEnum
 

@@ -1,74 +1,67 @@
+![chironpy](docs/img/chironpy-release-cover.jpg)
+
+[![PyPI](https://img.shields.io/pypi/v/chironpy?style=flat-square)](https://pypi.org/project/chironpy/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chironpy?style=flat-square)](https://pypi.org/project/chironpy/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/chironpy?style=flat-square)](https://pypi.org/project/chironpy/)
+[![Tests](https://github.com/chironapp/chironpy/actions/workflows/test.yml/badge.svg)](https://github.com/chironapp/chironpy/actions/workflows/test.yml)
+[![Documentation](https://img.shields.io/badge/docs-chironpy.chironapp.com-purple?style=flat-square)](https://chironpy.chironapp.com)
+
 # chironpy
 
-Endurance sports analysis library for Python
+**chironpy** is a Python library for analysing endurance sports data. Load workouts from `.fit`, `.gpx`, `.tcx`, or the Strava API and analyse them with a familiar pandas-based interface — compute best intervals, elevation gain, speed, power, and more.
 
-A fork of [sweatpy](https://github.com/GoldenCheetah/sweatpy)
+## Installation
 
-[![Downloads](https://pepy.tech/badge/chiron)](https://pepy.tech/project/chiron)
+```bash
+# with uv (recommended)
+uv add chironpy
 
-> :warning: **This is a fork of the original sweatpy project, which no longer seems to be maintained.**
+# with pip
+pip install chironpy
+```
 
-Documentation for the original project can be found [here](https://github.com/GoldenCheetah/sweatpy/blob/master/docs/docs/index.md).
+## Quickstart
+
+```python
+from chironpy import WorkoutData
+
+# Load a workout file
+data = WorkoutData.from_file("my_workout.fit")
+
+# Best efforts — time-based and distance-based
+data.best_intervals([60, 300, 1200], stream="power")
+data.fastest_distance_intervals([1000, 5000, 10000])
+
+# Elevation gain
+data.elevation_gain()
+
+# Resample to 10-second buckets
+data.resample("10s")
+```
+
+## Key features
+
+- **Multi-format loading** — `.fit`, `.gpx`, `.tcx`, and Strava activity streams
+- **pandas-native** — `WorkoutData` subclasses `pd.DataFrame`; use any pandas method directly
+- **Standardised columns** — `speed`, `power`, `heartrate`, `cadence`, `elevation`, `distance`, `latitude`, `longitude` regardless of source format
+- **Best intervals** — time-based and distance-based personal bests
+- **Elevation analysis** — gain, smoothed elevation, grade
+- **Resampling** — downsample to any frequency with semantically correct per-column aggregations
 
 ## Documentation
 
-Usage and examples can be found [here](https://chironapp.github.io/chironpy/).
+Full documentation at [chironpy.chironapp.com](https://chironpy.chironapp.com)
 
-## Publishing
+## Contributing
 
-Build and publish using `poetry`.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-### TestPyPI
+## Attribution
 
-Test using TestPyPI. Create a project-scoped token in TestPyPI. Test publish manually:
+chironpy is a maintained fork of [sweatpy](https://github.com/GoldenCheetah/sweatpy) by [Maksym Sladkov](https://github.com/sladkovm) and [Aart Goossens](https://github.com/AartGoossens). The original project focused on cycling analysis; chironpy extends it with an emphasis on long-distance running.
 
-```
-poetry config repositories.testpypi https://test.pypi.org/legacy/
-poetry publish --repository testpypi --username __token__ --password pypi-YOURTOKEN
-```
-
-Or use the Github Actions as configured in `.github/workflows/publishtestpypi.yml`. Ensure:
-
-- The GitHub repo is connected to the TestPyPI project in TestPyPI.
-- The TestPyPI token has been added to the Github repo nvironment secrets: Settings > Environments > testpypi > Envionment secrets > TESTPYPI_TOKEN
-
-```
-[testpypi]
-  repository = https://test.pypi.org/legacy/
-  username = __token__
-  password = # either a user-scoped token or a project-scoped token you want to set as the default
-```
-
-Install from TestPyPI:
-
-```
-pip install chironpy --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/
-```
-
-## Development
-
-### Validating functionality
-
-The `examples/` directory contains utility scripts to help validate the functionality of the `chironpy` library during development.
-
-## Contributors
-
-- [Clive Gross](https://github.com/clivegross)
-- [Chiron - The endurance training platform](https://github.com/chironapp)
-
-Original authors ([sweatpy](https://github.com/GoldenCheetah/sweatpy)):
-
-- [Maksym Sladkov](https://github.com/sladkovm)
-- [Aart Goossens](https://github.com/AartGoossens)
-
-With thanks to:
-
-- [Aaron Schroeder](https://github.com/aaron-schroeder) for work on running power and elevation metrics published in [heartandsole](https://github.com/aaron-schroeder/heartandsole) and [spatialfriend](https://github.com/aaron-schroeder/spatialfriend).
+With thanks to [Aaron Schroeder](https://github.com/aaron-schroeder) for work on running power and elevation metrics in [heartandsole](https://github.com/aaron-schroeder/heartandsole) and [spatialfriend](https://github.com/aaron-schroeder/spatialfriend).
 
 ## License
 
-See [LICENSE](LICENSE) file.
-
-```
-
-```
+[MIT](docs/LICENSE)

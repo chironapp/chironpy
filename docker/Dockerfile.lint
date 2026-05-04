@@ -1,8 +1,7 @@
-FROM python:3.9
+FROM python:3.13
 
-RUN pip install black
+RUN python -m pip install --upgrade pip uv
 
-RUN mkdir /src/
-WORKDIR /src/
+WORKDIR /src
 
-CMD black chiron && black tests
+CMD uv sync --group dev && uv run ruff format chironpy/ tests/ examples/ && uv run ruff check chironpy/ tests/ examples/

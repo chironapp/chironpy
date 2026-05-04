@@ -14,8 +14,8 @@ Before making changes, read [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the full
 - Standard column names are defined in `chironpy/constants.py` (`DataTypeEnum`, `DataTypeEnumExtended`). Use those names — do not invent new column aliases.
 - New example data files go in `chironpy/examples/data/` and **must** be registered in `chironpy/examples/index.yml`.
 - Tests live in `tests/`. Match the existing structure: one file per module, `tests/test_<module>.py`. Use pytest; follow the `make_<thing>()` helper pattern for synthetic data.
-- Use `poetry run pytest tests/` to run the test suite. All tests must pass before committing.
-- Format code with `black` (`make lint` or `poetry run black .`).
+- Use `uv run pytest tests/` to run the test suite. All tests must pass before committing.
+- Format and lint code with `ruff` (`uv run ruff format chironpy/ tests/ examples/` and `uv run ruff check chironpy/ tests/ examples/`).
 
 ---
 
@@ -44,5 +44,5 @@ Before making changes, read [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the full
 - [ ] New/changed public methods are documented in `docs/api_reference.md`
 - [ ] `docs/changelog.md` has an entry in `[Unreleased]` for any user-visible change
 - [ ] Tests added or updated for new behaviour
-- [ ] `poetry run pytest tests/` passes
-- [ ] Code formatted with `black`
+- [ ] `uv run pytest tests/` passes
+- [ ] Code formatted/linted with `ruff`

@@ -17,6 +17,19 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-05-04
+
+### Changed
+
+- `WorkoutData.resample(freq, interpolate=False)` semantic downsampling behavior for lower-frequency buckets: cumulative fields (`distance`) use `max`; instantaneous fields (`speed`, `power`, `heartrate`, `cadence`, `temperature`, `grade`, `elevation`, `enhanced_altitude`) use `mean`; GPS coordinates (`latitude`, `longitude`) use `mean`; `is_moving` uses `any`. Accepts any pandas offset alias (e.g. `"10s"`, `"1min"`).
+- Development tooling migrated from Poetry/Black to uv/Ruff: local and container workflows now use `uv sync`/`uv run`, linting uses `ruff format` and `ruff check`, and Poetry-specific artifacts/config (including `poetry.lock`) were removed.
+- Contributor and project docs were updated for the uv workflow (`CONTRIBUTING.md`, `README.md`, docs landing page, and lab notebook setup instructions), and project automation guidance (`Makefile`, agent/copilot instructions) now reflects uv + ruff commands.
+- Workspace defaults now pin Python 3.13 via `.python-version` and point VS Code to `.venv` as the default interpreter.
+
+### Fixed
+
+- Fixed `ValueError` in `elevation_smooth_time()` for short recordings where the data length is less than the Savitzky-Golay filter's default window length (21). The function now gracefully degrades: recordings too short for any valid window are returned unsmoothed; recordings shorter than the default window use a reduced (but still valid) odd window length.
+
 ## [0.29.1] - 2026-04-29
 
 ### Changed

@@ -1,9 +1,5 @@
-import sys
 import os
-from pathlib import Path
 from chironpy.metrics.speed import multiple_fastest_distance_intervals
-from chironpy.metrics.vert import elevation_gain
-from chironpy.metrics.core import best_interval, best_distance_interval
 
 # # Add the project directory to sys.path
 # sys.path.insert(0, str(Path(__file__).resolve().parent.parent))

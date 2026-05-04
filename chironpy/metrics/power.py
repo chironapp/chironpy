@@ -1,6 +1,3 @@
-import pandas as pd
-
-
 def wpk(power, weight):
     """Watts per kilo
 

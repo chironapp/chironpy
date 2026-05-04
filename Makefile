@@ -1,13 +1,13 @@
-.PHONY: build_docker build_test test testall docs install pytest lab
+.PHONY: build_docker build_test test testall docs install pytest lab lint lint_docker
 
 install:
-	poetry install
+	uv sync --group dev --group docs
 
 pytest:
-	poetry run pytest tests/
+	uv run pytest tests/
 
 lab:
-	poetry run jupyter lab lab/
+	uv run jupyter lab lab/
 
 build_docker:
 	docker build -t chironpy-test .
@@ -17,6 +17,10 @@ test:
 	docker-compose -f docker/docker-compose.test.yml run chironpy tox ${toxargs} -- ${pytestargs}
 
 lint:
+	uv run ruff format chironpy/ tests/ examples/
+	uv run ruff check chironpy/ tests/ examples/
+
+lint_docker:
 	docker-compose -f docker/docker-compose.lint.yml build
 	docker-compose -f docker/docker-compose.lint.yml run chironpy
 

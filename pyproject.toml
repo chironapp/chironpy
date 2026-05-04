@@ -1,13 +1,11 @@
-[tool.poetry]
+[project]
 name = "chironpy"
-version = "0.29.1"
+version = "0.30.0"
 description = "Workout analysis"
-license = "MIT"
-authors = ["Clive Gross <clive@chironapp.com>"]
+license = { text = "MIT" }
+authors = [{ name = "Clive Gross", email = "clive@chironapp.com" }]
 readme = "README.md"
-homepage = "https://chironapp.github.io/chironpy/"
-repository = "https://github.com/chironapp/chironpy"
-documentation = "https://chironapp.github.io/chironpy/"
+requires-python = ">=3.11,<4.0.0"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -21,60 +19,61 @@ classifiers = [
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = [
+    "fitparse>=1.2.0,<2",
+    "lmfit>=1.3.0,<2",
+    "scipy>=1.13.0,<2",
+    "pandas>=2.0.0,<3",
+    "pydantic>=2.0,<3",
+    "pyyaml>=6.0.0,<7",
+    "scikit-learn>=1.3.0,<2",
+    "stravalib>=2.0.0,<3",
+    "numpy>=1.24.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.11,<4.0.0"
-fitparse = "^1.2.0"
-lmfit = "^1.3.0"
-scipy = "^1.13.0"
-pandas = "^2.0.0"
-pydantic = "^2.0"
-pyyaml = "^6.0.0"
-scikit-learn = "^1.3.0"
-stravalib = "^2.0.0"
-numpy = "^1.24.0"
+[project.urls]
+Homepage = "https://chironpy.chironapp.com"
+Repository = "https://github.com/chironapp/chironpy"
+Documentation = "https://chironpy.chironapp.com"
 
-[tool.poetry.group.dev]
-optional = true
+[dependency-groups]
+dev = [
+    "ruff>=0.5.0",
+    "pytest>=6.2.4,<8",
+    "matplotlib>=3.8.0,<4",
+    "openpyxl>=3.0.7,<4",
+    "typing-extensions>=4.12.2,<5",
+    "vcrpy>=6.0.2,<7",
+    "jupyterlab",
+    "ipykernel",
+]
+docs = [
+    "mkdocs",
+    "mkdocs-material>=9.6.12,<10",
+    "mknotebooks",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^24.10.0"
-pytest = ">=6.2.4,<8.0.0"
-matplotlib = "^3.8.0"
-openpyxl = "^3.0.7"
-typing-extensions = "^4.12.2"
-vcrpy = "^6.0.2"
-jupyterlab = "*"
-ipykernel = "*"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.group.docs]
-optional = true
+[tool.hatch.build.targets.wheel]
+packages = ["chironpy"]
 
-[tool.poetry.group.docs.dependencies]
-mkdocs = "*"
-mkdocs-material = {extras = ["icons"], version = "^9.6.12"}
-mknotebooks = "*"
+[tool.ruff]
+line-length = 88
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-isolated_build = true
 envlist = py311,py312,py313,py314
 
 [testenv]
-whitelist_externals = poetry
-passenv = PYTHONDONTWRITEBYTECODE
 commands =
-    # About the --no-root flag: https://github.com/python-poetry/poetry/issues/1204
-    poetry install -v --no-root
-    poetry run pytest tests/ {posargs}
+    uv run pytest tests/ {posargs}
 """
 
 [tool.pytest.ini_options]
 filterwarnings = [
     "ignore::DeprecationWarning:fitparse",
 ]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"

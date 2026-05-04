@@ -1,5 +1,4 @@
 import os
-import chironpy
 from chironpy import WorkoutData
 
 print("Loading example marathon data from FIT file...")

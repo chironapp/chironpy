@@ -1,18 +1,18 @@
-from enum import Enum
-from typing import Dict, List, Optional
+from typing import List, Optional, Union
 
-from pydantic import BaseModel
 import pandas as pd
-from typing import Union, Optional
+
 from chironpy import read_file, read_strava
-from chironpy.metrics.vert import grade_smooth_time, elevation_gain
-from chironpy.metrics.speed import multiple_fastest_distance_intervals
+from chironpy.constants import DataTypeEnum, DataTypeEnumExtended
 from chironpy.metrics.core import (
     mean_max as _mean_max,
+)
+from chironpy.metrics.core import (
     multiple_best_distance_intervals,
     multiple_best_intervals,
 )
-from chironpy.constants import DataTypeEnum, DataTypeEnumExtended
+from chironpy.metrics.speed import multiple_fastest_distance_intervals
+from chironpy.metrics.vert import elevation_gain, grade_smooth_time
 
 DATA_TYPES = {member.value for member in DataTypeEnum} | {
     member.value for member in DataTypeEnumExtended
@@ -144,11 +144,70 @@ class WorkoutData(pd.DataFrame):
         WorkoutData
             A new ``WorkoutData`` at the requested frequency.
         """
+        # Aggregate by semantic column type when downsampling.
+        _CUMULATIVE = {"distance"}
+        _POSITIONAL = {"latitude", "longitude"}
+        _BOOLEAN = {"is_moving"}
+        _AVERAGE = {
+            "speed",
+            "enhanced_speed",
+            "power",
+            "cadence",
+            "heartrate",
+            "temperature",
+            "grade",
+            "elevation",
+            "enhanced_altitude",
+            "left-right balance",
+        }
+
         df = pd.DataFrame(self).drop(columns=["time"], errors="ignore")
-        df = df.resample(freq).mean(numeric_only=True)
+
+        agg: dict = {}
+        for col in df.columns:
+            if col in _CUMULATIVE:
+                agg[col] = "max"
+            elif col in _POSITIONAL:
+                agg[col] = "mean"
+            elif col in _BOOLEAN:
+                agg[col] = "any"
+            elif col in _AVERAGE:
+                agg[col] = "mean"
+
+        if not agg:
+            df_resampled = df.resample(freq).mean(numeric_only=True)
+            if interpolate:
+                df_resampled = df_resampled.interpolate(method="linear")
+            return WorkoutData.from_raw(df_resampled, resample=False, interpolate=False)
+
+        extra = [c for c in df.columns if c not in agg]
+        for col in extra:
+            if pd.api.types.is_numeric_dtype(df[col]):
+                agg[col] = "mean"
+
+        df_resampled = df[list(agg)].resample(freq).agg(agg)
+
         if interpolate:
-            df = df.interpolate(method="linear")
-        return WorkoutData.from_raw(df, resample=False, interpolate=False)
+            # Interpolate only numeric columns; booleans (e.g. is_moving) remain semantic.
+            numeric_cols = df_resampled.select_dtypes(include="number").columns
+            if len(numeric_cols) > 0:
+                df_resampled.loc[:, numeric_cols] = df_resampled.loc[
+                    :, numeric_cols
+                ].interpolate(method="linear")
+
+        # Preserve semantic boolean aggregation after from_raw (which recomputes is_moving).
+        is_moving_resampled = None
+        if "is_moving" in df_resampled.columns:
+            is_moving_resampled = df_resampled["is_moving"].astype(bool)
+
+        # Force grade recalculation from distance/elevation on the resampled data.
+        df_resampled = df_resampled.drop(columns=["grade"], errors="ignore")
+        result = WorkoutData.from_raw(df_resampled, resample=False, interpolate=False)
+
+        if is_moving_resampled is not None:
+            result["is_moving"] = is_moving_resampled
+
+        return result
 
     def rolling(self, window: int, method: str = "mean") -> pd.DataFrame:
         """Compute a rolling average or median across standard columns.

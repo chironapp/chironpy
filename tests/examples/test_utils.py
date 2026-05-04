@@ -1,6 +1,4 @@
 import pytest
-from pathlib import Path
-from types import GeneratorType
 
 import chironpy
 from chironpy.examples import utils
@@ -72,7 +70,7 @@ def test_examples_by_sport():
 def test_examples_by_path_and_sport(path, file_type, sport, error):
     try:
         utils.examples(path=path, file_type=file_type, sport=sport)
-    except ValueError as e:
+    except ValueError:
         assert error
     else:
         pass
