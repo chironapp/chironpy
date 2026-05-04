@@ -2,22 +2,17 @@ name: Lint
 on: [push, pull_request]
 
 jobs:
-  black:
-    name: Black
+  ruff:
+    name: Ruff
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
         with:
           python-version: "3.12"
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
       - name: Install dependencies
-        run: |
-          poetry install --with dev
-      - name: Run Black
-        run: |
-          poetry run black --check --diff chironpy/
-          poetry run black --check --diff tests/
-          poetry run black --check --diff examples/
+        run: uv sync --group dev
+      - name: Check formatting
+        run: uv run ruff format --check chironpy/ tests/ examples/
+      - name: Check linting
+        run: uv run ruff check chironpy/ tests/ examples/

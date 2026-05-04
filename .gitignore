@@ -100,3 +100,6 @@ ENV/
 
 # Claude Code local data (settings, todos, session state, worktrees)
 .claude/
+
+# Poetry (replaced by uv)
+poetry.lock

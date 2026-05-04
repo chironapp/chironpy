@@ -11,18 +11,13 @@ jobs:
     name: Publish documentation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
         with:
-          python-version: 3.11
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
+          python-version: "3.11"
       - name: Install dependencies
-        run: |
-          poetry install --with docs
+        run: uv sync --group docs
       - name: Sync contributing doc
         run: cp CONTRIBUTING.md docs/CONTRIBUTING.md
-      - name: Publish package
-        run: |
-          poetry run mkdocs gh-deploy --force
+      - name: Publish docs
+        run: uv run mkdocs gh-deploy --force

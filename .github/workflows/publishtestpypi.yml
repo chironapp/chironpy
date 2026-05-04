@@ -1,34 +1,20 @@
-name: Publish TestPyPi
+name: Publish TestPyPI
 on:
   release:
     types: [published]
 
 jobs:
   publish:
-    name: Publish to TestPyPi
+    name: Publish to TestPyPI
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-    # Dedicated environments with protections for publishing are strongly recommended.
     environment:
       name: testpypi
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.4.1
-      - name: Poetry configuration
-        run: |
-          poetry config repositories.testpypi https://test.pypi.org/legacy/
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
       - name: Build package
-        run: |
-          poetry build
+        run: uv build
       - name: Publish package
-        env:
-          TESTPYPI_TOKEN: ${{ secrets.TESTPYPI_TOKEN }}
-        run: |
-          echo "TestPyPI Token: ${TESTPYPI_TOKEN:0:8}****"
-          poetry publish --repository testpypi --username __token__ --password $TESTPYPI_TOKEN
+        run: uv publish --index-url https://test.pypi.org/legacy/ --token ${{ secrets.TESTPYPI_TOKEN }}

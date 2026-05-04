@@ -35,40 +35,30 @@ Start by searching through the [issues](https://github.com/chironapp/chironpy/is
 ### Prerequisites
 
 - Python 3.11+
-- [Poetry](https://python-poetry.org/docs/#installation)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ### Clone and install
 
 ```bash
 git clone https://github.com/chironapp/chironpy.git
 cd chironpy
-poetry install
+uv sync --group dev
 ```
 
-`poetry install` installs the package in editable mode along with all dev dependencies (pytest, JupyterLab, linting tools, etc.). No separate `pip install -e .` step is needed.
+`uv sync` installs the package in editable mode along with all dev dependencies (pytest, JupyterLab, ruff, etc.).
 
 Verify the install:
 
 ```bash
-poetry run python -c "import chironpy; print('ok')"
+uv run python -c "import chironpy; print('ok')"
 ```
 
 ---
 
 ## Running Tests
 
-Run the test suite locally:
-
 ```bash
-poetry run pytest tests/
-# or
-make pytest
-```
-
-Run tests in a clean Docker environment (matches CI):
-
-```bash
-make test
+uv run pytest tests/
 ```
 
 ---
@@ -83,9 +73,7 @@ The `lab/` directory is the workspace for development scripts and notebooks. It 
 Launch JupyterLab:
 
 ```bash
-poetry run jupyter lab lab/
-# or
-make lab
+uv run jupyter lab lab/
 ```
 
 The kernel will have `chironpy` available directly — no path manipulation needed.
@@ -93,7 +81,7 @@ The kernel will have `chironpy` available directly — no path manipulation need
 To run a script from the project root:
 
 ```bash
-poetry run python lab/my_script.py
+uv run python lab/my_script.py
 ```
 
 ### Bundled example data
@@ -118,9 +106,8 @@ The `examples/` directory contains scripts demonstrating complete usage patterns
 ## Linting
 
 ```bash
-make lint
-# or
-poetry run black .
+uv run ruff format chironpy/ tests/ examples/
+uv run ruff check chironpy/ tests/ examples/
 ```
 
 ## Requirements for merging code
@@ -128,7 +115,7 @@ poetry run black .
 - New features should be generic and not specific to one user or use-case.
 - New features should be properly unit tested. Do not forget to test your [unhappy paths](https://en.wikipedia.org/wiki/Happy_path) too.
 - All tests should pass.
-- The code should pass the linting check with Black.
+- The code should pass the ruff format and lint checks.
 - New features should include documentation with at least a basic example.
 - New features that include models or algorithms should cite the source (e.g. a scientific article) in the documentation.
 
@@ -137,7 +124,7 @@ poetry run black .
 ## Building Docs
 
 ```bash
-make docs
+uv run mkdocs serve
 ```
 
 Documentation source files are in the `docs/` directory. Markdown and Jupyter notebook (`.ipynb`) files are both rendered as pages. To add a new page, add the file and include it in the `nav` section of `mkdocs.yml`.
@@ -146,7 +133,7 @@ Documentation source files are in the `docs/` directory. Markdown and Jupyter no
 
 ## Example data
 
-Example workout files are stored in `chironpy/examples/data/`. Every new file added there must also be registered in `chironpy/examples/index.yml`. See the [example data docs](https://chironapp.github.io/chironpy/features/example_data/) for usage.
+Example workout files are stored in `chironpy/examples/data/`. Every new file added there must also be registered in `chironpy/examples/index.yml`. See the [example data docs](https://chironpy.chironapp.com/features/example_data/) for usage.
 
 ---
 
@@ -173,26 +160,16 @@ fit._import_fit_profile("path/to/new/Profile.xlsx")
 
 ### 1. Run the tests
 
-Before releasing, confirm the test suite passes locally:
-
 ```bash
-poetry run pytest tests/
-# or
-make pytest
-```
-
-To run tests in a clean Docker environment matching CI:
-
-```bash
-make test
+uv run pytest tests/
 ```
 
 ### 2. Bump the version
 
-Use Poetry to update the version in `pyproject.toml`:
+Update the `version` field in `pyproject.toml` manually, then regenerate the lock file:
 
 ```bash
-poetry version patch   # or: minor, major
+uv lock
 ```
 
 ### 3. Update the changelog
@@ -202,8 +179,8 @@ Add a new entry to `docs/changelog.md` following the existing format.
 ### 4. Commit and push
 
 ```bash
-git add pyproject.toml docs/changelog.md
-git commit -m "bump version to $(poetry version -s)"
+git add pyproject.toml uv.lock docs/changelog.md
+git commit -m "bump version to <version>"
 git push origin master
 ```
 
