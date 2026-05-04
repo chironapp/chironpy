@@ -1,5 +1,3 @@
-
-
 def wpk(power, weight):
     """Watts per kilo
 

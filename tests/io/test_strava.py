@@ -1,5 +1,3 @@
-
-
 import chironpy
 from chironpy.io import strava
 
