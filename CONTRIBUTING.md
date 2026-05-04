@@ -42,10 +42,10 @@ Start by searching through the [issues](https://github.com/chironapp/chironpy/is
 ```bash
 git clone https://github.com/chironapp/chironpy.git
 cd chironpy
-uv sync --group dev
+uv sync --group dev --group docs
 ```
 
-`uv sync` installs the package in editable mode along with all dev dependencies (pytest, JupyterLab, ruff, etc.).
+`uv sync` installs the package in editable mode along with all dev and docs dependencies (pytest, JupyterLab, ruff, mkdocs, etc.).
 
 Verify the install:
 

@@ -14,16 +14,17 @@ Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before starting work. It covers enviro
 
 ```bash
 # Install
-poetry install
+uv sync --group dev
 
 # Run tests
-poetry run pytest tests/
+uv run pytest tests/
 
 # Lint
-poetry run black .
+uv run ruff format chironpy/ tests/ examples/
+uv run ruff check chironpy/ tests/ examples/
 ```
 
-All tests must pass and code must be `black`-formatted before any commit.
+All tests must pass and code must be formatted/linted by `ruff` before any commit.
 
 ---
 
@@ -70,5 +71,5 @@ Record every feature, behaviour change, deprecation, removal, bug fix, or securi
 - [ ] New/changed public methods documented in `docs/api_reference.md`
 - [ ] `docs/changelog.md` updated under `[Unreleased]` for every user-visible change
 - [ ] Tests added or updated for new behaviour
-- [ ] `poetry run pytest tests/` passes
-- [ ] Code formatted with `black`
+- [ ] `uv run pytest tests/` passes
+- [ ] Code formatted/linted with `ruff`

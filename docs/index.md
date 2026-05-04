@@ -48,7 +48,7 @@ distances = [1000, 5000, 10000, 21100]  # metres
 fastest = data.fastest_distance_intervals(distances)
 
 # Resample to 10-second buckets
-data.resample_records("10s")
+data.resample("10s")
 ```
 
 More information about running metrics can be found [here](features/running_metrics.md).

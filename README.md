@@ -36,7 +36,7 @@ data.fastest_distance_intervals([1000, 5000, 10000])
 data.elevation_gain()
 
 # Resample to 10-second buckets
-data.resample_records("10s")
+data.resample("10s")
 ```
 
 ## Key features

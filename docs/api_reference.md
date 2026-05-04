@@ -182,7 +182,14 @@ df = workout.to_pandas()
 
 ### `resample(freq, interpolate=False) -> WorkoutData`
 
-Return a new `WorkoutData` resampled to the given frequency. When downsampling (e.g. to 5 s), values are averaged within each bin; `time`, `is_moving`, and `grade` are recomputed from the new index.
+Return a new `WorkoutData` resampled to the given frequency using semantic per-column aggregation rules.
+
+- Cumulative fields (for example `distance`) use `max`
+- Instantaneous numeric fields (for example `speed`, `power`, `heartrate`, `elevation`) use `mean`
+- GPS coordinates (`latitude`, `longitude`) use `mean`
+- `is_moving` uses `any`
+
+After aggregation, `grade` is recalculated from the resampled `distance` and `elevation` series.
 
 | Parameter     | Type   | Default | Description                                         |
 | ------------- | ------ | ------- | --------------------------------------------------- |

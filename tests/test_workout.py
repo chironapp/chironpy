@@ -1,11 +1,11 @@
 # TODO: write tests for WorkoutData
+from datetime import datetime, timedelta
+
 import numpy as np
 import pandas as pd
 import pytest
-from datetime import datetime, timedelta
 
 from chironpy.models.workout import WorkoutData
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -247,7 +247,7 @@ def test_merge_instance_method_passes_kwargs():
 
 
 # ---------------------------------------------------------------------------
-# resample_records
+# resample
 # ---------------------------------------------------------------------------
 
 
@@ -269,37 +269,38 @@ def make_workout_full(start: datetime, duration_s: int) -> WorkoutData:
     return WorkoutData.from_raw(df, resample=False, interpolate=False)
 
 
-def test_resample_records_row_count():
+def test_resample_row_count():
     """60 s at 1 Hz resampled to 10 s should produce 6 buckets."""
     w = make_workout_full(datetime(2023, 1, 1, 10, 0, 0), 60)
-    result = w.resample_records("10s")
+    result = w.resample("10s")
     assert len(result) == 6
+    assert isinstance(result, WorkoutData)
 
 
-def test_resample_records_distance_uses_max():
+def test_resample_distance_uses_max():
     """Distance (cumulative) should be the max within each bucket, not the mean."""
     w = make_workout_full(datetime(2023, 1, 1, 10, 0, 0), 30)
-    result = w.resample_records("10s")
+    result = w.resample("10s")
     # First bucket: distance goes 0, 3, 6, 9, 12, 15, 18, 21, 24, 27 → max = 27
     assert result["distance"].iloc[0] == pytest.approx(27.0)
 
 
-def test_resample_records_elevation_uses_mean():
+def test_resample_elevation_uses_mean():
     """Elevation (absolute altitude) should be the mean within each bucket."""
     w = make_workout_full(datetime(2023, 1, 1, 10, 0, 0), 30)
-    result = w.resample_records("10s")
+    result = w.resample("10s")
     # First bucket: elevation 100.0 to 100.9 → mean = 100.45
     assert result["elevation"].iloc[0] == pytest.approx(100.45)
 
 
-def test_resample_records_speed_uses_mean():
+def test_resample_speed_uses_mean():
     """Speed should be averaged within each bucket."""
     w = make_workout_full(datetime(2023, 1, 1, 10, 0, 0), 30)
-    result = w.resample_records("10s")
+    result = w.resample("10s")
     assert result["speed"].iloc[0] == pytest.approx(3.0)
 
 
-def test_resample_records_is_moving_uses_any():
+def test_resample_is_moving_uses_any():
     """is_moving should be True if any sample in the bucket is moving."""
     start = datetime(2023, 1, 1, 10, 0, 0)
     times = pd.date_range(start=start, periods=20, freq="1s")
@@ -310,15 +311,22 @@ def test_resample_records_is_moving_uses_any():
         index=times,
     )
     w = WorkoutData.from_raw(df, resample=False, interpolate=False)
-    result = w.resample_records("10s")
+    result = w.resample("10s")
     assert result["is_moving"].iloc[0] == False
     assert result["is_moving"].iloc[1] == True
 
 
-def test_resample_records_accepts_arbitrary_freq():
-    """resample_records should work with any pandas offset alias."""
+def test_resample_accepts_arbitrary_freq():
+    """resample should work with any pandas offset alias."""
     w = make_workout_full(datetime(2023, 1, 1, 10, 0, 0), 120)
-    result_30s = w.resample_records("30s")
-    result_1min = w.resample_records("1min")
+    result_30s = w.resample("30s")
+    result_1min = w.resample("1min")
     assert len(result_30s) == 4
     assert len(result_1min) == 2
+
+
+def test_resample_recalculates_grade():
+    """Grade should be recalculated from resampled distance/elevation."""
+    w = make_workout_full(datetime(2023, 1, 1, 10, 0, 0), 30)
+    result = w.resample("10s")
+    assert "grade" in result.columns
