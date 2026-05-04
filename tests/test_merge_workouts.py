@@ -60,21 +60,19 @@ def merged_no_gaps(workout_a, workout_b, workout_c):
 def test_distance_forward_filled_during_gap(merged, workout_a, workout_b):
     """``distance`` is cumulative and must be forward-filled, not NaN, in gap rows."""
     gap_rows = merged.loc[
-        workout_a.index[-1]
-        + pd.Timedelta(seconds=1) : workout_b.index[0]
+        workout_a.index[-1] + pd.Timedelta(seconds=1) : workout_b.index[0]
         - pd.Timedelta(seconds=1)
     ]
     assert not gap_rows.empty, "Expected resampled NaN rows in the gap"
-    assert (
-        not gap_rows["distance"].isna().any()
-    ), "distance must be forward-filled (not NaN) during gap rows"
+    assert not gap_rows["distance"].isna().any(), (
+        "distance must be forward-filled (not NaN) during gap rows"
+    )
 
 
 def test_speed_and_heartrate_nan_during_gap(merged, workout_a, workout_b):
     """Performance channels (speed, heartrate) must be NaN in gap rows."""
     gap_rows = merged.loc[
-        workout_a.index[-1]
-        + pd.Timedelta(seconds=1) : workout_b.index[0]
+        workout_a.index[-1] + pd.Timedelta(seconds=1) : workout_b.index[0]
         - pd.Timedelta(seconds=1)
     ]
     assert not gap_rows.empty, "Expected resampled NaN rows in the gap"
@@ -90,9 +88,7 @@ def test_speed_and_heartrate_nan_during_gap(merged, workout_a, workout_b):
 def test_drop_gaps_produces_contiguous_timestamps(merged_no_gaps):
     """With ``drop_gaps=True`` every pair of consecutive timestamps is 1 second apart."""
     diffs = merged_no_gaps.index.to_series().diff().dropna()
-    assert (
-        diffs == pd.Timedelta(seconds=1)
-    ).all(), (
+    assert (diffs == pd.Timedelta(seconds=1)).all(), (
         "With drop_gaps=True all consecutive timestamps must be exactly 1 second apart"
     )
 
@@ -144,12 +140,12 @@ def test_overlapping_later_workout_values_take_precedence(workout_a, workout_b):
     # Sample 60 s into the overlap region — both workouts have data here,
     # but workout_b_overlapping starts later so its values must win.
     sample_ts = overlap_start + pd.Timedelta(seconds=60)
-    assert (
-        sample_ts in merged.index
-    ), "Expected merged to contain a row at the sample timestamp"
-    assert (
-        sample_ts in workout_b_overlapping.index
-    ), "Expected workout_b_overlapping to contain a row at the sample timestamp"
+    assert sample_ts in merged.index, (
+        "Expected merged to contain a row at the sample timestamp"
+    )
+    assert sample_ts in workout_b_overlapping.index, (
+        "Expected workout_b_overlapping to contain a row at the sample timestamp"
+    )
     assert merged.loc[sample_ts, "speed"] == pytest.approx(
         workout_b_overlapping.loc[sample_ts, "speed"]
     )
