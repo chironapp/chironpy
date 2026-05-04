@@ -1,7 +1,6 @@
 # TODO: write tests for WorkoutData
 from datetime import datetime, timedelta
 
-import numpy as np
 import pandas as pd
 import pytest
 
@@ -312,8 +311,8 @@ def test_resample_is_moving_uses_any():
     )
     w = WorkoutData.from_raw(df, resample=False, interpolate=False)
     result = w.resample("10s")
-    assert result["is_moving"].iloc[0] == False
-    assert result["is_moving"].iloc[1] == True
+    assert not result["is_moving"].iloc[0]
+    assert result["is_moving"].iloc[1]
 
 
 def test_resample_accepts_arbitrary_freq():

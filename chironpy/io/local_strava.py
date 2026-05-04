@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Optional, Union
 
 import pandas as pd
-from stravalib.client import Client
 
 from .utils import resample_data
 

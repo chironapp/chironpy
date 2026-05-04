@@ -8,7 +8,6 @@ from .utils import (
     remove_duplicate_indices,
     resample_data,
     Device,
-    Sensor,
 )
 
 

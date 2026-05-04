@@ -1,8 +1,6 @@
-from enum import Enum
-from typing import Dict, List, Optional, Union
+from typing import List, Optional, Union
 
 import pandas as pd
-from pydantic import BaseModel
 
 from chironpy import read_file, read_strava
 from chironpy.constants import DataTypeEnum, DataTypeEnumExtended

@@ -1,12 +1,15 @@
-from . import pandas
-from .examples.utils import examples, FileTypeEnum, SportEnum
-from .io.fit import read_fit
-from .io.gpx import read_gpx
-from .io.generic import read_dir, read_file
-from .io.strava import read_strava
-from .io.tcx import read_tcx
-from .pdm.regressors import PowerDurationRegressor
-from .pdm.w_prime_balance import w_prime_balance
-from .utils import array_1d_to_2d
-from .io.local_strava import read_local_strava
-from .models.workout import WorkoutData
+from . import pandas as pandas
+from .examples.utils import examples as examples
+from .examples.utils import FileTypeEnum as FileTypeEnum
+from .examples.utils import SportEnum as SportEnum
+from .io.fit import read_fit as read_fit
+from .io.gpx import read_gpx as read_gpx
+from .io.generic import read_dir as read_dir
+from .io.generic import read_file as read_file
+from .io.local_strava import read_local_strava as read_local_strava
+from .io.strava import read_strava as read_strava
+from .io.tcx import read_tcx as read_tcx
+from .models.workout import WorkoutData as WorkoutData
+from .pdm.regressors import PowerDurationRegressor as PowerDurationRegressor
+from .pdm.w_prime_balance import w_prime_balance as w_prime_balance
+from .utils import array_1d_to_2d as array_1d_to_2d

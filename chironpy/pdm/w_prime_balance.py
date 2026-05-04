@@ -19,14 +19,20 @@ def tau_w_prime_balance(power, cp, untill=None):
 def get_tau_method(power, cp, tau_dynamic, tau_value):
     if tau_dynamic:
         tau_dynamic = [tau_w_prime_balance(power, cp, i) for i in range(len(power))]
-        tau = lambda t: tau_dynamic[t]
+
+        def tau(t):
+            return tau_dynamic[t]
 
     elif tau_value is None:
         static_tau = tau_w_prime_balance(power, cp)
-        tau = lambda t: static_tau
+
+        def tau(t):
+            return static_tau
 
     else:
-        tau = lambda t: tau_value
+
+        def tau(t):
+            return tau_value
 
     return tau
 

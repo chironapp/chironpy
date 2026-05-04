@@ -1,4 +1,3 @@
-import pandas as pd
 
 
 def wpk(power, weight):

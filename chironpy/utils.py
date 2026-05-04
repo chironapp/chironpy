@@ -119,5 +119,5 @@ def enable_type_casting(module_or_func=None):
         )
 
 
-def array_1d_to_2d(l):
-    return np.asarray(l).reshape(-1, 1)
+def array_1d_to_2d(values):
+    return np.asarray(values).reshape(-1, 1)

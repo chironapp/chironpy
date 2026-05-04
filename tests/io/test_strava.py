@@ -1,10 +1,7 @@
-import pytest
 
-import pandas as pd
 
 import chironpy
 from chironpy.io import strava
-from .utils import chironvcr
 
 
 def test_top_level_import():

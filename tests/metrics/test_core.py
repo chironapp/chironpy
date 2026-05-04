@@ -172,7 +172,7 @@ class TestMeanMax:
         assert rv[49] == 75.5
         assert rv[-1] == 50.5
 
-    def test_power_duration_curve(self):
+    def test_power_duration_curve_extended(self):
         power = pd.Series([100] * 120 + ([300] * 60 + [100] * 60) * 4 + [100] * 60)
         rv = mean_max(power)
 
