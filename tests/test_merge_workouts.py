@@ -172,3 +172,27 @@ def test_overlapping_later_workout_values_take_precedence(workout_a, workout_b):
     assert merged.loc[sample_ts, "speed"] == pytest.approx(
         workout_b_overlapping.loc[sample_ts, "speed"]
     )
+
+
+def test_distance_continuous_at_overlap_boundary(workout_a, workout_b):
+    """Distance must not jump at the boundary where a later workout overlaps an earlier one.
+
+    When workout_b is shifted to start inside workout_a's time range, the
+    merged distance at overlap_start should equal workout_a's distance at
+    that same timestamp — not workout_a's final distance (which would be
+    an over-shoot causing an artificial jump).
+    """
+    overlap_start = workout_a.index[-1] - pd.Timedelta(minutes=5)
+    workout_b_overlapping = workout_b.set_start_time(overlap_start)
+    merged = WorkoutData.merge_many([workout_a, workout_b_overlapping])
+
+    assert overlap_start in merged.index, "Expected merged to contain overlap_start"
+    assert overlap_start in workout_a.index, "Expected workout_a to contain overlap_start"
+
+    dist_at_overlap_in_a = workout_a.loc[overlap_start, "distance"]
+    dist_at_overlap_in_merged = merged.loc[overlap_start, "distance"]
+
+    assert dist_at_overlap_in_merged == pytest.approx(dist_at_overlap_in_a, rel=1e-3), (
+        "distance in merged workout jumped at the overlap boundary — "
+        "expected it to equal workout_a's distance at that timestamp"
+    )

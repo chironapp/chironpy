@@ -458,19 +458,30 @@ class WorkoutData(pd.DataFrame):
 
         # Offset distance so it accumulates continuously across workouts.
         # Each workout's distance resets to 0 (or its own baseline); add the
-        # running total from all previous workouts so the merged series is
-        # monotonically increasing.
+        # running cumulative total at the start of the current workout so the
+        # merged series is monotonically non-decreasing.  For overlapping
+        # workouts the offset is looked up at the exact start timestamp of the
+        # current workout (not the end of the previous one), which avoids an
+        # artificial jump at the overlap boundary.
         if len(frames) > 1:
-            running_offset = 0.0
-            for i, frame in enumerate(frames):
-                if "distance" not in frame.columns:
+            running_dist = (
+                frames[0]["distance"].dropna()
+                if "distance" in frames[0].columns
+                else pd.Series(dtype=float)
+            )
+            for i in range(1, len(frames)):
+                if "distance" not in frames[i].columns:
                     continue
-                if i > 0 and running_offset != 0.0:
-                    frames[i] = frame.copy()
-                    frames[i]["distance"] = frame["distance"] + running_offset
-                last_dist = frames[i]["distance"].dropna()
-                if not last_dist.empty:
-                    running_offset = float(last_dist.iloc[-1])
+                start_ts = frames[i].index[0]
+                prior = running_dist.loc[:start_ts].dropna()
+                offset = float(prior.iloc[-1]) if not prior.empty else 0.0
+                if offset != 0.0:
+                    frames[i] = frames[i].copy()
+                    frames[i]["distance"] = frames[i]["distance"] + offset
+                # Merge this frame's (offset) distance into the running series;
+                # later-starting workout wins at overlapping timestamps.
+                updated = pd.concat([running_dist, frames[i]["distance"].dropna()])
+                running_dist = updated[~updated.index.duplicated(keep="last")].sort_index()
 
         if drop_gaps:
             # Shift each workout to start 1 second after the previous one ends
