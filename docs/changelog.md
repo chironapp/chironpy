@@ -17,6 +17,12 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.30.1] - 2026-05-26
+
+### Fixed
+
+- Fixed `WorkoutData.merge_many()` not accumulating distance across workouts. Each source workout stores distance starting from 0; the merged series now correctly offsets each subsequent workout's distance by the cumulative total of all preceding workouts, producing a monotonically non-decreasing distance column suitable for use as a chart x-axis.
+
 ## [0.30.0] - 2026-05-04
 
 ### Changed
