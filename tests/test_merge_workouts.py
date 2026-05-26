@@ -187,7 +187,9 @@ def test_distance_continuous_at_overlap_boundary(workout_a, workout_b):
     merged = WorkoutData.merge_many([workout_a, workout_b_overlapping])
 
     assert overlap_start in merged.index, "Expected merged to contain overlap_start"
-    assert overlap_start in workout_a.index, "Expected workout_a to contain overlap_start"
+    assert overlap_start in workout_a.index, (
+        "Expected workout_a to contain overlap_start"
+    )
 
     dist_at_overlap_in_a = workout_a.loc[overlap_start, "distance"]
     dist_at_overlap_in_merged = merged.loc[overlap_start, "distance"]

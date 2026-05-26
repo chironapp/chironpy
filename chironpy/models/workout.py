@@ -481,7 +481,9 @@ class WorkoutData(pd.DataFrame):
                 # Merge this frame's (offset) distance into the running series;
                 # later-starting workout wins at overlapping timestamps.
                 updated = pd.concat([running_dist, frames[i]["distance"].dropna()])
-                running_dist = updated[~updated.index.duplicated(keep="last")].sort_index()
+                running_dist = updated[
+                    ~updated.index.duplicated(keep="last")
+                ].sort_index()
 
         if drop_gaps:
             # Shift each workout to start 1 second after the previous one ends
