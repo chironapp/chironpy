@@ -456,6 +456,35 @@ class WorkoutData(pd.DataFrame):
         # Sort ascending by each workout's first timestamp
         frames.sort(key=lambda df: df.index[0])
 
+        # Offset distance so it accumulates continuously across workouts.
+        # Each workout's distance resets to 0 (or its own baseline); add the
+        # running cumulative total at the start of the current workout so the
+        # merged series is monotonically non-decreasing.  For overlapping
+        # workouts the offset is looked up at the exact start timestamp of the
+        # current workout (not the end of the previous one), which avoids an
+        # artificial jump at the overlap boundary.
+        if len(frames) > 1:
+            running_dist = (
+                frames[0]["distance"].dropna()
+                if "distance" in frames[0].columns
+                else pd.Series(dtype=float)
+            )
+            for i in range(1, len(frames)):
+                if "distance" not in frames[i].columns:
+                    continue
+                start_ts = frames[i].index[0]
+                prior = running_dist.loc[:start_ts].dropna()
+                offset = float(prior.iloc[-1]) if not prior.empty else 0.0
+                if offset != 0.0:
+                    frames[i] = frames[i].copy()
+                    frames[i]["distance"] = frames[i]["distance"] + offset
+                # Merge this frame's (offset) distance into the running series;
+                # later-starting workout wins at overlapping timestamps.
+                updated = pd.concat([running_dist, frames[i]["distance"].dropna()])
+                running_dist = updated[
+                    ~updated.index.duplicated(keep="last")
+                ].sort_index()
+
         if drop_gaps:
             # Shift each workout to start 1 second after the previous one ends
             # so resampling produces a contiguous time range with no gap rows.
