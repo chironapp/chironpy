@@ -17,6 +17,8 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.30.2] - 2026-09-23
+
 ### Fixed
 
 - Fixed `chironpy.read_fit(..., metadata=True)` raising a `ValidationError` for any FIT file that carries no `user_profile` message. Every `Athlete` and `ThresholdSetting` field now declares an explicit `None` default. Under Pydantic v1 an `Optional[X]` annotation implied that default, so omitting it was harmless; Pydantic v2 treats the same annotation as required-but-nullable, which made a profile-less file fail validation as though it were corrupt. Files that do carry a `user_profile` decode exactly as before.
