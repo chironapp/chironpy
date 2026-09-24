@@ -20,22 +20,27 @@ class UnitSystem(Enum):
 class ThresholdSetting(BaseModel):
     sport: str
     sub_sport: str
-    power: Optional[int]
+    power: Optional[int] = None
     speed: Optional[float] = 0.0
-    heartrate: Optional[int]
+    heartrate: Optional[int] = None
 
 
 class Athlete(BaseModel):
+    # Every field carries an explicit ``= None``. Under Pydantic v1,
+    # ``Optional[X]`` implied that default, so omitting it was harmless; under
+    # v2 it makes the field required-but-nullable, which means a FIT file
+    # carrying no ``user_profile`` message fails validation instead of
+    # producing an Athlete with nothing filled in.
     name: Optional[str] = None
-    gender: Optional[Gender]
-    age: Optional[int]
-    weight: Optional[float]
-    height: Optional[float]
-    resting_heartrate: Optional[int]
-    max_heartrate: Optional[int]
-    unit_system: Optional[UnitSystem]
+    gender: Optional[Gender] = None
+    age: Optional[int] = None
+    weight: Optional[float] = None
+    height: Optional[float] = None
+    resting_heartrate: Optional[int] = None
+    max_heartrate: Optional[int] = None
+    unit_system: Optional[UnitSystem] = None
     threshold: Optional[ThresholdSetting] = None
-    activity_class: Optional[int]
+    activity_class: Optional[int] = None
 
     @classmethod
     def from_fit_file(cls, user_profile, zones_target, sport):
